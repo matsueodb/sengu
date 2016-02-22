@@ -1,0 +1,6 @@
+<% if @latitude && @longitude %>
+  $(".latitude_<%= @uniq_id %>").val("<%= j(@latitude) %>");
+  $(".longitude_<%= @uniq_id %>").val("<%= j(@longitude) %>");
+<% else %>
+  alert('<%= t(".no_address") %>')
+<% end %>

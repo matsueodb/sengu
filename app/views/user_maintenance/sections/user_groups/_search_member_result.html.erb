@@ -1,0 +1,34 @@
+<% if user_groups_member_search.valid? %>
+  <% user = user_groups_member_search.user %>
+  <%= form_for(@user_groups_member_search, url: update_set_member_section_user_group_path(@user_group, section_id: @section.id)) do |f| %>
+    <% if user_groups_member_search.user_registered? %>
+      <%= alert_tag(type: :warning){t(".this_user_has_already_been_registered")} %>
+    <% end %>
+    <table class="table">
+      <tr>
+        <th><%= User.human_attribute_name(:login) %></th>
+        <th><%= User.human_attribute_name(:name) %></th>
+        <th><%= User.human_attribute_name(:section_id) %></th>
+        <th><%= t(".operator") %></th>
+      </tr>
+
+
+      <tr>
+        <td><%= user.login %></td>
+        <td><%= user.name %></td>
+        <td><%= user.section.try(:name) %></td>
+        <td>
+          <% unless user_groups_member_search.user_registered? %>
+            <%= f.hidden_field :user_group_id %>
+            <%= f.hidden_field :login %>
+            <%= button_tag_with_icon(t(".set_this_user"), icon: "save", class: "btn btn-primary") %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+<% else %>
+  <%= alert_tag(type: :danger) do %>
+    <%= user_groups_member_search.errors.full_messages.join("<br />") %>
+  <% end %>
+<% end %>

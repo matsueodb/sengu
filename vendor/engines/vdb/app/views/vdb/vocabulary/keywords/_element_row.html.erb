@@ -1,0 +1,11 @@
+<% configured = vocabulary_keywords.detect{|v_k| v_k.name == element.name} %>
+<tr data-tt-id="<%= idx %>" data-tt-parent-id="<%= parent_idx %>">
+  <td>
+    <%= element.name %>
+  </td>
+  <td><%= element.try(:data_type) %></td>
+  <td>
+    <% link_str = configured ? t('.reconfigure') : t('.configure') %>
+    <%= link_to_with_icon link_str, configure_vocabulary_keywords_path(name: element.name), class: 'btn btn-primary ajax-loading-display btn-sm', icon: 'cog', remote: true %>
+  </td>
+</tr>

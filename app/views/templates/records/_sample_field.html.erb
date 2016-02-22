@@ -1,0 +1,25 @@
+<div id="input-sample" class="modal big-modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title') %></h4>
+      </div>
+
+      <div class="modal-body">
+        <% if @elements.present? %>
+          <%= alert_tag(type: :info){t('.description')} %>
+          <%= form_for(@template_record, url: '#', html: {id: "content_form", class: "form-horizontal well"}) do |f| %>
+            <%= render partial: "templates/records/form", locals: {form: f, elements: @elements, record: @template_record} %>
+          <% end %>
+        <% else %>
+            <%= alert_tag(type: :warning){ t('.nothing_elements_description') } %>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

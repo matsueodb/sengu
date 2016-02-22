@@ -1,0 +1,179 @@
+<script type="text/javascript">
+  /*グローバル変数の宣言ここから*/
+  //地図インスタンス
+  var kokudo_map = null;
+
+  //初期の経度
+  kokudo_map_lon = '<%= @map.longitude %>'
+  //初期の緯度
+  kokudo_map_lat = '<%= @map.latitude %>'
+  kokudo_map_title = '<%= @map.title %>'
+
+  var projection3857 = new OpenLayers.Projection("EPSG:3857");
+  var projection4326 =  new OpenLayers.Projection("EPSG:4326");
+  var projection900913 = new OpenLayers.Projection("EPSG:900913");
+  var initZoomLv = 12;
+
+  //SelectFeature
+  var selectControl;
+
+  /*グローバル変数の宣言ここまで*/
+
+  /*地図の初期表示設定ここから*/
+  function init(){
+    var options = {
+      div: "kokudo_map",
+      projection: projection3857,
+      displayProjection: projection4326
+    };
+
+    kokudo_map = new OpenLayers.Map(options);
+
+    kokudo_map.addLayer(new OpenLayers.Layer.XYZ("標準地図", "http://cyberjapandata.gsi.go.jp/xyz/std/${z}/${x}/${y}.png", {
+      attribution: "<a href='http://portal.cyberjapan.jp/help/termsofuse.html' target='_blank'>国土地理院</a>",
+      maxZoomLevel: 17
+    }));
+
+    kokudo_markers = new OpenLayers.Layer.Markers("Markers");
+    kokudo_map.addLayer(kokudo_markers);
+
+    kokudo_map.setCenter(new OpenLayers.LonLat(kokudo_map_lon, kokudo_map_lat).transform(projection4326, projection3857), initZoomLv);
+
+    <% if @map.editable? %>
+      OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+          initialize:function(options){
+              OpenLayers.Control.prototype.initialize.apply(this, arguments);
+              this.handler = new OpenLayers.Handler.Click(this,
+                  {'click':this.onClick, 'dblclick':this.onDblClick},
+                  {'single':true, 'double':true, 'pixelTolerance':0, 'stopSingle':false, 'stopDouble':false}
+              );
+          },
+          onClick:function(e) {
+            removeKOKUDOMarkerAndPopup()
+            var lonlat = kokudo_map.getLonLatFromPixel(e.xy);
+            lonlat.transform(projection900913, projection4326);
+            var lon = lonlat.lon
+            var lat = lonlat.lat
+
+            var marker = new OpenLayers.Marker(
+                new OpenLayers.LonLat(lon, lat)
+                    .transform(
+                        new OpenLayers.Projection("EPSG:4326"),
+                        new OpenLayers.Projection("EPSG:900913")
+                    )
+            );
+            kokudo_markers.addMarker(marker);
+            var msg = "<%= t("latitude") %>: " + lat + "<br /><%= t("longitude") %>: " + lon;
+
+            marker.events.register('mousedown', marker, function(evt){
+              selectKOKUDOMarker(lat, lon, msg)
+            });
+            selectKOKUDOMarker(lat, lon, msg)
+          }
+      });
+
+      var click = new OpenLayers.Control.Click();
+      kokudo_map.addControl(click);
+      click.activate();
+    <% end %>
+
+
+    var marker = new OpenLayers.Marker(
+      new OpenLayers.LonLat('<%= @map.longitude %>', '<%= @map.latitude %>')
+        .transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection("EPSG:900913")
+        )
+    );
+    kokudo_markers.addMarker(marker);
+
+    marker.events.register('mousedown', marker, function(evt){
+      selectKOKUDOMarker('<%= @map.latitude %>', '<%= @map.longitude %>', '<%= @map.title %>')
+    });
+
+      //右クリックでブラウザのデフォルトのメニューが開かないようにする
+    document.getElementById('kokudo_map').oncontextmenu = function(e){
+      e = e?e:window.event;
+      if(e.preventDefault)	{
+        e.preventDefault(); // For non-IE browsers.
+      }else{
+        return false; // For IE browsers.
+      }
+    }
+  }
+
+  /*地図の初期表示設定ここまで*/
+
+  // 情報を選択
+  function onFeatureSelect(event) {
+    var feature = event.feature;
+    var content = feature.attributes.name
+
+    var lo, ln = feature.attributes.point.cordinates.split(",")
+
+    // inputに経度、緯度をセット
+    $("#search_kokudo_latitude").val(ln)
+    $("#search_kokudo_longitude").val(lo)
+
+    // ポップアップウィンドウを表示
+    popup = kokudo_popup(feature.geometry, content);
+    feature.popup = popup;
+    kokudo_map.addPopup(popup);
+  }
+
+  // 情報を選択解除
+  function onFeatureUnselect(event) {
+    var feature = event.feature;
+
+    if(feature.popup) {
+      kokudo_map.removePopup(feature.popup);
+      feature.popup.destroy();
+      delete feature.popup;
+    }
+  }
+
+  // ポップアップを閉じたとき
+  function onPopupClose(evt) {
+    selectControl.unselectAll();
+  }
+
+  function selectKOKUDOMarker(latitude, longitude, msg){
+    // markerを選択
+    var loc = new OpenLayers.Geometry.Point(longitude, latitude)
+          .transform("EPSG:4326", "EPSG:900913");
+    <%#*kokudo_map.setCenter(new OpenLayers.LonLat(longitude,latitude).transform('EPSG:4326', 'EPSG:3857'))%>
+    // inputに経度、緯度をセット
+    $("#search_kokudo_latitude").val(latitude)
+    $("#search_kokudo_longitude").val(longitude)
+    // markerのInfoWindow
+    kokudo_map.addPopup(kokudo_popup(loc, msg))
+  }
+
+  // Popup
+  function kokudo_popup(loc, context) {
+    var pop = new OpenLayers.Popup.FramedCloud("popup",
+      loc.getBounds().getCenterLonLat(), new OpenLayers.Size(300, 200),
+      context, null, true
+    );
+    pop.autoSize = true;
+
+    return pop;
+  }
+
+  function removeKOKUDOMarkerAndPopup(){
+    // マーカーとポップアップを削除
+    jQuery.each(kokudo_markers.markers, function(){
+      kokudo_markers.removeMarker(this);
+    })
+    jQuery.each(kokudo_map.popups, function(){
+      kokudo_map.removePopup(this);
+    })
+  }
+
+  init();
+
+  $(document).on('hidden.bs.modal', '.modal', function(){
+      kokudo_map_lon = null;
+      kokudo_map_lat = null;
+  });
+</script>

@@ -1,0 +1,140 @@
+ja:
+  sengu:
+    template:
+      pdf:
+        title: "%{template_name}RDF データ資料"
+        data_description_title: 1.データ説明
+        data_description_content: |
+          本データは%{distributor}が配布する、【%{template_name}】のオープンデータを記したドキュメントである。
+          なお、本データはクリエイティブ・コモンズライセンスにて配布するものとする。
+        data_list_title: 2.データ項目一覧
+        rdf_structure_title: 3.RDF構造
+        rdf_structure_basic_table: RDFの基本構造(xpathのルートノードは、/rdf:RDF)
+        rdf_structure_definition_table: 項目定義の構造(xpathのルートノードは、/rdf:RDF/rdf:Description/mlod:elementDefinition/rdf:Description/mlod:elements)
+        rdf_structure_data_table: 入力データの構造(xpathのルートノードは、/rdf:RDF/rdf:Description/mlod:data/rdf:Description/mlod:templateRecords)
+        rdf_structure:
+          description_whole: Senguにより入力した情報を表す。
+          template_name: テンプレート名｡
+          element_definition: 項目定義。
+          description_definition: 項目定義のリソースを表す。
+          description_elements: 各項目の項目定義を表す。この要素以下の構造の詳細は後述する「項目定義の構造」に記載する。
+          data: 入力データ。
+          description_data: 入力データのリソースを表す。
+          description_template_records: 各入力データを表す。この要素以下の構造の詳細は後述する「入力データの構造」に記載する。
+          whole_rights: 項目定義や入力データ全体のコピーライトを表す
+          programing_language: プログラム言語。
+          license: ライセンス情報。
+          definition: 1つの項目に対しての項目の定義のまとまりを表す。
+          element_name: 項目の名前が設定される。
+          entry_name: 項目のエントリー名が設定される
+          input_type: |
+            データ入力の種類を表す。
+            種類は以下となる。
+            一行入力
+            複数行入力
+            チェックボックス(テンプレートから選択)
+            チェックボックス(語彙から選択)
+            単一選択(テンプレートから選択)
+            単一選択(語彙から選択)
+            位置情報(国土地理院から選択)
+            位置情報(OpenStreetMapから選択)
+            位置情報(GoogleMapから選択)
+            日付
+            ファイル
+            時間
+            位置情報（全種）
+          data_input_way: |
+            input_typeにおいて、チェックボックスや単一選択の場合の具体的な選択方法を表す。
+            種類は以下となる。
+            input_typeがチェックボックスの場合
+            ・チェックボックス
+            ・ポップアップ
+            input_typeが単一選択の場合
+            ・プルダウン
+            ・ポップアップ
+            ・ラジオボタン
+          multiple_input: 項目(ネームスペース)に複数入力が設定されている場合に設定される
+          restriction: 項目に関する条件。
+          required: 必須項目かどうか
+          unique: ユニークかどうか
+          available: 使用するかどうか
+          format: データ入力の形式
+          format_name: |
+            データ入力の際の入力形式の種類を表す。
+            種類は以下となる。
+            全角
+            半角
+            カタカナ
+            数字(半角)
+            整数(半角)
+            少数(半角)
+            英字(半角)
+            英数字(半角)
+            URL
+            日付
+            位置情報
+            一般電話
+            携帯電話
+          regular_expression: 入力形式の正規表現。
+          max_number_of_chars: 最大文字数
+          min_number_of_chars: 最小文字数
+          codelist: フォームの種類が選択肢から選ぶ形式の場合の選択肢。
+          description_code: 選択肢の集合を表す。
+          code: 選択肢の1つ1つを表す。
+          data_description: 入力データ1件分を表す。
+          record_id: 入力データを一意に特定するIDが設定される。
+          element_values: 各項目に入力された値を表現する子要素を持つ。
+          element_value: 1つの項目に入力された値を表現する子要素を持つ。
+          element_value_name: データが入力されている項目名。
+          element_value_value: 入力されているデータを表現する子要素を持つ。子要素については、項目の入力データの種類により構成が異なる。
+          rights: データのコピーライトを表す子要素を持つ。
+          agent: コピーライトの情報を持つ子要素を持つ。
+          agent_title: コピーライトの情報をテキストとして設定される。
+          modified: データの最終更新日
+
+        rdf_sample_title: 4.RDFサンプル
+        number: No.
+        item_name: 項目名
+        entry_name: エントリー名
+        description: 説明
+        restrict: 入力条件
+
+        rdf_sample: |
+          <?xml version="1.0" encoding="utf-8"?>
+            <apiresponse>
+              <xsd:complexType name="人型">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="ja">
+                    人の情報を表現するためのデータ型。
+                  </xsd:documentation>
+                  <xsd:documentation xml:lang="en"/>
+                  <xsd:appinfo/>
+                </xsd:annotation>
+                <xsd:complexContent>
+                  <xsd:extension base="s:ComplexObjectType">
+                    <xsd:sequence>
+                      <xsd:element  minOccurs="0" ref="ic:人_氏名"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_性別"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_生年月日"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_死亡年月日"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_現住所"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_本籍"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_国籍"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_出生国"/>
+                      <xsd:element  minOccurs="0" ref="ic:人_出生地"/>
+                    </xsd:sequence>
+                  </xsd:extension>
+                </xsd:complexContent>
+              </xsd:complexType>
+              <xsd:element name="人" type="ic:人型">
+                <xsd:annotation>
+                  <xsd:documentation xml:lang="ja">
+                    人の情報を表現するためのデータ型。
+                  </xsd:documentation>
+                  <xsd:documentation xml:lang="en"/>
+                  <xsd:appinfo/>
+                </xsd:annotation>
+              </xsd:element>
+              .......
+            </apiresponse>
+          </xml>

@@ -1,0 +1,5 @@
+<% if @error %>
+  alert('<%= @error %>')
+<% else %>
+  $("<%= j render partial: "search_keyword" %>").modal()
+<% end %>

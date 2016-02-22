@@ -1,0 +1,16 @@
+ja:
+  activemodel:
+    models:
+      import_csv: CSVインポート
+    attributes:
+      import_csv:
+        csv: CSV
+        header: ヘッダー
+  errors:
+    messages:
+      different_header: が実際の要素の項目と異なります
+      different_row: "の%{line_number}行目が不正です"
+      invalid_csv_id: "の%{line_number}行目のIDの値が不正です"
+      csv_file_not_found: が見つかりませんでした
+      csv_illegality: の中身が不正です
+      not_multiple_input: 複数入力を行うことは出来ません

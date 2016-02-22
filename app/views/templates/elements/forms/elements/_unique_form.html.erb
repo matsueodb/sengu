@@ -1,0 +1,11 @@
+<div class="form-group">
+  <%= label_tag :element_unique, Element.human_attribute_name(:unique), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= check_box :"element",
+        "unique",
+        checked: element.unique,
+        class: 'static-tooltip-description',
+        data: {toggle: "tooltip", placement: "top", 'original-title' => t('.unique_title')}
+    %>
+  </div>
+</div>

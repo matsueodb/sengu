@@ -1,0 +1,95 @@
+<%= error_messages_for(template_element_search) %>
+
+<% if vdb_responses %>
+  <% vdb_responses.each do |vdb_response| %>
+    <table class='table table-bordered table-striped element-search-vdb-tree-table'>
+      <caption><%= t('.vdb_result', get_name: vdb_response.getname) %></caption>
+      <thead>
+        <tr>
+          <th><%= t('.item_name') %></th>
+          <th><%= t('.data_type') %></th>
+          <th class='col-lg-2'><%= t('.operation') %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if vdb_response %>
+          <% if vdb_response.success? %>
+            <% idx = 0 %>
+            <% vdb_response.complexes.each do |complex| %>
+              <tr data-tt-id="<%= idx %>">
+                <td><%= complex.name %></td>
+                <td></td>
+                <td>
+                  <%= link_to_with_icon t('.use'), create_complex_type_template_element_searches_path(template, template_element_search: {name: complex.name, domain_id: template_element_search.domain_id}), class: 'btn btn-sm btn-primary loading-display', icon: 'open', method: :post %>
+                </td>
+              </tr>
+
+              <% parent_idx = idx %>
+              <% complex.elements.each do |element| %>
+                <% idx += 1 %>
+                <%= render 'element_row',
+                  idx: idx,
+                  parent_idx: parent_idx,
+                  element: element,
+                  domain_id: template_element_search.domain_id,
+                  template: template
+                %>
+
+                <% namespace_id = idx %>
+                <% element.children.each do |child_el| %>
+                  <% idx += 1 %>
+                  <%= render 'element_row',
+                    idx: idx,
+                    parent_idx: namespace_id,
+                    element: child_el,
+                    domain_id: template_element_search.domain_id,
+                    template: template
+                  %>
+                <% end %>
+              <% end %>
+              <% idx += 1 %>
+            <% end %>
+            <% vdb_response.elements.each do |element| %>
+              <%= render 'element_row',
+                idx: idx,
+                parent_idx: nil,
+                element: element,
+                domain_id: template_element_search.domain_id,
+                template: template
+              %>
+              <% idx += 1 %>
+            <% end %>
+          <% else %>
+
+            <tr class='success'>
+              <td colspan="3"><%= alert_tag{vdb_response.message} %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+<% end %>
+
+<%= form_tag '#', class: 'form-inline custom-element-name-use well' do %>
+  <%= alert_tag(type: :info){t('.no_data_description')} %>
+  <div class="form-group col-lg-10">
+    <%= text_field_tag :custom_element_name, template_element_search.name, class: 'form-control' %>
+  </div>
+  <%= button_tag_with_icon t('.use'), class: 'btn btn-sm btn-primary', icon: 'open' %>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $('.element-search-vdb-tree-table').treetable({
+      expandable: true
+    });
+
+    $('.custom-element-name-use').on('submit', function(){
+      $('#element_name').val($('#custom_element_name').val())
+      $('.modal').modal('hide');
+      return false;
+    })
+  })
+</script>

@@ -1,0 +1,15 @@
+<% content_for(:page_title) { page_title(element_name: @element.name) } %>
+
+<% if @element.from_vdb? %>
+  <div class="alert alert-info"><%= simple_format t('.from_vdb_description') %></div>
+  <div class='text-right'>
+    <%= link_to_with_icon t('.update_by_vdb'), update_by_vdb_vocabulary_element_path(@element), class: 'btn btn-primary loading-display', icon: 'edit', method: :patch %>
+    <%= link_to_back vocabulary_elements_path %>
+  </div>
+<% else %>
+  <div id="element-value-form-area">
+    <%= render 'form', element: @element, element_value: @element_value %>
+  </div>
+<% end %>
+
+<%= render 'index', element: @element %>

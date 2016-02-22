@@ -1,0 +1,7 @@
+<% if @result %>
+  $('#modal-message-area').html("<%= j alert_tag(type: 'success'){t('.success')}  %>");
+  $('#element-tree-table').html("<%= j render 'index', template: @template %>").effect('highlight');
+  $('#child-element > tbody').effect('highlight');
+<% else %>
+  $('#modal-message-area').html("<%= j alert_tag{t('.failure')} %>");
+<% end %>

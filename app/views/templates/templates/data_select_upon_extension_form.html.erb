@@ -1,0 +1,21 @@
+<% content_for(:wizard) do %>
+  <%= render "/templates/shared/step_wizard", current_action: :data_select %>
+<% end %>
+
+<%= alert_tag(type: :info){simple_format t(".description")}  %>
+
+<%= form_tag(data_select_upon_extension_template_path(@template), {id: "content_form", class: "form-horizontal well"}) do %>
+  <% @elements.each do |element| %>
+    <div class="row input-data-table">
+      <% if element.children.exists? %>
+        <%= render partial: "/templates/templates/namespace_form", locals: {element: element} %>
+      <% else %>
+        <%= render partial: "/templates/templates/data_select_element_form", locals: {element: element} %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= button_tag_with_icon t("shared.save"), method: :post, class: "btn btn-primary", icon: "plus-sign" %>
+  <%= button_tag_with_icon(t(".btn.preview"), class: "btn btn-success select_data_upon_extension_preview-btn",
+      icon: "eye-open", data: {"form-id" => "content_form", url: data_select_upon_extension_preview_template_path(@template)}) %>
+  <%= link_to_with_icon(t(".btn.all_select.title"), show_elements_template_elements_path(@template.id), class: "btn btn-primary", icon: "ok") %>
+<% end %>

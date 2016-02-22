@@ -1,0 +1,45 @@
+<div id="vocabulary-keyword-show" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title', element_name: vocabulary_keyword.name) %></h4>
+      </div>
+
+      <div id="element-keyword-body" class="modal-body">
+        <table class="table table-bordered">
+          <thead>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="col-lg-2"><strong><%= Vocabulary::Keyword.human_attribute_name(:name) %></strong></td>
+              <td><%= vocabulary_keyword.name %></td>
+            </tr>
+
+            <tr>
+              <td class="col-lg-2"><strong><%= Vocabulary::Keyword.human_attribute_name(:scope) %></strong></td>
+              <td><%= vocabulary_keyword.scope_human_name %></td>
+            </tr>
+
+            <tr>
+              <td class="col-lg-2"><strong><%= Vocabulary::Keyword.human_attribute_name(:content) %></strong></td>
+              <td><%= simple_format(vocabulary_keyword.content) %></td>
+            </tr>
+
+            <tr>
+              <td class="col-lg-2"><strong><%= Vocabulary::Keyword.human_attribute_name(:category) %></strong></td>
+              <td><%= simple_format(vocabulary_keyword.category) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <%= link_to_with_icon t('shared.edit'), configure_vocabulary_keywords_path(name: vocabulary_keyword.name), class: 'btn btn-primary ajax-loading-display', icon: 'edit', remote: true %>
+        <%= link_to_destroy vocabulary_keyword_path(vocabulary_keyword) %>
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

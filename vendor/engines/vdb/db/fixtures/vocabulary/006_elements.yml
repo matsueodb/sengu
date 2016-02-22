@@ -1,0 +1,172 @@
+menseki_tani:
+  id: 1
+  name: "codes:面積単位コード型"
+  values_attributes: [
+    {name: m2},
+    {name: km2},
+    {name: a},
+    {name: ha},
+    {name: acre},
+    {name: b},
+    {name: 坪},
+    {name: 歩},
+  ]
+
+kokuseki_code:
+  id: 2
+  name: "codes:国籍コード型"
+  values_attributes: [
+    {name: 日本}
+  ]
+
+jusho_code:
+  id: 3
+  name: "codes:住所コード型"
+  values_attributes: [
+    {name: 325001067},
+    {name: 325001244},
+    {name: 325000507},
+    {name: 325000293}
+  ]
+
+suuryo_tani_code:
+  id: 4
+  name: "codes:数量単位コード型"
+  values_attributes: [
+    {name: 個},
+    {name: 人分},
+    {name: 人日分}
+  ]
+
+seibetsu_code:
+  id: 5
+  name: "codes:性別コード型"
+  values_attributes: [
+    {name: 男},
+    {name: 女}
+  ]
+
+nengo_code:
+  id: 6
+  name: "codes:年号コード型"
+  values_attributes: [
+    {name: 明治},
+    {name: 大正},
+    {name: 昭和},
+    {name: 平成}
+  ]
+
+yoryou_tani_code:
+  id: 7
+  name: "codes:容量単位コード型"
+  values_attributes: [
+    {name: ml},
+    {name: l}
+  ]
+
+koukyou_setsubi:
+  id: 8
+  name: "im:公共設備型"
+  values_attributes: [
+    {name: トイレ}
+  ]
+
+hinan:
+  id: 9
+  name: "im:避難所型"
+  values_attributes: [
+    {name: 避難所},
+    {name: 避難所では無い}
+  ]
+
+iso_3166:CountryAlpha2CodeType:
+  id: 10
+  name: "iso_3166:CountryAlpha2CodeType"
+  values_attributes: [
+    {name: JP},
+    {name: US}
+  ]
+
+iso_3166:CountryAlpha3CodeType:
+  id: 11
+  name: "iso_3166:CountryAlpha3CodeType"
+  values_attributes: [
+    {name: JPA},
+    {name: USA}
+  ]
+
+iso_3166:CountryNumericCodeType:
+  id: 12
+  name: "iso_3166:CountryNumericCodeType"
+  values_attributes: [
+    {name: 392},
+    {name: 840}
+  ]
+
+iso_4217:CurrencyCodeSimpleType:
+  id: 13
+  name: "iso_4217:CurrencyCodeSimpleType"
+  values_attributes: [
+    {name: JPY},
+    {name: USD}
+  ]
+
+iso_639-3:LanguageCodeSimpleType:
+  id: 14
+  name: "iso_639-3:LanguageCodeSimpleType"
+  values_attributes: [
+    {name: jpn},
+    {name: eng}
+  ]
+
+nga:DatumCodeType:
+  id: 15
+  name: "nga:DatumCodeType"
+  values_attributes: [
+    {name: 世界測地系},
+    {name: 日本測地系2000}
+  ]
+
+sokutei_tani_suii:
+  id: 16
+  name: "ic:測定単位_推定フラグ"
+  values_attributes: [
+    {name: 推定},
+    {name: 推定ではない}
+  ]
+
+buppin_kati:
+  id: 16
+  name: "ic:物品価値_税フラグ"
+  values_attributes: [
+    {name: 税を含む},
+    {name: 税を含まない}
+  ]
+
+length_code_type:
+  id: 17
+  name: "unece:LengthCodeType"
+  values_attributes: [
+    {name: mm},
+    {name: cm},
+    {name: m},
+    {name: km}
+  ]
+
+mass_code_type:
+  id: 18
+  name: "unece:MassCodeType"
+  values_attributes: [
+    {name: g},
+    {name: kg},
+    {name: ml},
+    {name: l}
+  ]
+
+boolean:
+  id: 19
+  name: "xsd:boolean"
+  values_attributes: [
+    {name: "True"},
+    {name: "False"}
+  ]

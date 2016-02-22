@@ -1,0 +1,7 @@
+<tr>
+  <th><%= element.label %></th>
+  <td>
+    <%= render partial: "/shared/rdf_form/element_location_form",
+      locals: {form: form, rdf: @facility, element: element, options: {}} %>
+  </td>
+</tr>

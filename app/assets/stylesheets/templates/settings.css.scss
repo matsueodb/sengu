@@ -1,0 +1,20 @@
+// Place all the styles related to the templates/settings controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+tbody.sortable-tbody{
+  tr{cursor: move;}
+  &:before, &:after{
+    // 以下のcssにより、tbody内が空でも空白が生まれる
+    line-height:1em;
+    content:"-";
+    color:white; /* to hide text */
+    display:block;
+  }
+}
+
+
+
+div.location_group_panel{
+  div.panel-primary > div.panel-heading > h4 > a.btn-default{color: #428BCA}
+}

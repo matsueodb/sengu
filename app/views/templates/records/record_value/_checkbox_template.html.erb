@@ -1,0 +1,8 @@
+<% if values.present? %>
+  <%= link_to("javascript:;",
+    class: "btn btn-success display_relation_contents_button",
+    data: {href: display_relation_contents_template_record_path(record, item_number: item_number, template_id: record.template_id, element_id: element.id)}) do %>
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <%= t(".display_relation_content") %>
+  <% end %>
+<% end %>

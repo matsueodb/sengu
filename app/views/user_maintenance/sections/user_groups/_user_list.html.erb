@@ -1,0 +1,15 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span class="badge">
+      <%= paginate_info(@users) %>
+    </span>
+    <strong><%= t(".list") %></strong>
+  </div>
+
+  <div class="panel-body">
+    <%= render partial: "user_list_table", locals: {users: users} %>
+  </div>
+
+</div>
+
+<%= paginate users, remote: true %>

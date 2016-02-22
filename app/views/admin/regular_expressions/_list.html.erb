@@ -1,0 +1,24 @@
+<table class="table table-striped table-bordered">
+  <caption><%= t(".list") %></caption>
+  <tr>
+    <th><%= t(".no") %></th>
+    <th><%= t("activerecord.attributes.regular_expression.name") %></th>
+    <th><%= t(".operator") %></th>
+  </tr>
+
+  <% regular_expressions.each.with_index(1) do |ug, idx| %>
+    <tr>
+      <td><%= idx + regular_expressions.offset_value %></td>
+      <td><%= ug.name %></td>
+      <td>
+        <%= link_to_with_icon(t("shared.show"), regular_expression_path(ug), remote: true, class: "btn btn-primary", icon: "info-sign") %>&nbsp;
+        <% if ug.editable? %>
+          <%= link_to_with_icon(t("shared.edit"), edit_regular_expression_path(ug), class: "btn btn-primary", icon: "edit") %>&nbsp;
+          <%= link_to_destroy(regular_expression_path(ug)) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate regular_expressions, remote: true, params: {action: "index"} %>

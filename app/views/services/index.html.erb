@@ -1,0 +1,39 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format(current_user.manager? ? t('.manager_description') : t('.editor_description')) %>
+<% end %>
+
+<div class='text-right new-btn-area'>
+  <% if current_user.manager? %>
+    <%= link_to_with_icon t('.new'), new_service_path, class: 'btn btn-primary', icon: 'plus' %>
+  <% end %>
+</div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <p class="text-info text-center">登録済みのサービス一覧</p>
+    <%= form_tag(search_services_path, class:"ajax-loading-display input-group custom-search-form", remote: true) do %>
+      <%= text_field_tag "keyword", nil, name: "service_search[keyword]", class: "form-control", disabled: @services.blank?, placeholder: t('.keyword_placeholder') %>
+      <span class="input-group-btn">
+        <%= button_tag_with_icon nil, class: 'btn btn-default', disabled: @services.blank?, icon: 'search' %>
+      </span>
+    <% end %>
+    <div id="service-list-area" class="well menu">
+      <%= render 'list', services: @services, display_paginate: true %>
+    </div>
+
+    <div class="row text-center">
+      <div class="col-lg-6"><span class="own-section annotation"><%= t('.own_section') %></span></div>
+      <div class="col-lg-6"><span class="other-section annotation"><%= t('.other_section') %></span></div>
+    </div>
+  </div>
+
+  <div id="template-list-area" class="col-lg-9">
+    <% if @services.present? %>
+      <% if @service.blank? %>
+        <%= alert_tag(type: :info){ t('.template_list_description') }%>
+      <% else %>
+        <%= render "template_list", service: @service, templates: @service.templates.includes(:service).displayables(current_user).order(:display_number) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

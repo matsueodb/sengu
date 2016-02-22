@@ -1,0 +1,15 @@
+system_url: http://localhost:3000
+map_api:
+  google_map_api_key: ""
+  :map_types:
+    :kokudo: 1 # 国土地理院
+    :osm: 2 # OpenStreetMap
+    :gm: 3 # Google Map
+paginate:
+  modal:
+    window: 2
+files:
+  csv_dir_path: <%= Rails.root.join('files', 'csv', Rails.env) %>
+  upload_file:
+    max_file_size: <%= 10.megabytes %>
+    dir_path: <%= Rails.root.join('files', 'upload_files', Rails.env) %>

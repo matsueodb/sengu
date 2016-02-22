@@ -1,0 +1,10 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+<% content_for(:wizard) do %>
+  <%= render partial: "import_csv_step_wizard", locals: {current_action: :complete} %>
+<% end %>
+<br />
+
+<%= alert_tag(type: :success){t(".complete_message")} %>
+
+<%= link_to_with_icon(t(".back"), services_path, class: "btn btn-warning", icon: "circle-arrow-left") %>
+<%= link_to_with_icon(t(".to_data_list"), template_records_path(@template), class: "btn btn-primary", icon: "list") %>

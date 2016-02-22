@@ -1,0 +1,73 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+
+<% content_for(:wizard) do %>
+  <%= render partial: "import_csv_step_wizard", locals: {current_action: :confirm} %>
+<% end %>
+
+<%= alert_tag(type: :info){t(".description")} %>
+
+<% unless registrable = !@import_csv.records.any?{|r| r.errors.any?} %>
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-danger">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#error-messages">
+            <%= t('.exists_error') %>
+          </a>
+        </h4>
+      </div>
+      <div id="error-messages" class="panel-collapse collapse">
+        <div class="panel-body">
+          <%= alert_tag(type: :danger) do %>
+            <ul>
+              <% @import_csv.records.each do |record| %>
+                <% if record.errors.any? %>
+                  <li>
+                    <%= link_to t('.row', line_number: record.line_numbers.join(',')), "#line-#{record.line_numbers.first}" %>
+                    <ul>
+                      <% record.errors.full_messages.uniq.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </li>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <%= alert_tag(type: :success){t('.nothing_error')} %>
+<% end %>
+
+<%= form_for(@template, url: import_csv_template_records_path(@template), method: :post, multipart: true) do |f|%>
+  <div class="table-responsive overflow">
+    <table class="table table-bordered">
+      <caption><%= t(".data_list") %></caption> <thead>
+        <tr>
+          <th style="white-space: nowrap;"><%= t(".line_number") %></th>
+          <% @import_csv.header.each do |name| %>
+            <th style="white-space: nowrap;"><%= name %></th>
+          <% end %>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @import_csv.rows.each.each_with_index do |row, line_number| %>
+          <% record = @import_csv.records.detect{|r| r.line_numbers.include?(line_number + 2) } %>
+          <tr id="line-<%= line_number + 2 %>" class="odd gradeX <%= record && record.errors.any? ? 'danger' : '' %>">
+            <td style="white-space: nowrap;"><%= line_number + 2 %></td>
+            <% row.each_with_index do |v| %>
+              <td><%= v %></td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <%= button_tag_with_icon t(".import"), class: "btn btn-primary loading-display", icon: "save", disabled: !registrable %>
+  <%= link_to_with_icon t('.back'), import_csv_form_template_records_path, class: 'btn btn-warning', icon: 'circle-arrow-left' %>
+<% end %>

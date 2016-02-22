@@ -1,0 +1,98 @@
+<script type="text/javascript">
+  var gmap;
+  var markers = [];
+  function initialize() {
+    gmap_lat = '<%= @map.latitude %>';
+    gmap_lon = '<%= @map.longitude %>'
+    var latlng = new google.maps.LatLng(gmap_lat, gmap_lon);
+    var opts = {
+      zoom: 15,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    gmap = new google.maps.Map(document.getElementById("map_canvas"), opts);
+    // marker
+
+    var myLatlng = new google.maps.LatLng('<%= @map.latitude %>','<%= @map.longitude %>');
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: gmap,
+        title:"<%= @map.title %>"
+    });
+    markers.push(marker);
+    attachMessage(marker, "<%= @map.title %>");
+
+    <% if @map.editable? %>
+      // クリックした場所にマーカーを追加
+      google.maps.event.addListener(gmap, 'click', function(e){
+        var msg = "<%= t("latitude") %>: " + e.latLng.lat() + ",<%= t("longitude") %>: " + e.latLng.lng();
+          markerObj = new google.maps.Marker({
+              position: e.latLng,
+              map: gmap,
+              title: msg
+          });
+          removeMarkers() // 他のマーカーを削除
+          markers.push(markerObj)
+          attachMessage(markerObj, msg);
+
+          openInfoWindow(markerObj, msg)
+          $("#search_gm_latitude").val(e.latLng.lat())
+          $("#search_gm_longitude").val(e.latLng.lng())
+      })
+    <% end %>
+
+    <% if @map %>
+      selectMarker(0, '<%= @map.latitude %>', '<%= @map.longitude %>', '<%= @map.title %>');
+    <% end %>
+  }
+
+  window.gMapsCallback = function(){
+    gMapsLoaded = true;
+    $(window).trigger('gMapsLoaded');
+  }
+  window.loadGoogleMaps = function(){
+    if(gMapsLoaded) return window.gMapsCallback();
+    var script_tag = document.createElement('script');
+    script_tag.setAttribute("type","text/javascript");
+    script_tag.setAttribute("src","http://maps.google.com/maps/api/js?key=<%= Settings.map_api.google_map_api_key %>&sensor=false&callback=gMapsCallback");
+    (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script_tag);
+  }
+
+  $(document).ready(function(){
+    $(window).bind('gMapsLoaded', initialize);
+    window.loadGoogleMaps();
+  });
+
+  function attachMessage(marker, msg) {
+    google.maps.event.addListener(marker, 'click', function(event) {
+      // markerのInfoWindow
+      openInfoWindow(marker, msg)
+      $("#search_gm_latitude").val(marker.position.lb)
+      $("#search_gm_longitude").val(marker.position.mb)
+    });
+  }
+
+  // マーカーのウィンドウオープン
+  function openInfoWindow(marker, msg){
+    var infowindow = new google.maps.InfoWindow()
+    infowindow.setContent('<div style="white-space: nowrap">' + msg + "</div>")
+    infowindow.open(marker.getMap(), marker);
+  }
+
+  function selectMarker(marker_index, latitude, longitude, msg){
+    var m = markers[marker_index]
+    // markerを選択
+    gmap.setCenter(m.getPosition());
+    // inputに経度、緯度をセット
+    $("#search_gm_latitude").val(latitude)
+    $("#search_gm_longitude").val(longitude)
+    // markerのInfoWindow
+    openInfoWindow(m, msg)
+  }
+
+  function removeMarkers() {
+    jQuery.each(markers, function(index, marker){
+      marker.setMap(null);
+    });
+  }
+</script>

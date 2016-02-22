@@ -1,0 +1,19 @@
+<% content_for(:page_title){ page_title(section_name: @section.name) } %>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="text-right">
+      <% if @section.addable_user?(current_user)  %>
+        <%= link_to_with_icon(t("shared.new"), new_section_user_path(section_id: @section.id), class: "btn btn-primary", icon: "plus-sign") %>
+      <% end %>
+      <% if current_user.inherit_data_accessible?(@section) %>
+        <%= link_to_with_icon(t(".inherit_data"), inherit_data_form_section_users_path(section_id: @section.id), class: "btn btn-primary", icon: "share") %>
+      <% end %>
+      <%= link_to_with_icon t(".back_to_section", section_name: @section.name), section_path(@section.id), class: "btn btn-warning", icon: "circle-arrow-left" %>
+    </div>
+  </div>
+</div>
+<br />
+<div id="pagination_list">
+  <%= render partial: "list", locals: {users: @users} %>
+</div>

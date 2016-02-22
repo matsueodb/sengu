@@ -1,0 +1,28 @@
+<div id="vocabulary-element-show" class="modal fade modal-vocabulary-element-show">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title', element_name: params[:name]) %></h4>
+      </div>
+
+      <div id="element-show-body" class="modal-body">
+        <% if vocabulary_element %>
+          <ul>
+            <% vocabulary_element.values.each do |v| %>
+              <li><%= v.name %></li>
+            <% end -%>
+          </ul>
+        <% else %>
+          <div class="alert alert-danger"><%= t('vdb.shared.vdb_access_failure') %></div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning" data-dismiss="modal">
+          <span class="glyphicon glyphicon-remove-sign"></span>
+          <%= t('shared.close') %>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

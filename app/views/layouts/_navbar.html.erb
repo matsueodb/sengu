@@ -1,0 +1,57 @@
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to("Sengu", main_app.root_path, class: "navbar-brand") %>
+    </div>
+    <% if user_signed_in? %>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <%= link_to_with_icon(t(".menus.service.title"), main_app.services_path, icon: "globe") %>
+          </li>
+
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <span class="glyphicon glyphicon-cog"></span>
+              <%= t(".menus.admin_menu.title") %> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <%= navigations_for_engine %>
+              <li>
+                <%= link_to_with_icon(t(".menus.section_user.title"), main_app.sections_path, icon: "heart-empty") %>
+              </li>
+              <% if current_user.admin? %>
+                <li>
+                  <%= link_to_with_icon(t(".menus.regular_expression.title"), main_app.regular_expressions_path, icon: "book") %>
+                </li>
+                <li>
+                  <%= link_to_with_icon(t(".menus.code_list.title"), main_app.vocabulary_elements_path, icon: "list") %>
+                </li>
+              <% end %>
+            </ul>
+          </li>
+        </ul>
+        <ul class='nav navbar-nav navbar-right'>
+          <li>
+            <%= link_to(current_user.name, "javascript:;") %>
+          </li>
+          <li>
+            <%= link_to_with_icon(t(".menus.edit_password.title"), main_app.edit_password_section_users_path(section_id: current_user.section_id), icon: "cog") %>
+          </li>
+          <li>
+            <%= link_to(main_app.destroy_user_session_path, {method: :delete, title: t("logout")}) do %>
+              <span class="glyphicon glyphicon-log-out"></span>
+              <%= t("logout") %>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+</div>

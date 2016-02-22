@@ -1,0 +1,46 @@
+<div id="search-result" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title') %></h4>
+      </div>
+
+      <div id="search-result-body" class="modal-body">
+        <% if vdb_response.success? %>
+          <% if vdb_response.code_lists.present? %>
+            <table class='table table-bordered table-striped'>
+              <thead>
+                <tr>
+                  <th><%= t('.vocabulary') %></th>
+                  <th><%= t('.content') %></th>
+                  <th class="col-lg-1"><%= t('.operation') %></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <% vdb_response.code_lists.each do |code_list|  %>
+                  <tr>
+                    <td><%= code_list.name %></td>
+                    <td><%= simple_format(code_list.values.join("\n")) %></td>
+                    <td>
+                      <%= link_to_with_icon t('.use'), create_code_list_vocabulary_elements_path(vocabulary_search: {name: code_list.name}), class: 'btn btn-primary btn-sm loading-display', icon: 'open', method: :post %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <%= alert_tag{t('.none')}  %>
+          <% end %>
+        <% else %>
+          <%= alert_tag{vdb_response.message} %>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

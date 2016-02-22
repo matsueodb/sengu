@@ -1,0 +1,9 @@
+<% actions = [:template_new, :element_new] %>
+<% actions.insert(1, :data_select) if @template.has_parent? %>
+<div class="wizard">
+  <% actions.each.with_index(1) do |name, idx| %>
+    <div class="wizard-child <%= "current" if current_action.to_sym == name %>">
+      <span class="badge"><%= idx %></span> <%= t(".#{name}") %>
+    </div>
+  <% end %>
+</div>

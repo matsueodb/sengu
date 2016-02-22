@@ -1,0 +1,6 @@
+<% if @responses %>
+  $("<%= j(render 'result', vdb_responses: @responses, template_element_search: @template_element_search, template: @template) %>").modal();
+  $("#template-element-search-form-error-messages-area").empty();
+<% else %>
+  $("#template-element-search-form-error-messages-area").html("<%= j(error_messages_for(@template_element_search)) %>");
+<% end %>

@@ -1,0 +1,69 @@
+<% el_id = element.id %>
+<% uniq_id = "#{element.id}-#{item_number}"  %>
+<% vals = values.select{|v|v.element_id == el_id && v.item_number == item_number} %>
+<% lat_value = vals.detect{|v|v.kind == ElementValue::KINDS[:all_locations][:google_location][:latitude]} %>
+<% lon_value = vals.detect{|v|v.kind == ElementValue::KINDS[:all_locations][:google_location][:longitude]} %>
+<% lat_field_name = "template_record[#{element.id}][#{item_number}][#{ElementValue::KINDS[:all_locations][:google_location][:latitude]}]" %>
+<% lon_field_name = "template_record[#{element.id}][#{item_number}][#{ElementValue::KINDS[:all_locations][:google_location][:longitude]}]" %>
+
+<div class="row">
+  <div class="control-group">
+    <div class="col-sm-2">
+      <p class="form-control-static"><strong><%= t(".type") %></strong></p>
+    </div>
+    <div class="col-sm-1">
+      <p class="form-control-static"><%= t(".latitude") %></p>
+    </div>
+    <div class="col-sm-3">
+      <% if lat_value.blank? || lat_value.editable_on?(@template) %>
+        <%= hidden_field_tag "#{lat_field_name}[id]", lat_value.try(:id) if lat_value %>
+        <%= hidden_field_tag "#{lat_field_name}[value]", lat_value.try(:id) if lat_value %>
+        <%= hidden_field_tag "#{lat_field_name}[content_id]", lat_value.try(:content_id) %>
+        <%= hidden_field_tag "#{lat_field_name}[template_id]", lat_value ? lat_value.try(:template_id) : @template.id %>
+        <%= text_field_tag "#{lat_field_name}[value]", lat_value.try(:value), id: "google_latitude_#{el_id}_#{item_number}",
+          class: "latitude form-control latitude_#{uniq_id}", placeholder: "#{element.data_example}" %>
+      <% else %>
+        <%= text_field_tag :value, lat_value.value, disabled: true, class: "latitude form-control"  %>
+      <% end %>
+    </div>
+
+    <div class="col-sm-1">
+      <p class="form-control-static"><%= t(".longitude") %></p>
+    </div>
+    <div class="col-sm-3">
+      <% if lon_value.blank? || lon_value.editable_on?(@template) %>
+        <%= hidden_field_tag "#{lon_field_name}[id]", lon_value.try(:id) if lon_value %>
+        <%= hidden_field_tag "#{lon_field_name}[value]", lon_value.try(:id) if lon_value %>
+        <%= hidden_field_tag "#{lon_field_name}[content_id]", lon_value.try(:content_id) %>
+        <%= hidden_field_tag "#{lon_field_name}[template_id]", lon_value ? lon_value.try(:template_id) : @template.id %>
+        <%= text_field_tag "#{lon_field_name}[value]", lon_value.try(:value),
+          id: "google_longitude_#{el_id}_#{item_number}", class: "longitude form-control longitude_#{uniq_id}", placeholder: "#{element.data_example}" %>
+      <% else %>
+        <%= text_field_tag :value, lon_value.value, disabled: true, class: "longitude form-control" %>
+      <% end %>
+    </div>
+
+    <div class="col-sm-2">
+      <%=
+        link_to("javascript:;",
+        {
+          class: "btn btn-success map-search-modal-button #{'disabled' if [lat_value, lon_value].any?{|v|v && !v.editable_on?(@template)}}",
+          method: :post,
+          "data-item_number" => item_number,
+          "data-url" => main_app.display_search_template_maps_path,
+          "data-map-type" => "google_location",
+          "data-element_id" => el_id,
+          "data-longitude" => "google_longitude_#{el_id}_#{item_number}",
+          "data-latitude" => "google_latitude_#{el_id}_#{item_number}"
+        }) do
+      %>
+        <span class="glyphicon glyphicon-map-marker"></span>
+        <%= t(".display_map") %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  var gMapsLoaded = false;
+</script>

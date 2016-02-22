@@ -1,0 +1,44 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3><%= t(".title", template_name: @template.name) %></h3>
+      </div>
+
+      <div class="modal-body">
+        <% elements.each.with_index(1) do |element, index| %>
+          <div class="row input-data-table">
+            <% if element.namespace? %>
+              <% if element.multiple_input?  %>
+                <% element_values = @template_record.record_values(@template).select{|v|v.repeat_element_id == element.id}.group_by(&:item_number) %>
+                <% if element_values.present?  %>
+                  <% element_values.each.with_index(1) do |(item_number, values), index| %>
+                    <div id="namespace_fields_<%= element.id %>_<%= index %>">
+                      <%= render partial: "/templates/records/show_namespace", locals: {element: element, item_number: item_number, index: index} %>
+                    </div>
+                  <% end %>
+                <% else %>
+                  <div id="namespace_fields_<%= element.id %>_1">
+                    <%= render partial: "/templates/records/show_namespace", locals: {element: element, item_number: 1, index: 1} %>
+                  </div>
+                <% end %>
+              <% else %>
+                <div id="namespace_fields_<%= element.id %>_1">
+                  <%= render partial: "/templates/records/show_namespace", locals: {element: element, item_number: 1, index: 1} %>
+                </div>
+              <% end %>
+            <% else %>
+              <% values = @template_record.record_values_by_element(element, @template) %>
+              <% item_number = values.first.try(:item_number) %>
+              <%= render partial: "/templates/records/show_element", locals: {element: element, element_values: values, item_number: item_number}  %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

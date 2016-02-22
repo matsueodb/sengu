@@ -1,0 +1,27 @@
+ja:
+  admin:
+    regular_expressions:
+      index:
+        title: "入力値制限マスタ管理"
+      list:
+        list: "入力値制限マスタ一覧"
+        operator: "操作"
+      new:
+        title: "入力値制限マスタ作成"
+      create:
+        title: "入力値制限マスタ作成"
+      edit:
+        description: |
+          すでにこの入力値制限マスタを使用しているテンプレートの項目がある場合、
+          正規表現部分を変更すると、登録しているデータと不整合がおこる場合があります。
+        title: "入力値制限マスタ編集"
+      update:
+        title: "入力値制限マスタ編集"
+      form:
+        format_description: Rubyの正規表現で入力してください。
+      show:
+        title: "%{name}詳細"
+      destroy:
+        failed: 選択した入力値制限マスタを使用しているテンプレートの項目があるため、削除できませんでした。
+
+

@@ -1,0 +1,28 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format(t('.description')) %>
+<% end %>
+
+<%= form_for(element, html: {class: 'well form-horizontal', role: 'form', id: "template_element_form"}) do |f| %>
+  <%= error_messages_for(element) %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'col-lg-2 control-label' %>
+    <div class="col-lg-3">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, class: 'col-lg-2 control-label' %>
+    <div class="col-lg-3">
+      <%= f.text_area :description, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-1 col-lg-10">
+      <%= button_tag_with_icon element.new_record? ? t('.configure') : t('shared.update'), class: 'btn btn-primary', icon: element.new_record? ? 'plus-sign' : 'edit' %>
+      <%= link_to_back vocabulary_elements_path %>
+    </div>
+  </div>
+<% end %>

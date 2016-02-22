@@ -1,0 +1,30 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+<%= alert_tag(type: :info){hbr t(".description")} %>
+<%= form_tag(update_set_confirm_entries_template_settings_path(template_id: @template.id)) do %>
+  <table id="elements" class='table'>
+    <caption><%= t('.caption') %></caption>
+    <thead>
+      <tr>
+        <th><%= t('.item_name') %></th>
+        <th><%= t('.item_description') %></th>
+        <th><%= t('.setting') %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <% @elements.each do |element| %>
+        <tr>
+          <td><%= element.name %></td>
+          <td><%= element.description %></td>
+          <td><%= check_box_tag :"element_ids[]", element.id, element.confirm_entry %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= button_tag_with_icon t(".save"), class: "btn btn-primary", icon: "save" %>
+  <%= link_to_back(services_path) %>
+<% end %>
+
+

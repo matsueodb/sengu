@@ -1,0 +1,9 @@
+<%= form_for(@regular_expression, html: {class: "form-horizontal well"}) do |f| %>
+  <%= render partial: "form", locals: {f: f} %>
+  <%= button_tag_with_icon t("shared.new"), class: "btn btn-primary", icon: "edit" %>
+  <%= link_to_back regular_expressions_path, icon: "edit" %>
+<% end %>
+
+<div id="pagination_list">
+  <%= render partial: "list", locals: {regular_expressions: @regular_expressions} %>
+</div>

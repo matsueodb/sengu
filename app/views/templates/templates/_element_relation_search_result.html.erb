@@ -1,0 +1,13 @@
+<%
+  case
+  when @element_relation_content_search.input_type.template?
+%>
+  <%= render partial: 'element_relation_search_result_template', locals: {element: element, records: records, elements: elements} %>
+<% when @element_relation_content_search.input_type.vocabulary? %>
+  <%= render partial: 'element_relation_search_result_vocabulary', locals: {element: element, records: records} %>
+<% end %>
+
+<%= paginate records, remote: true, method: :post, window: Settings.paginate.modal.window %>
+
+
+

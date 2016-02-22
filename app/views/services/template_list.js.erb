@@ -1,0 +1,2 @@
+$("#template-list-area").html("<%= j(render "template_list", service: @service, templates: @templates) %>").effect('highlight');
+$('html,body').animate({ scrollTop: $("#service-info").offset().top - 100 }, 'normal');

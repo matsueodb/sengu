@@ -1,0 +1,23 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format(t('.description', element_name: element.name)) %>
+<% end %>
+
+<% url = element_value.persisted? ? vocabulary_element_value_path(element, element_value) : nil %>
+<%= form_for(element_value, url: url, html: {class: 'well form-horizontal', role: 'form'}) do |f| %>
+  <%= error_messages_for(element_value) %>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'col-lg-2 control-label' %>
+    <div class="col-lg-5">
+      <%= f.text_field :name, :autofocus => true, class: 'form-control'%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-lg-offset-1 col-lg-10">
+      <%= button_tag_with_icon element_value.new_record? ? t('.add') : t('shared.update'), class: 'btn btn-primary', icon: element_value.new_record? ? 'plus-sign' : 'edit' %>
+      <%= link_to_back vocabulary_elements_path %>
+    </div>
+  </div>
+
+<% end %>

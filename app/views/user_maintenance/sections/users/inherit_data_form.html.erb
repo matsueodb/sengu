@@ -1,0 +1,51 @@
+<%= alert_tag{@error_message} if @error_message %>
+<%= form_tag(inherit_data_section_users_path(section_id: @section.id)) do %>
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col-lg-12">
+          <%= alert_tag(type: :info) do %>
+            <%= simple_format(t(".description", from: t(".from"), to: t(".to"))) %>
+          <% end %>
+        </div>
+      </div>
+      <br />
+      <div class="row  text-center">
+        <div class="col-lg-5">
+          <div class=" panel panel-primary">
+            <div class="panel-heading"><%= label_tag :from_id, t(".from") %></div>
+            <div class="panel-body">
+              <%= select_tag :from_id, options_for_select(@users.map{|u|[u.name, u.id]}, params[:from_id]), class: "form-control" %>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2">
+          <div class="panel">
+            <div class="panel-heading"></div>
+            <div class="panel-body">
+              <button class="btn btn-primary disabled" style="opacity: 1.0" >
+                <i class="glyphicon glyphicon-arrow-right" ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <%= label_tag :to_id, t(".to") %>
+            </div>
+
+            <div class="panel-body">
+              <%= select_tag :to_id, options_for_select(@users.map{|u|[u.name, u.id]}, params[:to_id]), class: "form-control" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= button_tag_with_icon t(".submit.inherit"), class: "btn btn-primary", icon: "share", data: {confirm: t(".submit.confirm")} %>
+    <%= link_to_cancel section_users_path(section_id: @section.id) %>
+  </div>
+<% end %>

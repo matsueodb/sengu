@@ -1,0 +1,6 @@
+<% if @response %>
+  $('#error-messages-area').empty()
+  $("<%= j(render 'result', vdb_response: @response) %>").modal()
+<% else %>
+  $('#error-messages-area').html("<%= j(error_messages_for(@vocabulary_search)) %>")
+<% end %>

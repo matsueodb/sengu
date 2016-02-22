@@ -1,0 +1,11 @@
+<% it = element.input_type %>
+<% unless (it.location? || it.upload_file?) %>
+  <div class="row inner namespace_inner">
+    <div class="col-lg-3 table-label">
+      <label class="control-group"><%= element.name %></label>
+    </div>
+    <div class="col-lg-9 table-value">
+      <%= render partial: "/templates/templates/data_select_upon_extension_form/#{it.name}", locals: {element: element} %>
+    </div>
+  </div>
+<% end %>

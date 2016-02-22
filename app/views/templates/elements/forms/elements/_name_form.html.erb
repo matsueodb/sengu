@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= f.label :name, class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <% if @element.new_record? %>
+      <%= f.text_field :name, class: 'form-control static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.name_title')} %>
+    <% else %>
+      <p class="form-control-static">
+        <%= @element.name %>
+      </p>
+    <% end %>
+  </div>
+</div>

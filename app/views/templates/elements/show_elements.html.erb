@@ -1,0 +1,14 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+
+<% if @template.operator?(current_user) %>
+  <%= link_to_with_icon t('.sample'), sample_field_template_records_path, remote: true, class: 'btn btn-primary ajax-loading-display', icon: 'new-window' %>
+  <%= link_to_with_icon t('.parent_show'), template_elements_path(@template), class: 'btn btn-primary show-link', remote: true, icon: 'sort' %>
+  <%= link_to_with_icon(t(".template_element_settings"), new_template_element_path(template_id: @template.id), class: 'btn btn-primary pull-right', icon: "list") %>
+  <%= link_to_with_icon(t(".edit_settings"), edit_settings_template_elements_path(template_id: @template.id), class: 'btn btn-primary', icon: "edit") %>
+<% end %>
+
+<div class="clearfix"></div>
+
+<div id="element-tree-table">
+  <%= render 'index', template: @template %>
+</div>

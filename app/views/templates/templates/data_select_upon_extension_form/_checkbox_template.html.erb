@@ -1,0 +1,52 @@
+<% if element.data_input_way_popup? %>
+  <div id="element<%= element.id %>_hidden_field">
+
+  </div>
+
+  <div id="element<%= element.id %>_description_field" class="col-sm-3">
+    <p class="form-control-static" id="element<%= element.id %>_select_values" >
+      <%= t("shared.non_select") %>
+    </p>
+  </div>
+  <div class="col-sm-4">
+    <%= button_tag_with_icon(t(".search_and_select"), id: "element#{element.id}_search_btn", class: "btn btn-success", icon: "search") %>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      $("#element<%= element.id %>_search_btn").on("click", function(){
+        var list = $('#element<%= element.id %>_hidden_field > input.value_hidden[type="hidden"]');
+        var post_data = ""
+        if(list.length != 0){
+          var map_array = jQuery.map(list.toArray(), function(n, i){
+            return "selected_ids[]=" + n.value;
+          })
+          post_data += "&" + map_array.join("&")
+        }
+        $.ajax({
+          type: "post",
+          url: "<%= url_for(element_relation_search_form_templates_path(element_id: element.id)) %>",
+          data: post_data,
+          success: function(data, status){
+            $(data).modal();
+          }
+        });
+        return false
+      })
+    })
+  </script>
+<% elsif element.data_input_way_checkbox? %>
+  <div class="col-sm-12" id="element<%= element.id %>_description_field">
+    <p class="form-control-static">
+      <% reference_values = element.reference_values %>
+      <% reference_values.group_by(&:record_id).each do |record_id, r_values| %>
+        <% val = record_id  %>
+
+        <label class="checkbox-inline">
+          <%= check_box_tag "condition[#{element.id}][#{val}][value]", val, false %>
+          <%= r_values.map(&:formatted_value).join(",") %>
+        </label>
+      <% end %>
+    </p>
+  </div>
+<% end %>

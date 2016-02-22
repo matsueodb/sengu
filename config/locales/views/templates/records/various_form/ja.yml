@@ -1,0 +1,51 @@
+ja:
+  templates:
+    records:
+      various_form:
+        line:
+          confirmation_of_registration_details: 登録内容を確認
+        location: &location_form
+          latitude: 緯度
+          longitude: 経度
+          display_map: 地図表示
+        kokudo_location:
+          <<: *location_form
+        osm_location:
+          <<: *location_form
+        google_location:
+          <<: *location_form
+        location_with_search_address:
+          latitude: 緯度
+          longitude: 経度
+          display_map: 地図表示
+        checkbox_template:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+          there_is_not_referenced_data: 参照先にデータがありません
+        pulldown_template:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+          there_is_not_referenced_data: 参照先にデータがありません
+        checkbox_vocabulary:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+          there_is_not_referenced_data: 参照先にデータがありません
+        pulldown_vocabulary:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+          there_is_not_referenced_data: 参照先にデータがありません
+        upload_file:
+          label: ラベル
+          file: ファイル
+          uploaded_file: 登録済みのファイル
+          destroy_file: ファイルを削除
+        all_locations:
+          kokudo_location:
+            type: 国土地理院
+            <<: *location_form
+          osm_location:
+            type: OpenStreetMap
+            <<: *location_form
+          google_location:
+            type: GoogleMap
+            <<: *location_form

@@ -1,0 +1,54 @@
+  <% if defined?(tt_parent_id) %>
+  <tr data-tt-id="<%= @idx %>" data-tt-parent-id="<%= tt_parent_id %>">
+  <% else %>
+  <tr data-tt-id="<%= @idx %>">
+  <% end %>
+    <td style="white-space: nowrap;"><%= element.name %></td>
+    <td>
+      <% if element.input_type.vocabulary? && source = element.source %>
+        <% if source.new_record? %>
+          「<%= link_to_with_icon element.source.name, vocabulary_values_template_element_searches_path(name: source.name, format: :js), remote: true %>」
+        <% else %>
+          「<%= link_to_with_icon element.source.name, main_app.vocabulary_values_template_elements_path(vocabulary_element_id: element.source_id, format: :js), remote: true %>」
+        <% end %>
+        <%= t('.input_from') %>
+      <% else %>
+        <%= element.input_type_label %>
+      <% end %>
+    </td>
+    <td><%= element.description %></td>
+    <td>
+      <% if element.children.present? %>
+        <%#= link_to_with_icon t('.use'),
+            create_complex_type_template_element_searches_path(@template, template_element_search: {
+              name: element.original_data_type,
+              domain_id: complex.domain
+            }), class: 'btn btn-sm btn-primary loading-display', icon: 'open', method: :post %>
+
+        <%= link_to_with_icon t('.sample'),
+            complex_sample_field_template_element_searches_path(@template, template_element_search: {
+              name: element.original_data_type,
+              domain_id: complex.domain
+            }), remote: true, class: 'btn btn-sm btn-info ajax-loading-display', icon: 'new-window', method: :post %>
+      <% else %>
+        <%#= link_to_with_icon t('.use'),
+            create_element_template_element_searches_path(@template, template_element_search: {
+              name: element.name,
+              domain_id: complex.domain
+            }), class: 'btn btn-sm btn-primary loading-display', icon: 'open', method: :post %>
+
+        <%= link_to_with_icon t('.sample'),
+            element_sample_field_template_element_searches_path(@template, template_element_search: {
+              name: element.name,
+              domain_id: complex.domain
+            }), remote: true, class: 'btn btn-sm btn-info ajax-loading-display', icon: 'new-window', method: :post %>
+      <% end -%>
+    </td>
+  </tr>
+  <% parent_idx = @idx %>
+  <% @idx += 1 %>
+
+
+<% element.children.each do |child_el| %>
+  <%= render "/vdb/templates/elements/find_search_result_row", tt_parent_id: parent_idx, element: child_el, complex: complex %>
+<% end %>

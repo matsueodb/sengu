@@ -1,0 +1,5 @@
+<%= link_to_with_icon t("shared.new"), new_regular_expression_path, class: "btn btn-primary", icon: "plus-sign" %>
+<%= link_to_back(root_path) %>
+<div id="pagination_list">
+  <%= render partial: "list", locals: {regular_expressions: @regular_expressions} %>
+</div>

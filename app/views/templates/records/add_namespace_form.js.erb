@@ -1,0 +1,7 @@
+$("<%= j(render partial: "/templates/records/namespace_form",
+  locals: {
+    element_values: [],
+    element: @element,
+    index: @index,
+    item_number: @item_number
+  }) %>").appendTo("#namespace_fields_<%= @element.id %>_<%= @index %>")

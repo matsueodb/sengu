@@ -1,0 +1,24 @@
+<div class="control-group">
+  <div class="col-sm-5">
+    <div class="col-sm-5">
+      <%= select_tag("condition[#{element.id}][0][value][hour]", options_for_select_with_hours, class: "form-control") %>
+    </div>
+    <div class="col-sm-1">:</div>
+    <div class="col-sm-5">
+      <%= select_tag("condition[#{element.id}][0][value][min]", options_for_select_with_minutes, class: "form-control") %>
+    </div>
+  </div>
+  <div class="col-sm-1">
+    <p class="form-control-static">〜</p>
+  </div>
+  <div class="col-sm-5">
+    <div class="col-sm-5">
+      <%= select_tag("condition[#{element.id}][1][value][hour]", options_for_select_with_hours, class: "form-control") %>
+    </div>
+    <div class="col-sm-1">:</div>
+    <div class="col-sm-5">
+      <%= select_tag("condition[#{element.id}][1][value][min]", options_for_select_with_minutes, class: "form-control") %>
+    </div>
+  </div>
+  
+</div>

@@ -1,0 +1,26 @@
+ja:
+  activerecord:
+    models:
+      template: テンプレート
+    attributes:
+      template:
+        name: 名前
+        user_group_id: グループ
+        status: 状態
+        status_label:
+          publish: 公開
+          close: 非公開
+        service_id: サービス
+        parent_id: 拡張基テンプレート
+      elements:
+        unique: ユニーク
+        required: 必須項目
+        available: 使用する
+        display: 一覧表示
+  errors:
+    messages:
+      template:
+        user_group_id:
+          it_cannot_be_changed_because_it_has_the_data: はテンプレートにデータが登録されているため変更することができません。
+        service_id:
+          it_cannot_be_changed_because_it_is_related: は他のテンプレートから参照、他のテンプレートを参照しているためサービスの変更をすることができません。

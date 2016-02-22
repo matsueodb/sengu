@@ -1,0 +1,82 @@
+<%= error_messages_for(@template) %>
+<div class="form-group">
+  <div class="col-sm-4">
+    <%= f.label :name, class: "control-label" %>
+  </div>
+  <div class="col-sm-8">
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+</div>
+
+<% if @template.has_parent? %>
+  <div class="form-group">
+    <div class="col-sm-4">
+      <%= f.label :parent_id, class: "control-label" %>
+    </div>
+    <div class="col-sm-8">
+      <%= f.hidden_field :parent_id if @template.new_record? %>
+      <%= text_field_tag :parent_id, @template.parent.name, disabled: "disabled", class: "form-control" %>
+    </div>
+  </div>
+<% end %>
+
+<% unless editable_of_service = @template.editable_of_service? %>
+  <div class="form-group">
+    <div class="col-sm-offset-4 col-sm-8">
+      <%= alert_tag(type: :warning){t('.extension_description')} %>
+    </div>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <div class="col-sm-4">
+    <%= f.label :service_id, class: "control-label" %>
+  </div>
+  <div class="col-sm-8">
+    <% if @template.new_record? %>
+      <%= @template.service.name %>
+      <%= f.hidden_field :service_id %>
+    <% else %>
+      <%= f.select :service_id, options_for_select_with_services(@services, @template.service_id, blank: true), {}, class: "form-control", disabled: !editable_of_service %>
+    <% end %>
+  </div>
+</div>
+
+<% if @template.persisted? %>
+  <% unless editable_of_user_group = @template.editable_of_user_group? %>
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-8">
+        <%= alert_tag(type: :warning){t('.description_cannot_change_user_group')} %>
+      </div>
+    </div>
+  <% end %>
+    <div class="form-group">
+      <div class="col-sm-4">
+        <%= f.label :user_group_id, class: "control-label" %>
+      </div>
+      <div class="col-sm-8">
+        <%= f.select :user_group_id, options_for_select_with_user_groups(@user_groups, @template.user_group_id), {}, class: "form-control", disabled: !editable_of_user_group %>
+      </div>
+    </div>
+
+  <% if @template.has_service? %>
+    <div class="form-group">
+      <div class="col-sm-4">
+        <%= f.label :status, class: "control-label" %>
+      </div>
+      <div class="col-sm-8">
+        <%= alert_tag(type: :info) do %>
+          <%= simple_format t(".status_description") %>
+        <% end %>
+        <% ::Template.statuses.each do |k, v| %>
+          <div class="radio">
+            <label>
+              <%= f.radio_button :status, v %>
+              <%= ::Template.status_label(v) %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% end %>

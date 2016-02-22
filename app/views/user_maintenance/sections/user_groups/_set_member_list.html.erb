@@ -1,0 +1,21 @@
+<table class="table table-striped table-bordered">
+  <caption><%= t(".list") %></caption>
+  <tr>
+    <th><%= t(".no") %></th>
+    <th><%= User.human_attribute_name(:name) %></th>
+    <th><%= t(".operator") %></th>
+  </tr>
+
+  <% users.each.with_index(1) do |u, idx| %>
+    <tr>
+      <td><%= idx + users.offset_value %></td>
+      <td><%= u.name %></td>
+      <td>
+        <%= check_box_tag :"member_ids[]", u.id, false, class: 'remember-checkbox' %>
+        <%= t(".add_member") %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate users, remote: true %>

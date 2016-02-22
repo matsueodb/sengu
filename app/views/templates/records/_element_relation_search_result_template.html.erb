@@ -1,0 +1,43 @@
+<ul class="list-group">
+  <% values.each.with_index(1) do |(r_id, vals), idx| %>
+    <% value = r_id %>
+    <% tr = vals.first.template_record %>
+    <% item_number = vals.map(&:item_number).min %>
+    <li class="list-group-item">
+      <% if element.input_type.checkbox? %>
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag("content_ids[]", value, false, class: "remember-checkbox") %>
+            <%= render partial: "record_value", locals: {
+              values: vals, item_number: item_number,
+              element: source_element, record: tr, template: @element_relation_content_search.element.source} %>
+          </label>
+        </div>
+      <% else %>
+        <% if @selected_id.to_i == value %>
+          <span class="label label-success"><%= t(".selected") %></span>
+        <% end %>
+        <%= button_tag_with_icon t(".select"), class: "btn btn-primary pulldown_select_btn", data: {value: value}, icon: "plus-sign" %>
+        <%= render partial: "record_value", locals: {
+          values: vals, item_number: item_number,
+          element: source_element, record: tr, template: @element_relation_content_search.element.source} %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<% if element.input_type.pulldown? %>
+<script>
+  $(document).ready(function(){
+    var hidden_id = '<%= "#element_#{@element_relation_content_search.element.id}_hidden" %>'
+    $(".pulldown_select_btn").on("click", function(){
+      var select_values_id = '#element<%= element.id %>_select_values'
+      $(select_values_id).html('<%= t(".select_count") %> : ' + 1)
+      var value = $(this).data("value")
+      $(hidden_id).attr("value", value)
+      $('#element_relation_search_form_modal').modal('hide')
+      return false
+    })
+  })
+</script>
+<% end %>

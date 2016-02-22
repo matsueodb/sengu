@@ -1,0 +1,77 @@
+zenkaku:
+  id: 1
+  name: 全角
+  format: ^[^ -~｡-ﾟ]+$
+  editable: false
+
+hankaku:
+  id: 2
+  name: 半角
+  format: ^[ -~｡-ﾟ]+$
+  editable: false
+
+katakana:
+  id: 3
+  name: カタカナ
+  format: ^[\p{katakana}ー－]+$
+  editable: false
+
+number:
+  id: 4
+  name: 数字(半角)
+  format: ^-?[0-9]+\.?[0-9]*$
+  editable: false
+
+integer:
+  id: 5
+  name: 整数(半角)
+  format: ^[0-9]+$
+  editable: false
+
+float:
+  id: 6
+  name: 少数(半角)
+  format: ^[0-9]+\.[0-9]+$
+  editable: false
+
+english:
+  id: 7
+  name: 英字(半角)
+  format: ^[A-Za-z]+$
+  editable: false
+
+english_and_number:
+  id: 8
+  name: 英数字(半角)
+  format: ^[0-9A-Za-z]+$
+  editable: false
+
+url:
+  id: 9
+  name: URL
+  format: ^(http|https|ftp)?:\/\/.+$
+  editable: false
+
+date:
+  id: 10
+  name: 日付
+  format: \d{1,4}\-(0[1-9]|1[0-2])\-(3[0-1]|[1-2][0-9]|0[1-9])$
+  editable: false
+
+location:
+  id: 11
+  name: 位置情報
+  format: ^[1-9][0-9]*\.[0-9]*[1-9]+$
+  editable: false
+
+phone_number:
+  id: 12
+  name: 一般電話
+  format: ^[0-9]{2,4}-[0-9]{2,4}-[0-9]{4}$
+  editable: false
+
+mobile_phone_number:
+  id: 13
+  name: 携帯電話
+  format: ^(070|080|090)-[0-9]{4}-[0-9]{4}$
+  editable: false

@@ -1,0 +1,17 @@
+<div class="col-lg-3 table-label">
+  <label class="control-group"><%= element.name %></label>
+  <% if element.persisted? %>
+    <a class="template_help_link" rel="ajax-popover" href="javascript:;" data-element-name="<%= element.name %>" data-desc-field="element<%= element.id %>_<%= item_number %>_description_field" data-url="<%= main_app.element_description_template_records_path(template_id: element.template_id, element_id: element.id, item_number: item_number)  %>">
+      <span class="glyphicon glyphicon-question-sign" ></span>
+    </a>
+  <% end %>
+  <% if element.required? %>
+    <%= required_icon %>
+  <% end %>
+</div>
+<div class="col-lg-9 table-value">
+  <div id="input_forms_<%= element.id %>">
+    <%= render partial: "/templates/records/various_form/#{element.input_type.name}",
+      locals: {element: element, item_number: item_number, values: (element_values || [])} %>
+  </div>
+</div>

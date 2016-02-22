@@ -1,0 +1,8 @@
+<div class="col-lg-3 table-label">
+  <label class="control-group"><%= element.name %></label>
+</div>
+<div class="col-lg-9 table-value">
+  <div id="input_forms_<%= element.id %>">
+    <%= render partial: "record_value", locals: {record: @template_record, element: element, item_number: item_number, template: @template, values: element_values} %>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+ja:
+  activemodel:
+    models:
+      vocabulary_search: 語彙検索
+    attributes:
+      vocabulary_search:
+        name: キーワード

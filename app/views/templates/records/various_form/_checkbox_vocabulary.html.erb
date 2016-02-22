@@ -1,0 +1,85 @@
+<% field_name = "template_record[#{element.id}][#{item_number}]" %>
+<% if element.persisted? && !element.source.records_referenced_from_element.exists? %>
+  <div class="col-sm-5">
+    <p class="form-control-static">
+      <%= t(".there_is_not_referenced_data") %>
+    </p>
+  </div>
+<% else %>
+  <% selected = values.select{|v|v.try(:content).try(:value)} %>
+  <% disabled = values.any?{|v|!v.editable_on?(@template)} if values.present? %>
+
+  <% if element.data_input_way_popup? %>
+    <% if !disabled %>
+      <% values.each do |value| %>
+        <%= hidden_field_tag "#{field_name}[#{value.kind}][id]", value.id if value  %>
+      <% end %>
+      <div id="element<%= element.id %>_<%= item_number %>_hidden_field">
+        <% unless selected.size.zero? %>
+          <% selected.each do |val| %>
+            <%= hidden_field_tag "#{field_name}[#{val.kind}][template_id]", val.template_id %>
+            <%= hidden_field_tag "#{field_name}[#{val.kind}][value]", val.value, class: "remember-hideen value_hidden" %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <div id="<%= "element#{element.id}_#{item_number}_description_field" %>" class="col-sm-3">
+      <p class="form-control-static" id="element<%= element.id %>_<%= item_number %>_select_values" >
+        <% if selected.size.zero? %>
+          <%= t("shared.non_select") %>
+        <% else %>
+          <%= t(".select_count") %> : <%= selected.size %>
+        <% end %>
+      </p>
+    </div>
+    <div class="col-sm-4">
+      <%= button_tag_with_icon(t(".search_and_select"), id: "element#{element.id}_search_btn", class: "btn btn-success #{'disabled' if disabled}", icon: "search") %>
+    </div>
+
+    <script>
+      $(document).ready(function(){
+        $("#element<%= element.id %>_search_btn").on("click", function(){
+          var list = $('#element<%= element.id %>_<%= item_number %>_hidden_field > input.value_hidden[type="hidden"]');
+          var post_data = "item_number=" + <%= item_number %>
+          if(list.length != 0){
+            var map_array = jQuery.map(list.toArray(), function(n, i){
+              return "selected_ids[]=" + n.value;
+            })
+            post_data += "&" + map_array.join("&")
+          }
+          $.ajax({
+            type: "post",
+            url: "<%= url_for(element_relation_search_form_template_records_path(element_id: element.id, template_id: element.template_id)) %>",
+            data: post_data,
+            success: function(data, status){
+              $(data).modal();
+            }
+          });
+          return false
+        })
+      })
+    </script>
+  <% elsif element.data_input_way_checkbox? %>
+    <div class="col-sm-12" id="element<%= element.id %>_<%= item_number %>_description_field">
+      <% reference_values = element.reference_values %>
+      <% reference_values.each do |reference_value| %>
+        <% val = reference_value.id %>
+        <% value = values.detect{|v|v.kind == val} %>
+
+        <% if value && value.persisted? && value.template_id == @template.id %>
+          <%= hidden_field_tag "#{field_name}[#{val}][id]", value.id %>
+        <% end %>
+        <%= hidden_field_tag "#{field_name}[#{val}][template_id]", value ? value.try(:template_id) : @template.id %>
+
+        <label class="checkbox-inline">
+          <% if disabled %>
+            <%= hidden_field_tag "#{field_name}[#{val}][value]", val %>
+          <% end %>
+          <%= check_box_tag "#{field_name}[#{val}][value]", val, !!value, {disabled: disabled} %>
+          <%= reference_value.name %>
+        </label>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,9 @@
+<% lat = values.detect{|v|v.kind == ElementValue::KINDS[:all_locations][:osm_location][:latitude]}.try(:content).try(:value) %>
+<% lon = values.detect{|v|v.kind == ElementValue::KINDS[:all_locations][:osm_location][:longitude]}.try(:content).try(:value) %>
+<% if lat.present? && lon.present? %>
+  <%= link_to(display_template_maps_path(map: {latitude: lat, longitude: lon, map_type: "osm_location"}),
+    class: "btn btn-success map-modal-button", remote: true, title: "#{lat},#{lon}" ) do %>
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <%= t(".display_map") %>
+  <% end %>
+<% end %>

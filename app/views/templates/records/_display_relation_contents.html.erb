@@ -1,0 +1,26 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">
+          <%
+            case @element.source_type.constantize.name
+            when Template.name
+          %>
+            <%= t('.template.title', template_name: relation_template.name) %>
+          <% when Vocabulary::Element.name %>
+            <%= t('.vocabulary.title', vocabulary_name: relation_template.name) %>
+          <% end %>
+        </h4>
+      </div>
+      <div class="modal-body" id="display_relation_contents-pagination">
+        <%= render partial: "display_relation_contents_list", locals: {relation_template: relation_template, source_element: source_element, records: records} %>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-warning", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

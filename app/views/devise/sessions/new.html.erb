@@ -1,0 +1,25 @@
+<%= form_for(resource,
+  :as => resource_name,
+  :url => session_path(resource_name),
+  html: {class: "well form-horizontal"}
+) do |f| %>
+  <fieldset>
+    <div class="form-group">
+      <%= f.label :login, class: "col-sm-2 control-group" %>
+      <div class="col-sm-3">
+        <%= f.text_field :login, :autofocus => true, class: "form-control" %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :password, class: "col-sm-2 control-group" %>
+      <div class="col-sm-3">
+        <%= f.password_field :password, class: "form-control" %>
+      </div>
+    </div>
+
+
+  </fieldset>
+  <%= button_tag_with_icon t("login"), class: "btn btn-primary", icon: "glyphicon glyphicon-log-in" %>
+<% end %>
+

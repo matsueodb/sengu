@@ -1,0 +1,153 @@
+ja:
+  templates:
+    elements:
+      index:
+        caption: テンプレート項目一覧
+        operation: 操作
+        extension_field: 拡張基テンプレートの項目
+        extension_field_description: 拡張基テンプレートに存在する項目です(階層構造の作成・編集・削除は出来ません)
+        field: 項目一覧
+        operation_description: ※ 「項目名」をドラッグ＆ドロップして、階層構造を作ることができます。
+      list_row:
+        reuse_configure: 再利用キーワード設定
+      new:
+        title: "【%{template_name}】項目設定"
+        done: 完了
+        nothing_elements_done_confirm: 項目が一つも作成されていません。項目の設定を終了しますか?
+        to_data_input: 設定したテンプレートへデータを入力する
+        done_confirm: 項目の設定を完了します。よろしいですか?
+        description: |
+          項目の設定を行います。項目は、本システム内・語彙データベース内から検索して利用出来ます。
+          また、本システム内・語彙データベース内に使用したい項目が見つからなかった場合は、任意の項目を設定することが出来ます。
+        input_category: カテゴリを選択してください
+      edit:
+        title: "【%{template_name}】項目編集"
+        done: 完了
+        to_data_input: 設定したテンプレートへデータを入力する
+        done_confirm: 項目の設定を完了します。よろしいですか?
+        description: |
+          項目の設定を行います。項目は、本システム内・語彙データベース内から検索して利用出来ます。
+          また、本システム内・語彙データベース内に使用したい項目が見つからなかった場合は、任意の項目を設定することが出来ます。
+        input_category: カテゴリを選択してください
+      show:
+        title: "%{element_name}詳細"
+        caption: 項目並び替え
+        show_caption: 項目詳細
+        children_caption: 子項目並び替え
+        indent: インデント
+        item_name: 項目名
+        entry_name: エントリー名
+        item_description: 項目説明
+        data_type: データタイプ
+        data_example: データ例
+        operation: 操作
+        order_change: 順番変更
+        operation_description: ドラッグ＆ドロップで子要素を並び変えることが出来ます。
+        element_show: 項目詳細
+        order_save: 並び替え順序の保存
+        order_confirm: 子要素をこの順番で並び替えますか?
+      create:
+        success: 作成に成功しました
+        title: "【%{template_name}】項目設定"
+      update:
+        title: "【%{template_name}】項目編集"
+        success: 更新に成功しました
+      destroy:
+        success: 削除に成功しました
+        failure_destroy: このテンプレートを基に拡張テンプレートが作成されている場合、項目の削除はできません。また、削除対象の項目と子孫の項目のうち、他のテンプレートから参照されている場合は削除できません。
+      form:
+        add: 追加
+        name_title: 項目名を入力します
+        available_title: データ入力が可能になります
+        display_title: 一覧に表示されるようになります
+        publish_title: RDFで公開される項目になります
+        name_placeholder: 項目を検索します
+        back_list: 項目一覧に戻る
+        child_exists: |
+          この項目は子項目を持つネームスペースです。
+      complete:
+        title: 完了
+        complete_description: 'RDFテンプレートの作成が完了しました'
+        to_service_list: サービス一覧画面へ
+        to_opendata_input: 作成したテンプレートへデータを入力する
+      move:
+        failure: 項目の移動に失敗しました
+      change_order:
+        success: 子要素の並び替えに成功しました
+        failure: 子要素の並び替えに失敗しました
+      values:
+        title: "テンプレート「%{template}」、項目「%{element}」入力データ一覧"
+      vocabulary_values:
+        title: 「%{element_name}」入力可能項目一覧
+      show_elements:
+        title: "【%{template_name}】項目一覧"
+        template_element_settings: 項目設定
+        parent_show: 親項目並び替え
+        sample: 入力プレビュー
+        edit_settings: 項目一括設定
+      forms:
+        vocabulary_form:
+          data_confirm: データ種類確認
+          use_vocabulary: 使用する語彙データ
+          source_id_title: データを使用したい語彙を選択します
+        template_select_form:
+          use_template: 使用するテンプレートデータ
+          source_id_title: データを使用したいテンプレートを選択します
+        elements:
+          input_type_form:
+            input_type_title: 入力タイプを指定します
+          regular_expression_form:
+             regular_expression_id_title: 入力データに制限を付与します
+             none_regular_expression: 制限なし
+          max_digit_number_form:
+            max_digit_number_title: 入力データの最大桁数を指定します。数値を入力してください。
+          min_digit_number_form:
+            min_digit_number_title: 入力データの最小桁数を指定します。数値を入力してください。
+          description_form:
+            description_title: 項目の説明を入力します
+          data_example_form:
+             data_example_title: 入力データの例を入力します
+          required_form:
+            required_title: 入力が必須になります
+          unique_form:
+            unique_title: 同じ値が入力出来なくなります
+          source_element_id_select_form:
+            data_confirm: データ確認
+            source_element_id_title: データ入力に、プルダウンに表示する参照先の項目名を選択します
+            nothing_template: 同じサービスに含まれる他のテンプレートがありません。他のテンプレートを作成し、項目の設定を行なってください。
+            nothing_elements: "使用するテンプレートデータ「%{template}」は項目の設定が行われていない為、使用することが出来ません。このテンプレートを使用するためには項目の設定を行なってください"
+          multiple_input_form:
+            multiple_input_title: データ登録時に複数のデータを入力することができます
+            available_title: データ入力が可能になります
+            publish_title: RDFで公開される項目になります
+            disabled_description: このネームスペースは既に複数入力が有効になっている親項目または、子項目を持つので、複数入力を有効にすることが出来ません。
+          data_input_way_form:
+            data_input_way: データの入力方法を選択します
+      edit_settings:
+        title: "【%{template_name}】項目一括設定"
+        caption: テンプレート項目一覧
+        back_list: 項目一覧に戻る
+        name_title: 項目名を入力します
+        input_type_title: 入力タイプを指定します
+        required_title: 入力が必須になります
+        unique_title: 同じ値が入力出来なくなります
+        available_title: データ入力が可能になります
+        display_title: 一覧に表示されるようになります
+      settings_forms:
+        vocabulary_form:
+          source_id_title: データを使用したい語彙を選択します
+          data_confirm: 確認
+        template_select_form:
+          source_id_title: データを使用したいテンプレートを選択します
+        elements:
+          source_element_id_select_form:
+            source_element_id_title: データ入力に、プルダウンに表示する参照先の項目名を選択します
+            nothing_template: 同じサービスに含まれる他のテンプレートがありません。他のテンプレートを作成し、項目の設定を行なってください。
+            nothing_elements: "使用するテンプレートデータ「%{template}」は項目の設定が行われていない為、使用することが出来ません。このテンプレートを使用するためには項目の設定を行なってください"
+            data_confirm: 確認
+          data_input_way_form:
+            data_input_way: データの入力方法を選択します
+
+      update_settings:
+        title: "【%{template_name}】項目一括設定"
+        success: 更新に成功しました

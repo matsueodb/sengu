@@ -1,0 +1,39 @@
+<% value = values.detect{|v|v.element_id == element.id && v.item_number == item_number} %>
+<% disabled = !value.editable_on?(@template) if value %>
+<% field_name = "template_record[#{element.id}][#{item_number}][0]" %>
+
+<div class="row" id="<%= "input_form_#{element.id}_#{item_number}" %>">
+  <div class="control-group">
+    <div class="col-sm-3" id="<%= "element#{element.id}_#{item_number}_description_field" %>">
+      <%= hidden_field_tag "#{field_name}[id]", value.try(:id) if value %>
+      <%= hidden_field_tag "#{field_name}[content_id]", value.try(:content_id) %>
+      <%= hidden_field_tag "#{field_name}[template_id]", value ? value.try(:template_id) : @template.id %>
+      <%= 
+        text_field_tag "#{field_name}[value]",
+          value.try(:value),
+          class: "input_datepicker form-control",
+          disabled: disabled,
+          placeholder: "#{element.data_example}",
+          id: "date_input_#{element.id}_#{item_number}"
+      %>
+    </div>
+
+    <%# if element.multiple_input? %>
+      <%#*<div class="col-sm-2">%>
+        <%#= remove_form_button(element.id, item_number) if !disabled && item_number != 1 %>
+        <%#= add_form_button(@template, element, form_object_name, item_number + 1, (disabled || last_item_number != item_number)) unless disabled %>
+      <%#*</div>%>
+    <%# end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $('.input_datepicker').datepicker({
+    dateFormat: 'yy-mm-dd',
+    beforeShow: function(input, inst){
+      calendar = inst.dpDiv;
+      setTimeout(function(){
+        calendar.position({my: 'left bottom', at: 'left top', of: input})}, 1);
+    }
+  })
+</script>

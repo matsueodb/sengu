@@ -1,0 +1,11 @@
+ja:
+  activerecord:
+    models:
+      element_keyword: 項目キーワード
+    attributes:
+      element_keyword:
+        scope: 適用範囲
+        scope_whole: システム全体に適用
+        scope_individual: 自ユーザのみに適用
+        user_id: ユーザID
+        content: キーワード

@@ -1,0 +1,17 @@
+<% content_for(:page_title){ page_title(section_name: @section.name) } %>
+
+<%= form_for(@user_group, url: section_user_group_path(@user_group, section_id: @section.id), html: {class: "form-horizontal well"}) do |f| %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="col-lg-8">
+        <%= render partial: "form", locals: {f: f} %>
+      </div>
+    </div>
+  </div>
+  <%= button_tag_with_icon t("shared.update"), class: "btn btn-primary", icon: "edit" %>
+  <%= link_to_cancel(section_user_group_path(@user_group, section_id: @section.id)) %>
+<% end %>
+
+<div id="pagination_list">
+  <%= render partial: "list", locals: {user_groups: @user_groups} %>
+</div>

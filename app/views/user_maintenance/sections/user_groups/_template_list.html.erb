@@ -1,0 +1,14 @@
+<% if templates.empty? %>
+  <%= alert_tag(type: "warning"){t(".empty_list")} %>
+<% else %>
+  <ul class="list-group">
+    <% templates.each.with_index(1) do |temp, idx|  %>
+      <li class="list-group-item">
+        <%= "【#{temp.has_service? ? temp.service.try(:name) : t(".no_set_service")}】" %>
+        <%= temp.name %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= paginate templates, remote: true %>

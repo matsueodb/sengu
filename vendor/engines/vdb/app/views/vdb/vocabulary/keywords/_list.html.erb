@@ -1,0 +1,27 @@
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th class="col-lg-3"><%= Vocabulary::Keyword.human_attribute_name(:name) %></th>
+      <th class="col-lg-2"><%= Vocabulary::Keyword.human_attribute_name(:content) %></th>
+      <th class="col-lg-2"><%= Vocabulary::Keyword.human_attribute_name(:category) %></th>
+      <th class="col-lg-2"><%= Vocabulary::Keyword.human_attribute_name(:scope) %></th>
+      <th class="col-lg-3"><%= t('.operation') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% vocabulary_keywords.each do |v_k| %>
+      <tr>
+        <td><%= v_k.name %></td>
+        <td><%= truncate(v_k.content, length: 20) %></td>
+        <td><%= truncate(v_k.category, length: 20) %></td>
+        <td><%= v_k.scope_human_name %></td>
+        <td>
+          <%= link_to_with_icon t('shared.show'), vocabulary_keyword_path(v_k), class: 'btn btn-primary show-vocabulary-keyword ajax-loading-display', icon: 'info-sign', remote: true %>
+          <%= link_to_with_icon t('shared.edit'), configure_vocabulary_keywords_path(name: v_k.name), class: 'btn btn-primary edit-vocabulary-keyword ajax-loading-display', icon: 'edit', remote: true %>
+          <%= link_to_destroy vocabulary_keyword_path(v_k) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

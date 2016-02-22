@@ -1,0 +1,107 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+#
+#=== テンプレート要素のツリーテーブルを作成する
+#
+class @TemplateElementTreeTable
+  constructor: (@targetEl) ->
+    $(@targetEl).treetable({
+      expandable: true,
+      initialState: 'expanded'
+    });
+
+  setClickActive: ->
+#    $(@targetEl + " tbody").on "click", "tr", ->
+#      $(".active").not(this).removeClass("active");
+#      $(this).toggleClass("active");
+
+  setDroppable: (accept) ->
+    $(@targetEl + "> tbody > tr.movable").droppable({
+      accept: accept,
+      drop: (e, ui) ->
+        droppedEl = ui.draggable.parents("tr")
+        to_elementID = $(this).data('element-id')
+
+        if droppedEl.data('element-id') != to_elementID
+          loadingShow()
+          $.ajax {
+            url: droppedEl.data('callback-url'),
+            data: JSON.stringify({
+              element: {
+                parent_id: to_elementID
+              },
+              authenticity_token: $('meta[name="csrf-token"]').attr('content')
+            }),
+            type: 'PATCH',
+            contentType : 'application/json',
+            dataType: 'json',
+            success: (status) =>
+              if (status.result)
+                $("#elements").treetable("move", droppedEl.data("ttId"), $(this).data("ttId"));
+                $(this).effect('highlight');
+              else
+                alert "<%= I18n.t('.templates.elements.move.failure') %>\n" + status.messages.join("\n")
+            complete: =>
+              loadingHide()
+          }
+      hoverClass: "active",
+      over: (e, ui) ->
+        droppedEl = ui.draggable.parents("tr");
+        if(this != droppedEl[0] && !$(this).is(".expanded"))
+          $("#elements").treetable("expandNode", $(this).data("ttId"));
+    });
+
+#
+#=== 子要素並び替えテーブルを作成する
+#
+class @ChildSortTable
+  constructor: (@targetEl, @params_name) ->
+    $(@targetEl).sortable({
+      cursor: 'move',
+      opacity: 0.7,
+      placeholder: 'ui-state-highlight'
+    })
+    this.setClickActive()
+    $(@targetEl).on "click", "tr", ->
+      $(".active").not(this).removeClass("active");
+      $(this).toggleClass("active");
+  setClickActive: =>
+    _targetEl = @targetEl
+    _params_name = @params_name
+    $('.order-save').on "click",  ->
+
+      data_params = {authenticity_token: $('meta[name="csrf-token"]').attr('content')}
+      data_params[_params_name] = {display_number_ids: $(_targetEl).sortable('toArray')}
+
+      loadingShow()
+      $.ajax {
+        url: $(this).data('url'),
+        data: data_params,
+        type: 'PATCH'
+        complete: =>
+          loadingHide()
+      }
+
+#
+#=== テンプレート要素の検索を行う
+#
+class @VocabularySearchForElement
+  constructor: (@targetEl) ->
+    @form = $(@targetEl)
+
+    @name_element = @form.find('#element_name')
+    $(@name_element).on 'focus', ->
+      if ( $("#vocabulary-search-index").size() == 0 )
+        $.get $(this).data('url')
+
+#
+#=== 項目一括設定用のテーブルを作成する
+#
+class @ElementSettingsTreeTable
+  constructor: (@targetEl) ->
+    $(@targetEl).treetable({
+      expandable: true,
+      initialState: 'expanded'
+    });

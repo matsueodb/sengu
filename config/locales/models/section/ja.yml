@@ -1,0 +1,12 @@
+ja:
+  section:
+    errors:
+      messages:
+        the_selected_user_is_the_manager_of_section_other: で選択したユーザは他の所属の管理者になっています。
+  activerecord:
+    models:
+      section: 所属
+    attributes:
+      section:
+        name: 所属名
+        copyright: コピーライト

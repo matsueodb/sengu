@@ -1,0 +1,23 @@
+ja:
+  user:
+    errors:
+      messages:
+        can_not_change_section_because_it_has_data: "の変更ができませんでした。現在の所属でデータを持っている場合、所属を変更することができません。データの引き継ぎを行ってください。"
+  activerecord:
+    models:
+      user: ユーザ
+    attributes:
+      user:
+        name: 名前
+        login: ログインID
+        password: パスワード
+        password_confirmation: パスワード(確認用)
+        current_password: 現在のパスワード
+        remarks: 備考
+        authority: 権限
+        section_id: 所属
+        authority_label:
+          admin: 管理者
+          editor: データ登録者
+          section_manager: 所属管理者
+        copyright: コピーライト

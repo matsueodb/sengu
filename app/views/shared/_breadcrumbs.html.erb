@@ -1,0 +1,12 @@
+<% if elements.present? %>
+  <ol class="breadcrumb">
+    <% elements.each do |element| %>
+      <li>
+        <% path = builder.compute_path(element) %>
+        <% name = builder.compute_name(element) %>
+        <%= link_to_if(path.present?, name, path) %>
+      </li>
+    <% end %>
+    <li><%= content_for?(:page_title) ? yield(:page_title) : page_title %></li>
+  </ol>
+<% end %>

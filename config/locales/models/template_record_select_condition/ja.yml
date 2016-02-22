@@ -1,0 +1,10 @@
+## YAML Template.
+---
+ja:
+  template_record_select_condition:
+    string_conditions:
+      forward_match: 前方一致
+      exact_match: 完全一致
+      backward_match: 後方一致
+      middle_match: 中間一致
+

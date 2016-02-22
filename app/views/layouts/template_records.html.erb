@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sengu</title>
+    <%= stylesheet_link_tag    "application", media: "all" %>
+    <%= stylesheet_link_tag    "layouts/template_records", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <%= content_for?(:stylesheet_contents) ? yield(:stylesheet_contents) : "" %>
+  </head>
+  <body>
+    <div id="loading">
+      <div id="loading-content">
+        <%= image_tag 'ajax-loader.gif', id: "loading-img" %>
+      </div>
+    </div>
+
+    <%= render partial: "layouts/navbar" %>
+
+    <div class="container">
+      <%= render partial: "layouts/container_inner" %>
+    </div>
+
+    <%= render partial: "layouts/footer" %>
+    <%= content_for?(:javascript_contents) ? yield(:javascript_contents) : "" %>
+  </body>
+</html>

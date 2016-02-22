@@ -1,0 +1,14 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format t(".description") %>
+<% end %>
+<%= form_for(@template, html: {class: "form-horizontal well"}) do |f| %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="col-lg-8">
+        <%= render partial: "form", locals: {f: f} %>
+      </div>
+    </div>
+  </div>
+  <%= button_tag_with_icon t("shared.update"), class: "btn btn-primary", icon: "edit" %>
+  <%= link_to_back(services_path(id: @template.service_id)) %>
+<% end %>

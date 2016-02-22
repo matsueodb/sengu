@@ -1,0 +1,23 @@
+<table class="table table-striped table-bordered">
+  <caption><%= t(".list") %></caption>
+  <tr>
+    <th><%= t(".no") %></th>
+    <th><%= t("activerecord.attributes.user_group.name") %></th>
+    <th><%= t(".operator") %></th>
+  </tr>
+
+  <% user_groups.each.with_index(1) do |ug, idx| %>
+    <tr>
+      <td><%= idx + user_groups.offset_value %></td>
+      <td><%= ug.name %></td>
+      <td>
+        <%= link_to_with_icon(t("shared.show"), section_user_group_path(ug, section_id: @section.id), class: "btn btn-primary", icon: "info-sign") %>&nbsp;
+        <%= link_to_with_icon(t("shared.edit"), edit_section_user_group_path(ug, section_id: @section.id), class: "btn btn-primary", icon: "edit") %>&nbsp;
+        <%= link_to_with_icon(t(".set_member"), set_member_section_user_group_path(ug, section_id: @section.id), class: "btn btn-primary", icon: "user") %>&nbsp;
+        <%= link_to_destroy(section_user_group_path(ug, section_id: @section.id)) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate user_groups, remote: true, params: {action: "index"} %>

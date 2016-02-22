@@ -1,0 +1,41 @@
+<div class="table-responsive overflow">
+  <table class="table data-record-table">
+    <caption><%= t(".data_list") %></caption>
+    <thead>
+      <tr>
+        <th><%= t(".operator") %></th>
+        <% elements.each do |el| %>
+          <th style="white-space: nowrap;"><%= el.name %></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% records.each do |r| %>
+        <tr class="odd gradeX">
+          <td style="white-space: nowrap;">
+            <%= link_to_with_icon(t("shared.show"), template_record_path(r.id, template_id: template.id), remote: true, class: "btn btn-primary show-link ajax-loading-display", icon: "info-sign") %>
+            <% if operator %>
+              <% if r.editable?(current_user) %>
+                <%= link_to_with_icon(t("shared.edit"), edit_template_record_path(r.id, template_id: template.id), class: "btn btn-primary", icon: "edit") %>
+              <% end %>
+              <% if r.destroyable?(current_user) && r.template_id == @template.id %>
+                <%= link_to_destroy(template_record_path(r.id, template_id: template.id)) %>
+              <% end %>
+            <% end %>
+          </td>
+          <% elements.each do |el| %>
+            <td>
+              <% values = r.record_values_by_element(el, @template) %>
+              <% num = values.map(&:item_number).min %>
+              <% vals = values.select{|v|v.item_number.to_i == num} %>
+              <%= render partial: "templates/records/record_value", locals: {element: el, record: r, template: template, values: vals, item_number: num} %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot></tfoot>
+  </table>
+</div>
+<%= paginate records, remote: true, method: request.method, params: {pagination: true} %>

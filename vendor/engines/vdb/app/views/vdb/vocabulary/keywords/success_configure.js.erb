@@ -1,0 +1,2 @@
+$("#configured-vocabulary-keyword").html("<%= j(render "list", vocabulary_keywords: current_user.vocabulary_keywords.order(:id)) %>");
+$("#vocabulary-keyword-configure").modal('hide');

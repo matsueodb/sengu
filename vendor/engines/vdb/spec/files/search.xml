@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<apiresponse>
+<xsd:complexType name="輸送機関型"><xsd:annotation><xsd:documentation xml:lang="ja">輸送機関・乗り物を表現するためのデータ型。</xsd:documentation><xsd:documentation xml:lang="en">A data type for a means of transport from place to place.</xsd:documentation><xsd:appinfo><imi-info:mapping>{http://niem.gov/niem/niem-core/2.0}ConveyanceType</imi-info:mapping></xsd:appinfo></xsd:annotation><xsd:complexContent><xsd:extension base="ic:有体物型"><xsd:sequence><xsd:element maxOccurs="1" minOccurs="0" ref="ic:輸送機関_登録ナンバー"/><xsd:element maxOccurs="unbounded" minOccurs="0" ref="ic:輸送機関_利用方法"/><xsd:element maxOccurs="unbounded" minOccurs="0" ref="ic:輸送機関_貨物"/></xsd:sequence></xsd:extension></xsd:complexContent></xsd:complexType>
+<xsd:element name="輸送機関_登録ナンバー" type="ic:ID型">
+<xsd:annotation>
+<xsd:documentation xml:lang="ja">乗り物を識別するために、与えられている登録番号等。</xsd:documentation>
+<xsd:documentation xml:lang="en">An identification on a metal plate fixed to a conveyance.</xsd:documentation>
+<xsd:appinfo>
+<imi-info:mapping>{http://niem.gov/niem/niem-core/2.0}ConveyanceRegistrationPlateIdentification</imi-info:mapping>
+</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element name="輸送機関_利用方法" type="ic:テキスト型">
+<xsd:annotation>
+<xsd:documentation xml:lang="ja">乗り物の利用方法。</xsd:documentation>
+<xsd:documentation xml:lang="en">A manner or way in which a conveyance is used.</xsd:documentation>
+<xsd:appinfo>
+<imi-info:mapping>{http://niem.gov/niem/niem-core/2.0}ConveyanceUse</imi-info:mapping>
+</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+<xsd:element name="輸送機関_貨物" type="ic:テキスト型">
+<xsd:annotation>
+<xsd:documentation xml:lang="ja">輸送される貨物もしくは商品。</xsd:documentation>
+<xsd:documentation xml:lang="en">A cargo or set of goods transported by a conveyance.</xsd:documentation>
+<xsd:appinfo>
+<imi-info:mapping>{http://niem.gov/niem/niem-core/2.0}ConveyanceCargoText</imi-info:mapping>
+</xsd:appinfo>
+</xsd:annotation>
+</xsd:element>
+</apiresponse>

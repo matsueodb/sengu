@@ -1,0 +1,50 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span class="badge"><%= t(".count", count: user_groups.total_count) %></span>
+    <strong><%= t(".list") %></strong>
+  </div>
+
+  <div class="panel-body">
+    <%= alert_tag(type: :info){hbr t(".list_description")} %>
+  
+    <% if user_groups.empty? %>
+      <%= alert_tag(type: "warning"){t(".empty_list")} %>
+    <% else %>
+      <table class="table table-bordered table-hover table-responsive">
+        <thead>
+          <tr>
+            <th><%= t(".no") %></th>
+            <th colspan="2"><%= t(".group_name") %></th>
+            <th><%= t(".operator") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% user_groups.each.with_index(1) do |g, idx|  %>
+            <tr>
+              <td><%= idx %></td>
+              <td>
+                <%= g.name %>
+              </td>
+              <td>
+                <span class="label label-primary">
+                  <span class="glyphicon glyphicon-user"></span>
+                  ×<%= g.user_groups_members.size %>
+                </span>
+              </td>
+              <td>
+                <%= link_to_with_icon(t("shared.show"), section_user_group_path(g, section_id: @section.id), class: "btn btn-primary", icon: "info-sign") %>&nbsp;
+                <%= link_to_with_icon t("shared.edit"), edit_section_user_group_path(g, section_id: @section.id), class: "btn btn-primary", icon: "edit" %>
+                <%= link_to_destroy section_user_group_path(g, section_id: @section.id) %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="panel-footer">
+    <div class="text-right">
+      <%= link_to_with_icon t(".all_btn"), section_user_groups_path(section_id: @section.id), class: "btn btn-primary", icon: "list-alt" %>
+    </div>
+  </div>
+</div>

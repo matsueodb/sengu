@@ -1,0 +1,121 @@
+<div id="element-show" class="modal fade modal-element-show">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.element_show') %></h4>
+      </div>
+
+      <div id="element-show-body" class="modal-body">
+        <div id="modal-message-area"></div>
+        <% if @element.present? %>
+          <% elements = @element.children %>
+          <table class='table table-bordered'>
+            <caption><%= t('.show_caption') %></caption>
+            <thead>
+              <tr>
+                <th class="col-lg-2"><%= Element.human_attribute_name(:name) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:input_type_id) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:regular_expression_id) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:max_digit_number) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:min_digit_number) %></th>
+                <th class="col-lg-2"><%= Element.human_attribute_name(:description) %></th>
+                <th class="col-lg-2"><%= Element.human_attribute_name(:data_example) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:required) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:unique) %></th>
+                <th class="col-lg-1"><%= Element.human_attribute_name(:display) %></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td><%= @element.name %></td>
+                <td><%= @element.input_type_label %></td>
+                <td><%= none_text(@element.regular_expression.try(:name)) %></td>
+                <td><%= none_text(@element.max_digit_number) %></td>
+                <td><%= none_text(@element.min_digit_number) %></td>
+                <td><%= none_text(@element.description) %></td>
+                <td><%= none_text(@element.data_example) %></td>
+                <td>
+                  <%= boolean_icon(@element.required) %>
+                </td>
+                <td>
+                  <%= boolean_icon(@element.unique) %>
+                </td>
+                <td>
+                  <%= boolean_icon(@element.display) %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        <% else %>
+          <% elements = @template.elements.root %>
+        <% end %>
+        <% elements = elements.includes(:regular_expression, :input_type).to_a %>
+
+        <table id="child-element" class='table table-bordered table-hover'>
+          <caption><%= @element.blank? ? t('.caption') : t('.children_caption') %></caption>
+          <thead>
+            <tr>
+              <th class="col-lg-2"><%= Element.human_attribute_name(:name) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:input_type_id) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:regular_expression_id) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:max_digit_number) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:min_digit_number) %></th>
+              <th class="col-lg-2"><%= Element.human_attribute_name(:description) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:data_example) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:required) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:unique) %></th>
+              <th class="col-lg-1"><%= Element.human_attribute_name(:display) %></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% elements.each do |element| %>
+              <tr id="<%= element.id %>">
+                <td><%= element.name %></td>
+                <td><%= element.input_type_label %></td>
+                <td><%= none_text(element.regular_expression.try(:name)) %></td>
+                <td><%= none_text(element.max_digit_number) %></td>
+                <td><%= none_text(element.min_digit_number) %></td>
+                <td><%= none_text(element.description) %></td>
+                <td><%= none_text(element.data_example) %></td>
+                <td>
+                  <%= boolean_icon(element.required) %>
+                </td>
+                <td>
+                  <%= boolean_icon(element.unique) %>
+                </td>
+                <td>
+                  <%= boolean_icon(element.display) %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+
+          <tfoot>
+            <tr class='info'>
+              <td class='text-center' colspan="10">
+                <strong><%= t('.operation_description') %></strong>
+                <%= button_tag_with_icon t('.order_save'), class: 'btn btn-primary order-save', icon: 'save', data: {url: change_order_template_elements_path(@template)}, disabled: !(elements.count > 1) %>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">
+          <%= t('shared.close') %>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      var child_sort_table = new ChildSortTable("#child-element > tbody", "element")
+    })
+  </script>
+</div>
+

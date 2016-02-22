@@ -1,0 +1,36 @@
+<% if template.service_id.present? %>
+  <% html_id = "element_source_id_#{element.id}" %>
+  <% templates = template.same_service_templates(false).displayables(current_user).order(:display_number).to_a %>
+  <%= select_tag :element_source_id,
+    options_for_select(templates.map{|t| [t.name, t.id]}, element.try(:source_id)),
+    name: "template[elements_attributes][#{child_index}][source_id]",
+    class: 'form-control vocabulary-select static-tooltip-description',
+    id: html_id,
+    data: {
+      toggle: "tooltip",
+      placement: "top",
+      'original-title' => t('.source_id_title')
+    }
+  %>
+
+  <div id="select-other-element-<%= element.id %>">
+    <% source_template = element.try(:input_type_template?) ? element.source : nil %>
+    <%= render '/templates/elements/settings_forms/elements/source_element_id_select_form', template: source_template.blank? ? templates.first : source_template, element: element, child_index: child_index %>
+  </div>
+
+  <%= render "/templates/elements/settings_forms/elements/data_input_way_form", element: element, input_type: input_type, child_index: child_index %>
+
+  <script>
+    $(document).ready(function(){
+      $('.static-tooltip-description').tooltip()
+
+      $('#<%= html_id %>').on('change', function(){
+        $.get("<%= select_other_element_form_template_elements_path(template, dir: "settings_forms", target: "#select-other-element-#{element.id}", child_index: child_index, format: :js) %>", {
+          id: "<%= element.try(:id) %>",
+          reference_template_id: $(this).val()
+        });
+      })
+    })
+  </script>
+<% end %>
+

@@ -1,0 +1,42 @@
+<% elements.each do |element| %>
+  <% @idx += 1 %>
+  <% children = element.children.includes(:input_type, :regular_expression) %>
+
+  <tr class="<%= editable && (element.available? && element.ancestor_available?) ? 'movable' : 'disabled'%>" data-tt-id="<%= @idx %>" data-tt-parent-id="<%= tt_parent_id %>" data-element-id="<%= element.id %>" data-callback-url="<%= move_template_element_path(template, element) %>">
+    <td style="white-space: nowrap">
+      <% if editable %>
+        <span class='element-name'><%= element.name %></span>
+      <% else %>
+          <%= element.name %>
+      <% end %>
+    </td>
+    <td><%= element.input_type_label if children.blank? %></td>
+    <td><%= none_text(element.regular_expression.try(:name)) if children.blank? %></td>
+    <td><%= none_text(element.max_digit_number) if children.blank? %></td>
+    <td><%= none_text(element.min_digit_number) if children.blank? %></td>
+    <td>
+      <%= boolean_icon(element.required, Element.human_attribute_name(:required)) if children.blank? %>
+    </td>
+    <td>
+      <%= boolean_icon(element.unique, Element.human_attribute_name(:unique)) if children.blank? %>
+    </td>
+    <td>
+      <%# 祖先が「使用しない」場合は、自身が「使用する」であってもデータ入力できないため、表示上「使用しない」とする %>
+      <%= boolean_icon(element.available && element.ancestor_available?, Element.human_attribute_name(:available))  %>
+    </td>
+    <td>
+      <%= boolean_icon(element.display, Element.human_attribute_name(:display)) if children.blank? %>
+    </td>
+    <td style="white-space: nowrap">
+      <% if editable %>
+        <%= link_to_with_icon t('shared.show'), template_elements_path(template, id: element), class: 'btn btn-primary show-link btn-sm', remote: true, icon: 'info-sign' %>
+        <%# 祖先が「使用しない」になっている場合実質入力に使われないため、編集出来ないようにしている %>
+        <%= link_to_with_icon t('shared.edit'), edit_template_element_path(template, element), class: 'btn btn-primary btn-sm', icon: 'edit', disabled: !element.ancestor_available? %>
+        <%= link_to_destroy template_element_path(template, element), class: 'btn-sm' %>
+      <% end %>
+    </td>
+  </tr>
+  <% if children.present? %>
+    <%= render 'list_row', template: template, elements: children, tt_parent_id: @idx, editable: editable %>
+  <% end %>
+<% end %>

@@ -1,0 +1,75 @@
+<%= render partial: "/templates/maps/shown_modal_script" %>
+<%= error_messages_for(@template_record) %>
+
+<% elements.each.with_index(1) do |element, index| %>
+  <div class="row input-data-table">
+    <% if element.namespace? %>
+      <% if element.multiple_input?  %>
+        <% element_values = @template_record.record_values(@template).select{|v|v.repeat_element_id == element.id}.group_by(&:item_number) %>
+        <% if element_values.present?  %>
+          <% element_values.each.with_index(1) do |(item_number, values), index| %>
+            <div id="namespace_fields_<%= element.id %>_<%= index %>">
+              <%= render partial: "/templates/records/namespace_form", locals: {element: element, element_values: values, item_number: item_number, index: index} %>
+            </div>
+          <% end %>
+        <% else %>
+          <div id="namespace_fields_<%= element.id %>_1">
+            <%= render partial: "/templates/records/namespace_form", locals: {element: element, element_values: [], item_number: 1, index: 1} %>
+          </div>
+        <% end %>
+      <% else %>
+        <div id="namespace_fields_<%= element.id %>_1">
+          <%= render partial: "/templates/records/namespace_form", locals: {element: element, element_values: element_values, item_number: 1, index: 1} %>
+        </div>
+      <% end %>
+    <% else %>
+      <% values = @template_record.record_values_by_element(element, @template).select{|v|v.item_number == 1} %>
+      <%= render partial: "/templates/records/element_form", locals: {element: element, element_values: values, item_number: 1}  %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= render partial: "/shared/map_script" %>
+
+<script>
+  // 都道府県セレクト変更時
+  $(document).on("change", '.pref_id_select', function(e){
+    var uniq_id = $(this).data("uniq_id")
+    $.get('<%= main_app.search_city_id_select_template_maps_path %>', {uniq_id: uniq_id, pref_id: $(this).val()},  function(render_html){
+      $("#city_select_" + uniq_id).html(render_html);
+    });
+  });
+
+
+  // 検索ボタン押下時
+  $(document).on("click", '.address_btn', function(e){
+    var uniq_id = $(this).data("uniq_id")
+    var pref_id = $("#pref_id_" + uniq_id).val()
+    var city_id = $("#city_id_" + uniq_id).val()
+    var address = $("#address_" + uniq_id).val()
+    $.ajax({
+      type: "post",
+      url: "<%= main_app.search_address_location_template_maps_path %>",
+      data: "uniq_id=" + uniq_id + "&pref_id=" + pref_id + "&city_id=" + city_id + "&address=" + address
+    });
+    return false
+  });
+
+  $(document).on("click", '[rel=ajax-popover]', function(e){
+    var e=$(this);
+    var field = $("#" + e.data("desc-field"))
+    if (field.attr("data-popover-status") == "show"){
+      field.attr("data-popover-status", "hide")
+      field.popover('hide');
+    }else{
+      var element_name = e.data("element-name")
+      var title = element_name + '<button id="' + field.attr("id") + '_desc_close" type="button" class="close pull-right" aria-hidden="true">&times;</button>'
+      field.attr("data-popover-status", "show")
+      //e.unbind('click');
+      $.get(e.data('url'),function(d) {
+        field.popover({title: title, content: d, html: true, placement: "bottom", trigger: "manual"}).popover('show');
+      });
+    }
+  });
+
+</script>

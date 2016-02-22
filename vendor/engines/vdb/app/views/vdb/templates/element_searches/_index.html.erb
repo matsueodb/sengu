@@ -1,0 +1,40 @@
+<div id="vocabulary-search-index" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title') %></h4>
+      </div>
+      <div class="modal-body">
+        <%= alert_tag(type: :info){t('.description')} %>
+        <%= form_for(template_element_search, url: search_template_element_searches_path, html: {class: 'form-inline ajax-loading-display'}, remote: true) do |f| %>
+          <%= hidden_field_tag :inline, true %>
+
+          <div class="form-group">
+            <%= f.text_field :name, class: 'form-control col-lg-6', placeholder: TemplateElementSearch.human_attribute_name(:name), autofocus: true %>
+          </div>
+
+          <label class="checkbox-inline">
+            <%= f.radio_button :domain_id, TemplateElementSearch::CORE_ID, checked: true %>
+            <%= t('.core_search') %>
+          </label>
+
+          <label class="checkbox-inline">
+            <%= f.radio_button :domain_id, TemplateElementSearch::DOMAIN_ID %>
+            <%= t('.domain_search') %>
+          </label>
+          <%= button_tag_with_icon t('shared.search'), class: 'btn btn-primary', icon: 'search' %>
+        <% end %>
+
+        <br />
+
+        <div id="vocabulary-search-result">
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

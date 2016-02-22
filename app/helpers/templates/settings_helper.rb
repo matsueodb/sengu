@@ -1,0 +1,2 @@
+module Templates::SettingsHelper
+end

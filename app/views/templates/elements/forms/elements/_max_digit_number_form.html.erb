@@ -1,0 +1,6 @@
+<div class="form-group">
+  <%= label_tag :element_max_digit_number, Element.human_attribute_name(:max_digit_number), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= number_field_tag :element_max_digit_number, element.max_digit_number_before_type_cast, name: 'element[max_digit_number]', class: 'form-control static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.max_digit_number_title')}, min: 1, max: 10000 %>
+  </div>
+</div>

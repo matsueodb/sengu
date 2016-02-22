@@ -1,0 +1,24 @@
+<div class="form-group">
+  <%= label_tag :element_source_id, t('.use_vocabulary'), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-5">
+    <% v_els = Vocabulary::Element.pluck(:name, :id) %>
+    <%= select_tag :element_source_id, options_for_select(v_els, element.try(:source_id)), name: 'element[source_id]', class: 'form-control vocabulary-select static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.source_id_title')} %>
+    <%= link_to_with_icon t('.data_confirm'), '#', class: 'btn btn-primary btn-sm data-confirm', remote: true if v_els.present? %>
+  </div>
+</div>
+
+<%= render "templates/elements/forms/elements/data_input_way_form", element: element, input_type: input_type %>
+<%= render "templates/elements/forms/elements/description_form", element: element %>
+<%= render "templates/elements/forms/elements/data_example_form", element: element %>
+<%= render "templates/elements/forms/elements/required_form", element: element %>
+<%= render "templates/elements/forms/elements/unique_form", element: element %>
+
+<script>
+  $(document).ready(function(){
+    $('.static-tooltip-description').tooltip()
+
+    $('#element_source_id').on('change load', function(){
+      $('.data-confirm').attr('href', '<%= vocabulary_values_template_elements_path(template) %>' + '?vocabulary_element_id=' + $(this).val())
+    }).trigger('change');
+  })
+</script>

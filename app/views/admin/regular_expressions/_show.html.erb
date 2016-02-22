@@ -1,0 +1,25 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3><%= t(".title", name: @regular_expression.name) %></h3>
+      </div>
+      <div class="modal-body">
+        <table cellpadding="0" cellspacing="0" border="0" class="table display">
+          <tr>
+            <th><%= t("activerecord.attributes.regular_expression.name") %></th>
+            <td><%= @regular_expression.name %></td>
+          </tr>
+          <tr>
+            <th><%= t("activerecord.attributes.regular_expression.format") %></th>
+            <td><%= @regular_expression.formatted %></td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<%= alert_tag do %>
+  <%= t('.not_found') %>
+<% end %>
+
+<div class="text-center">
+  <%= link_to_with_icon t('.back_service_list'), services_path, class: 'ajax-loading-display btn btn-primary', remote: true, icon: 'list' %>
+</div>

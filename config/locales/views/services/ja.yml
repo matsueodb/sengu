@@ -1,0 +1,59 @@
+ja:
+  services:
+    index:
+      title: サービス一覧
+      new: 新しいサービスの作成
+      template_new: テンプレートの作成
+      private_templates: サービス未登録のテンプレート
+      keyword_placeholder: サービスを検索します
+      manager_description: |
+        サービスの一覧です。
+        サービスに登録されたテンプレートのデータはオープンデータとして公開されます。
+        新しくサービスを作成する場合は、「新しいサービスの作成」を選択して下さい。
+      editor_description: |
+        サービスの一覧です。
+        サービスに登録されたテンプレートのデータはオープンデータとして公開されます。
+      template_list_description: 左側のサービスの一覧からサービスを選択してください。
+      own_section: 自所属のサービス
+      other_section: 他の所属のサービス
+    new:
+      title: 新しいサービスの作成
+    show:
+      title: サービス詳細
+    edit:
+      title: サービスの編集
+    form:
+      back: サービス一覧へ戻る
+    create:
+      title: 新しいサービスの作成
+      success: 作成に成功しました
+    update:
+      success: 更新に成功しました
+      title: サービスの編集
+    destroy:
+      success: 削除に成功しました
+      failure_exists_template: このサービスにはテンプレートが存在するため削除出来ません
+    template_list:
+      template_new_in_service: このサービス内にテンプレートを作成する
+      template_list: "「%{service_name}」に登録されているテンプレート一覧"
+      no: No
+      name: 名前
+      data_count: データ件数
+      operator: 操作
+      extension_template: 拡張
+      nothing_templates: このサービスに登録されているテンプレートはありません。
+      service_edit: サービスの編集
+      service_destroy: サービスの削除
+      template_change_order: テンプレートの並び替え
+    list:
+      next: 次へ
+      previous: 前へ
+      nothing_service_for_other:  |
+        サービスがありません。
+      nothing_service_for_manager:  |
+        サービスがありません。
+        サービスの作成を行うには、
+        「新しいサービスの作成」を選択して下さい。
+    not_found:
+      not_found: サービスが見つかりませんでした
+      back_service_list: サービスの一覧へ戻る

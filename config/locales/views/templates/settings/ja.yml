@@ -1,0 +1,62 @@
+ja:
+  templates:
+    settings:
+      set_confirm_entries:
+        title: 【%{template_name}】登録内容の確認設定
+        description: |
+          「１行入力」の項目の中から「登録内容を確認する」ボタンを設定したいものをチェックしてください。
+          「登録内容を確認する」ボタンを押下すると、設定した項目に登録されているデータを確認することができます。
+        caption: テンプレート項目一覧
+        item_name: 項目名
+        item_description: 項目説明
+        operation: 操作
+        extension_field: 拡張したフィールド
+        setting: 設定する
+        save: 保存
+      update_set_confirm_entries:
+        success: 保存に成功しました。
+        failed: 保存に失敗しました。
+      set_location_group: &set_location_group
+        title: 【%{template_name}】位置情報項目グループ設定
+        description: |
+          グループ化された項目はデータ入力時に住所検索を行ったときに、
+          同一の位置情報がセットされます。
+        set_group_description: |
+          グループに登録したい項目をドラッグ＆ドロップで移動してください。
+        add_group: グループを追加
+        group_list: グループ一覧
+      element_group:
+        caption: テンプレート項目一覧
+        item_name: 項目名
+        item_description: 項目説明
+        extension_field: 拡張したフィールド
+        setting: 設定する
+        save: 保存
+        submit: チェックした項目をグループ化する
+        default_group: グループ未設定
+      update_set_location_group:
+        success: "%{element_name}を%{group_name}に移動しました。"
+        failed: 保存に失敗しました。
+        default_group: グループ未設定
+      edit_location_group:
+        <<: *set_location_group
+        title: 【%{template_name}】位置情報項目グループ名編集
+        edit_group: グループ編集
+      create_location_group:
+        title: 【%{template_name}】位置情報項目グループ設定
+        success: 登録しました。
+      update_location_group:
+        title: 【%{template_name}】位置情報項目グループ設定
+        success: 更新しました。
+      set_data_input_way:
+        title: 【%{template_name}】関連データ入力方法変更
+        description: |
+          データの登録画面でデータを入力するときの、入力方法の変更を行います。
+          入力方法の変更をしたい項目のプルダウンを選択すると入力方法が更新されます。
+        item_name: 項目名
+        data_input_way: 入力方法
+        item_description: 項目説明
+      update_set_data_input_way:
+        success: "%{column}の入力方法を%{val}に変更しました"
+        failed: 変更出来ませんでした。
+        invalid_params: パラメータが不正です。

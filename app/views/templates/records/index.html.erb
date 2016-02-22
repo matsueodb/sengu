@@ -1,0 +1,18 @@
+<% content_for(:page_title) { page_title(template_name: @template.name) } %>
+
+<%= link_to_with_icon(t("shared.new"), new_template_record_path(template_id: @template.id), class: "btn btn-primary", icon: "plus-sign",
+ data: {no_turbolink: true}) %>
+<%= link_to_with_icon(t(".import_csv"), import_csv_form_template_records_path(template_id: @template.id), class: 'btn btn-primary', icon: "upload") %>
+<%= link_to_with_icon(t(".back_to_top", template_name: @template.name), services_path(id: @template.service_id), class: "btn btn-warning", icon: "circle-arrow-left") %>
+<div id="pagination_list">
+  <%= render partial: "list", locals: {table_id: "data-table", template: @template, records: @template_records, elements: @elements, operator: true} %>
+</div>
+
+
+
+<%= render partial: "/templates/maps/shown_modal_script" %>
+<%= render partial: "/shared/map_script" %>
+
+<script>
+  var gMapsLoaded = false;
+</script>

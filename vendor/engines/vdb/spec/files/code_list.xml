@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<apiresponse>
+<xsd:schema xmlns:codes="http://meti.go.jp/imi/codes/0.8" xmlns:dm="http://meti.go.jp/imi/domains/disasterManagement/0.8" xmlns:i="http://niem.gov/niem/appinfo/2.0" xmlns:ic="http://meti.go.jp/imi/imi-core/0.8" xmlns:imi-info="http://goikiban.ipa.go.jp/imi/appinfo/1.0" xmlns:iso_3166="http://niem.gov/niem/iso_3166/2.0" xmlns:iso_4217="http://niem.gov/niem/iso_4217/2.0" xmlns:iso_639-3="http://niem.gov/niem/iso_639-3/2.0" xmlns:nga="http://niem.gov/niem/nga/2.0" xmlns:niem-xsd="http://niem.gov/niem/proxy/xsd/2.0" xmlns:s="http://niem.gov/niem/structures/2.0" xmlns:twpdes="http://niem.gov/niem/twpdes/2.0" xmlns:unece="http://niem.gov/niem/unece_rec20-misc/2.0" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://meti.go.jp/imi/imi-core/0.8"><xsd:import namespace="http://niem.gov/niem/unece_rec20-misc/2.0" schemaLocation="./unece_rec20-misc/2.0/unece_rec20-misc.xsd"/><xsd:import namespace="http://niem.gov/niem/proxy/xsd/2.0" schemaLocation="./proxy/xsd/2.0/xsd.xsd"/><xsd:import namespace="http://niem.gov/niem/nga/2.0" schemaLocation="./nga/2.0/nga.xsd"/><xsd:import namespace="http://niem.gov/niem/iso_4217/2.0" schemaLocation="./iso_4217/2.0/iso_4217.xsd"/><xsd:import namespace="http://meti.go.jp/imi/codes/0.8" schemaLocation="./codes/0.8/codes.xsd"/><xsd:import namespace="http://niem.gov/niem/iso_639-3/2.0" schemaLocation="./iso_639-3/2.0/iso_639-3.xsd"/><xsd:import namespace="http://niem.gov/niem/iso_3166/2.0" schemaLocation="./iso_3166/2.0/iso_3166.xsd"/><xsd:import namespace="http://niem.gov/niem/structures/2.0" schemaLocation="./structures/2.0/structures.xsd"/><xsd:import namespace="http://niem.gov/niem/twpdes/2.0" schemaLocation="./twpdes/2.0/twpdes.xsd"/>
+  <xsd:complexType name="衣服種類1コード型">
+    <xsd:annotation>
+      <xsd:documentation xml:lang="ja">1：衣服上、2：衣服下</xsd:documentation>
+      <xsd:documentation xml:lang="en"/>
+      <xsd:appinfo/>
+    </xsd:annotation>
+    <xsd:simpleContent>
+      <xsd:extension base="mlod:衣服種類1コード単純型"/>
+    </xsd:simpleContent>
+  </xsd:complexType>
+  <xsd:simpleType name="衣服種類1コード単純型">
+    <xsd:annotation> 
+      <xsd:documentation xml:lang="ja">        1：衣服上、2：衣服下      </xsd:documentation>
+      <xsd:documentation xml:lang="en"/>
+      <xsd:appinfo/>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:token">
+      <xsd:enumeration value="1">
+        <xsd:annotation>
+          <xsd:documentation>            衣服上          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="2">
+        <xsd:annotation>
+          <xsd:documentation>            衣服下          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>
+</apiresponse>

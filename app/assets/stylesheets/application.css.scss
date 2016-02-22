@@ -1,0 +1,126 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require jquery.ui.datepicker
+ *= require_self
+ *= require jquery.treetable
+ *= require jquery.treetable.theme.default
+ *= require_tree .
+ *= stub "layouts/template_elements"
+ *= stub "layouts/template_records"
+ */
+
+$table-bg-hover: #FFEFD5;
+
+@import "twitter/bootstrap";
+
+@media print {
+  #map_canvas {
+    display: none;
+  }
+}
+
+.wizard {
+  padding-left: 10px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  div.wizard-child {
+    padding: 12px 12px 10px 12px;
+    margin-right:5px;
+    background:#efefef;
+    position:relative;
+    display:inline-block;
+
+    &:before{
+      width:0px;
+      height:0px;
+      border-top: 20px inset transparent;
+      border-bottom: 20px inset transparent;
+      border-left: 20px solid #fff;
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+    }
+
+    &:after{
+      width:0px;
+      height:0px;
+      border-top: 20px inset transparent;
+      border-bottom: 20px inset transparent;
+      border-left: 20px solid #efefef;
+      position: absolute;
+      content: "";
+      top: 0;
+      right: -20px;
+      z-index:2;
+    }
+    &:first-child{
+      -moz-border-radius: 4px 0 0 4px;
+      -webkit-border-radius: 4px 0 0 4px;
+      border-radius:   4px 0 0 4px;
+      &:before{border:none;}
+      .badge {margin-left:0;}
+    }
+    &:last-child{
+      -moz-border-radius: 0 4px 4px 0;
+      -webkit-border-radius: 0 4px 4px 0;
+      border-radius:   0 4px 4px 0;
+      &:after {border:none;}
+    }
+  }
+
+  .badge{margin:0 5px 0 18px; position:relative; top:-1px;}
+  div.current {
+    background:#007ACC;
+    color:#fff;
+    &:after {border-left-color:#007ACC;}
+  }
+}
+
+#loading{
+  background-color: black;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 1050;
+  background: rgba(255, 255, 255, 0.5);
+  display: none;
+}
+
+#loading-img{
+  left: 50%;
+  top: 50%;
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+}
+
+/* PC画面でも横スクロール化 */
+.table-responsive.overflow{
+  overflow-x: auto;
+}
+
+.boolean_icon{
+ font-size: 200%
+}
+
+body{
+  padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+  > div.container{
+    padding-top: 10px;
+  }
+}
+

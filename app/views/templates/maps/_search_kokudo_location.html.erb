@@ -1,0 +1,44 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal">&times;</a>
+      <h3><%= t(".title") %></h3>
+      <%= t(".description") %>
+    </div>
+    <div class="modal-body">
+      <% if @map %>
+        <div id="kokudo_map" name="kokudo_map" style="width: 950px;height:400px;float:left;"></div>
+        <div style="clear: both"></div>
+        <%= render partial: "kokudo_script" %>
+      <% else %>
+        <%= t(".no_search_data") %>
+      <% end %>
+    </div>
+    <div class="modal-footer form-horizontal">
+      <div class="form-group">
+        <%= label_tag :latitude, t(".latitude") + "：", class: "col-sm-1 control-label" %>
+        <div class="col-sm-3">
+          <%= text_field_tag :latitude, @map.try(:latitude), id: "search_kokudo_latitude", class: "form-control" %>
+        </div>
+        <%= label_tag :longitude, t(".longitude") + "：", class: "col-sm-1 control-label" %>
+        <div class="col-sm-3">
+          <%= text_field_tag :longitude, @map.try(:longitude), id: "search_kokudo_longitude", class: "form-control" %>
+        </div>
+        <div class="col-sm-4">
+          <% if @map %>
+            <%= link_to(t(".insert_after_close"), '#', "data-dismiss" => "modal", onclick: "setKOKUDOGeo();return false;", class: "btn btn-primary") %>
+          <% end %>
+          <a class="btn btn-primary" data-dismiss="modal"><%= t("shared.close") %></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// 緯度、経度の初期セット
+function setKOKUDOGeo(){
+  $("#<%= @map.latitude_id %>").val($("#search_kokudo_latitude").val())
+  $("#<%= @map.longitude_id %>").val($("#search_kokudo_longitude").val())
+}
+</script>

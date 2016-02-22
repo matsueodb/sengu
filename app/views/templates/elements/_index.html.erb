@@ -1,0 +1,75 @@
+<table id="elements" class='table table-hover'>
+  <caption><%= t('.caption') %></caption>
+  <thead>
+    <tr>
+      <th><%= Element.human_attribute_name(:name) %></th>
+      <th><%= Element.human_attribute_name(:input_type_id) %></th>
+      <th><%= Element.human_attribute_name(:regular_expression_id) %></th>
+      <th><%= Element.human_attribute_name(:max_digit_number) %></th>
+      <th><%= Element.human_attribute_name(:min_digit_number) %></th>
+      <th><%= Element.human_attribute_name(:required) %></th>
+      <th><%= Element.human_attribute_name(:unique) %></th>
+      <th><%= Element.human_attribute_name(:available) %></th>
+      <th><%= Element.human_attribute_name(:display) %></th>
+      <th><%= t('.operation') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @idx = 1 %>
+    <% if template.extension? %>
+      <tr class='template success' data-tt-id="<%= @idx %>">
+        <td class='text-left' colspan="8">
+          <%= t('.extension_field') %>
+          <p class='text-info pull-right'><%= t('.extension_field_description') %></p>
+        </td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <%= render 'list_row',
+        template: template,
+        elements: template.parent.elements.root,
+        tt_parent_id: @idx,
+        editable: false
+      %>
+      <% @idx += 1 %>
+    <% end %>
+
+    <tr class='template movable' data-tt-id="<%= @idx %>">
+      <td class='text-left' colspan="7">
+        <%= t('.field') %>
+        <p class='text-info pull-right'><%= t('.operation_description') %></p>
+      </td>
+      <td></td>
+      <td>
+        <%= link_to_with_icon t('shared.show'), template_elements_path(template), class: 'btn btn-primary show-link btn-sm', remote: true, icon: 'info-sign' %>
+      </td>
+    </tr>
+
+    <%= render 'list_row',
+      template: template,
+      elements: template.elements.root,
+      tt_parent_id: @idx,
+      editable: true
+    %>
+  </tbody>
+</table>
+
+<script>
+  tree_table = new TemplateElementTreeTable("#elements")
+  tree_table.setClickActive()
+  tree_table.setDroppable('.element-name');
+
+  $(".element-name").draggable({
+    helper: "clone",
+    opacity: .75,
+    refreshPositions: true,
+    revert: "invalid",
+    revertDuration: 300,
+    scroll: true
+  });
+
+  $('.tooltip-description').tooltip()
+</script>
+

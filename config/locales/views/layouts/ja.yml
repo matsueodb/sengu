@@ -1,0 +1,17 @@
+ja:
+  layouts:
+    navbar:
+      menus:
+        admin_menu:
+          title: 管理メニュー
+        edit_password:
+          title: パスワード編集
+        service:
+          title: "サービス管理"
+        section_user:
+          title: "所属/ユーザ管理"
+        code_list:
+          title: コードリスト管理
+        regular_expression:
+          title: "入力値制限マスタ管理"
+

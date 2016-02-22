@@ -1,0 +1,53 @@
+ja:
+  user_maintenance:
+    sections:
+      users:
+        index:
+          title: 【%{section_name}】ユーザ管理
+          inherit_data: "データの引き継ぎ"
+          user_group: "ユーザグループ管理"
+          back_to_section: 【%{section_name}】詳細へ戻る
+        list:
+          list: ユーザ一覧
+          no: "No"
+          operator: "操作"
+        show:
+          title: 【%{user_name}】：詳細
+        new:
+          title: 【%{section_name}】ユーザ登録
+        edit:
+          title: 【%{section_name}】ユーザ編集
+        create:
+          title: 【%{section_name}】ユーザ登録
+        update:
+          title: 【%{section_name}】ユーザ編集
+        destroy:
+          complete: ユーザを削除しました。
+          failed_has_rdf_data: |
+            ユーザを削除することができませんでした。
+            ユーザデータの引き継ぎ機能からデータを他のユーザに引き継がせてください。
+        form:
+          alerts:
+            do_not_change_password_do_not_enter: |
+              パスワードを変更しない場合は、「パスワード」、「パスワード（確認用）」を入力しないでください。
+        inherit_data_form:
+          title: ユーザデータの引き継ぎ
+          from: "引き継ぎ基ユーザ"
+          to: "引き継ぎ先ユーザ"
+          description: |
+            「%{from}」のデータを「%{to}」に引き継がせます。
+            テンプレートに登録したデータが引き継がれます。
+          submit:
+            inherit: "引き継ぎ"
+            confirm: "引き継ぎ処理を行います。よろしいですか？"
+        inherit_data:
+          title: ユーザデータの引き継ぎ
+          complete: "データの引き継ぎに成功しました"
+          failed: "データの引き継ぎに失敗しました"
+          the_same_user_has_been_set: "引き継ぎ元と引き継ぎ先に同じユーザが選択されています。"
+          invalid_parameter: 不正なパラメータが送られたため引き継ぎ処理に失敗しました。
+        edit_password:
+          title: パスワード編集
+        update_password:
+          title: パスワード編集
+          success: パスワードを変更しました。

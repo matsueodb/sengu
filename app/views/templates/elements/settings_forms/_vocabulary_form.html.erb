@@ -1,0 +1,15 @@
+<% v_els = Vocabulary::Element.pluck(:name, :id) %>
+<%= select_tag :element_source_id, options_for_select(v_els, element.try(:source_id)), id: "element_source_id_#{child_index}", name: "template[elements_attributes][#{child_index}][source_id]", class: 'form-control vocabulary-select static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.source_id_title')} %>
+<%= link_to_with_icon t('.data_confirm'), '#', id: "data-confirm-#{child_index}", class: 'btn btn-primary btn-sm data-confirm', remote: true if v_els.present? %>
+
+<%= render "/templates/elements/settings_forms/elements/data_input_way_form", element: element, input_type: input_type, child_index: child_index %>
+
+<script>
+  $(document).ready(function(){
+    $('.static-tooltip-description').tooltip()
+
+    $('#element_source_id_<%= child_index %>').on('change load', function(){
+      $('#data-confirm-<%= child_index %>').attr('href', '<%= vocabulary_values_template_elements_path(template) %>' + '?vocabulary_element_id=' + $(this).val())
+    }).trigger('change');
+  })
+</script>

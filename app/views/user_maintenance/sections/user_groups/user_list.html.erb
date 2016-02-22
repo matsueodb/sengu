@@ -1,0 +1,14 @@
+<% content_for(:page_title){ page_title(section_name: @section.name, group_name: @user_group.name) } %>
+<div class="row">
+  <div class="col-sm-12">
+    <div class="text-right">
+      <%= link_to_with_icon t(".back_to_user_group", section_name: @section.name, group_name: @user_group.name), section_user_group_path(@user_group, section_id: @section.id), class: "btn btn-warning", icon: "circle-arrow-left" %>
+    </div>
+  </div>
+</div>
+<br />
+
+<div id="pagination_list">
+  <%= render partial: "user_list", locals: {users: @users} %>
+</div>
+

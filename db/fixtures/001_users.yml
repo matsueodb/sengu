@@ -1,0 +1,9 @@
+super_user:
+  id: 1
+  login: "super_user"
+  name: "管理者"
+  remarks: "管理者です。"
+  authority: <%= User.authorities[:admin] %>
+  password: "super_user"
+  password_confirmation: "super_user"
+  section_id: 1

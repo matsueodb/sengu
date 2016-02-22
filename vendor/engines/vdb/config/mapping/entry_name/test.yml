@@ -1,0 +1,293 @@
+#
+#= パイロットシステムから取得したデータに入力制限や、入力タイプ、コードリストをマッピングする
+#
+#=== 書き方
+#
+# "エントリーネーム":
+#   input_type: 入力タイプのラベル(ラベルはfixtureのラベルで、Rails.root/db/fixtures/003_input_types.ymlで確認できる)
+#   regular_expression: 入力制限のラベル(ラベルはfixtureのラベルで、Rails.root/db/fixtures/002_regular_expressions.ymlで確認できる)
+#   code_list: コードリストのラベル(ラベルはfixtureのラベルで、Vdb::Engine.root/db/fixtures/vocabulary/006_elements.ymlで確認できる)
+#   max_digit_number: 最大桁数
+#   min_digit_number: 最小桁数
+#   unique: ユニーク(true or false)
+#   required: 必須項目(true or false)
+#   data_example: データ例
+
+'ic:緯度型':
+  input_type: it_google_location
+
+'ic:経度型':
+  input_type: it_google_location
+
+'ic:カタカナテキスト':
+  regular_expression: katakana
+
+'ic:日付_日付表記':
+  input_type: it_dates
+  data_example: 2014-05-01
+
+#
+#===施設型
+#
+'ic:施設_名称':
+  required: true
+  unique: true
+  data_example: 松江城、松江フォーゲルパーク
+
+'ic:施設_商用区分':
+  input_type: it_pulldown_vocabulary
+  code_list: boolean
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+'ic:施設_種別':
+  required: true
+
+'ic:施設_概要':
+  input_type: it_multi_line
+  required: true
+  data_example: 松江城は、....
+
+#
+#=== カタカナテキスト型
+#
+'ic:カタカナテキスト':
+  required: true
+  regular_expression: katakana
+
+#
+#=== 構造化住所型
+#
+'ic:構造化住所_都道府県':
+  required: true
+  regular_expression: zenkaku
+  data_example: 島根県
+
+'ic:構造化住所_市区町村':
+  required: true
+  regular_expression: zenkaku
+  data_example: 松江市
+
+'ic:構造化住所_町名':
+  required: true
+  regular_expression: zenkaku
+  data_example: 学園南
+
+'ic:構造化住所_丁目':
+  regular_expression: number
+  data_example: 2
+
+'ic:構造化住所_番地':
+  required: true
+  regular_expression: number
+  data_example: 12
+
+'ic:構造化住所_号':
+  regular_expression: number
+  data_example: 5
+
+'ic:構造化住所_郵便番号':
+  input_type: it_line
+  regular_expression: number
+  max_digit_number: 7
+  required: true
+
+#
+#=== 観光施設営業日付型
+#
+'mlod:観光施設営業日付型':
+  multiple_input: true
+
+'mlod:観光施設営業日付_営業ケース':
+  required: true
+  data_example: 松江城本丸への入場、夏期、春
+
+'mlod:観光施設営業日付_営業開始時間':
+  input_type: it_times
+
+'mlod:観光施設営業日付_営業終了時間':
+  input_type: it_times
+
+#
+#=== 観光施設定休日型
+#
+'mlod:観光施設定休日型':
+  multiple_input: true
+
+'mlod:観光施設定休日_定休日・閉館日':
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+#
+#=== 観光施設定休日曜日型
+#
+'mlod:観光施設定休日曜日型':
+  multiple_input: true
+
+'mlod:観光施設定休日曜日_定休日曜日':
+  input_type: it_checkbox_vocabulary
+
+#
+#=== 観光施設料金型
+#
+'mlod:観光施設料金型':
+  multiple_input: true
+
+'mlod:観光施設料金_料金種別':
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+'mlod:観光施設料金_人数種別':
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+'mlod:観光施設料金_人数条件':
+  data_example: 20名以上
+
+'mlod:観光施設料金_年齢種別':
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+'mlod:観光施設料金_金額':
+  regular_expression: number
+  data_example: 1000, 500
+
+'mlod:観光施設料金_その他':
+  input_type: it_multi_line
+  data_example: 抹茶は400円〜。団体は30名で1割引
+
+#
+#=== 観光施設アクセス型
+#
+'mlod:観光施設アクセス型':
+  multiple_input: true
+
+'mlod:観光施設アクセス_アクセス方法':
+  input_type: it_multi_line
+
+'mlod:観光施設アクセス_緯度':
+  input_type: it_google_location
+
+'mlod:観光施設アクセス_経度':
+  input_type: it_google_location
+
+#
+#=== 連絡先型
+#
+'ic:連絡先_名称':
+  data_example: 松江城山公園管理事務所
+
+'ic:連絡先_電話番号':
+  regular_expression: phone_number
+  data_example: 0852-21-4030
+
+'ic:連絡先_内線番号':
+  regular_expression: phone_number
+
+'ic:連絡先_FAX番号':
+  regular_expression: phone_number
+
+'ic:連絡先_携帯電話番号':
+  regular_expression: mobile_phone_number
+
+'ic:連絡先_URL':
+  name: 連絡先URL
+  data_example: http://www.matsue-tourism.or....
+
+#
+#=== ファイル型
+#
+'mlod:ファイル型':
+  multiple_input: true
+
+'mlod:ファイル_ファイル名':
+  data_example: 松江城の外観画像
+
+#
+#=== 活動型
+#
+'ic:活動_活動名':
+  data_example: だんだん食フェスタ
+  required: true
+
+'ic:活動_説明':
+  input_type: it_multi_line
+  required: true
+  data_example: だんだん食フェスタは、....
+
+#
+#=== 歴史情報型
+#
+'mlod:歴史情報_歴史タイトル':
+  data_example: 松江城築城
+  required: true
+  unique: true
+
+'mlod:歴史情報_歴史詳細':
+  input_type: it_multi_line
+  required: true
+  data_example: 松江城は、堀尾吉晴により...
+
+'mlod:歴史情報_歴史年代':
+  data_example: 弥生時代等
+
+'mlod:歴史情報_年':
+  regular_expression: number
+  data_example: 1607
+
+'mlod:歴史情報_月':
+  regular_expression: number
+  data_example: 7
+
+'mlod:歴史情報_日':
+  regular_expression: number
+  data_example: 2
+
+#
+#=== 座席数型
+#
+'mlod:飲食店座席数_全座席数':
+  required: true
+  data_example: 30
+
+'mlod:飲食店座席数_カウンター':
+  data_example: 5
+
+'mlod:飲食店座席数_座敷':
+  data_example: 2
+
+'mlod:飲食店座席数_個室':
+  data_example: 2
+
+#
+#=== 飲食店営業日時型
+#
+'mlod:飲食店営業日時型':
+  multiple_input: true
+
+'mlod:飲食店営業日時_営業ケース':
+  data_example: 昼、夜
+  required: true
+
+'mlod:飲食店営業日時_営業開始日':
+  input_type: it_dates
+
+'mlod:飲食店営業日時_営業終了日':
+  input_type: it_dates
+
+'mlod:飲食店営業日時_営業開始時間':
+  required: true
+  input_type: it_times
+
+'mlod:飲食店営業日時_営業終了時間':
+  input_type: it_times
+
+'mlod:飲食店営業日時_ラストオーダー':
+  input_type: it_times
+
+#
+#=== URL型
+#
+'mlod:URL':
+  data_example: 'http://www.....'
+
+#
+#=== メールアドレス型
+#
+'mlod:メールアドレス':
+  data_example: test@example.com

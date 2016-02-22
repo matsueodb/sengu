@@ -1,0 +1,59 @@
+<% label_value = values.detect{|v|v.element_id == element.id && v.item_number == item_number && v.kind == ElementValue::KINDS[:upload_file][:label]} %>
+<% file_value = values.detect{|v|v.element_id == element.id && v.item_number == item_number && v.kind == ElementValue::KINDS[:upload_file][:file]} %>
+<% label_disabled = !label_value.editable_on?(@template) if label_value %>
+<% file_disabled = !file_value.editable_on?(@template) if file_value %>
+<% label_field_name = "template_record[#{element.id}][#{item_number}][#{ElementValue::KINDS[:upload_file][:label]}]" %>
+<% file_field_name = "template_record[#{element.id}][#{item_number}][#{ElementValue::KINDS[:upload_file][:file]}]" %>
+
+<% disabled = label_disabled || file_disabled %>
+
+<div class="row" id="<%= "input_form_#{element.id}_#{item_number}" %>">
+  <div class="control-group">
+    <div class="col-sm-9" id="element<%= element.id %>_<%= item_number %>_description_field">
+      <div class="col-sm-2">
+        <p class="form-control-static"><%= t(".label") %></p>
+      </div>
+      <div class="col-sm-4">
+        <%= hidden_field_tag "#{label_field_name}[id]", label_value.try(:id) if label_value %>
+        <%= hidden_field_tag "#{label_field_name}[content_id]", label_value.try(:content_id) %>
+        <%= hidden_field_tag "#{label_field_name}[template_id]", label_value ? label_value.try(:template_id) : @template.id %>
+        <%= text_field_tag "#{label_field_name}[value]", label_value.try(:value), placeholder: element.data_example, disabled: label_disabled, class: "form-control" %>
+      </div>
+
+      <div class="col-sm-2">
+        <p class="form-control-static"><%= t(".file") %></p>
+      </div>
+      <div class="col-sm-4">
+        <%= hidden_field_tag "#{file_field_name}[content_id]", file_value.try(:content_id) %>
+        <%= hidden_field_tag "#{file_field_name}[template_id]", file_value ? file_value.try(:template_id) : @template.id %>
+        <p class="form-control-static">
+          <%= file_field_tag "#{file_field_name}[upload_file]", disabled: file_disabled %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<% if file_value && file_value.persisted? %>
+  <div class="row">
+    <div class="control-group">
+      <div class="col-sm-9">
+        <div class="col-sm-4">
+          <p class="form-control-static"><%= t(".uploaded_file") %></p>
+        </div>
+        <div class="col-sm-4">
+          <p class="form-control-static">
+            <%= hidden_field_tag "#{file_field_name}[id]", file_value.try(:id) %>
+            <%= hidden_field_tag "#{file_field_name}[value]", file_value.try(:value) %>
+            <%= link_to file_value.formatted_value, download_file_template_record_path(@template_record.id, template_id: @template.id, element_value_id: file_value.id) %>
+          </p>
+        </div>
+        <div class="col-sm-4">
+          <label class="checkbox-inline">
+            <%= check_box_tag "#{file_field_name}[_destroy]", "1", false  %>
+            <%= t(".destroy_file") %>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

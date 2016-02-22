@@ -1,0 +1,123 @@
+<script type="text/javascript">
+  var osmap;
+  var projection3857 = new OpenLayers.Projection("EPSG:3857");
+  var projection4326 =  new OpenLayers.Projection("EPSG:4326");
+  var projection900913 = new OpenLayers.Projection("EPSG:900913");
+  var initZoomLv = 12;
+
+  osmap_lon = '<%= @map.longitude %>'
+  osmap_lat = '<%= @map.latitude %>'
+  osmap_title = '<%= @map.title %>'
+
+  function init(){
+    // Finally we create the map
+    var options = {
+      div: "canvas",
+      projection: projection3857,
+      displayProjection: projection4326
+    };
+    osmap = new OpenLayers.Map(options);
+
+    osmap.addLayer(new OpenLayers.Layer.OSM(), {maxZoomLevel: 17});
+    osm_markers = new OpenLayers.Layer.Markers("Markers");
+    osmap.addLayer(osm_markers);
+
+    osmap.setCenter(new OpenLayers.LonLat(osmap_lon, osmap_lat).transform(projection4326, projection3857), initZoomLv);
+
+    <% if @map.editable? %>
+      OpenLayers.Control.Click = OpenLayers.Class(OpenLayers.Control, {
+          initialize:function(options){
+              OpenLayers.Control.prototype.initialize.apply(this, arguments);
+              this.handler = new OpenLayers.Handler.Click(this,
+                  {'click':this.onClick, 'dblclick':this.onDblClick},
+                  {'single':true, 'double':true, 'pixelTolerance':0, 'stopSingle':false, 'stopDouble':false}
+              );
+          },
+          onClick:function(e) {
+            removeOSMMarkerAndPopup()
+            var lonlat = osmap.getLonLatFromPixel(e.xy);
+            var projection900913 = new OpenLayers.Projection("EPSG:900913");
+            var projection4326 = new OpenLayers.Projection("EPSG:4326");
+            lonlat.transform(projection900913, projection4326);
+            var lon = lonlat.lon
+            var lat = lonlat.lat
+
+            var marker = new OpenLayers.Marker(
+                new OpenLayers.LonLat(lon, lat)
+                    .transform(
+                        new OpenLayers.Projection("EPSG:4326"),
+                        new OpenLayers.Projection("EPSG:900913")
+                    )
+            );
+            osm_markers.addMarker(marker);
+            var msg = "<%= t("latitude") %>: " + lat + "<br /><%= t("longitude") %>" + lon;
+
+            marker.events.register('mousedown', marker, function(evt){
+              selectOSMMarker(lat, lon, msg)
+            });
+            selectOSMMarker(lat, lon, msg)
+
+          }
+      }); //OpenLayers.Control.Click
+
+      var click = new OpenLayers.Control.Click();
+      osmap.addControl(click);
+      click.activate();
+    <% end %>
+
+    var marker = new OpenLayers.Marker(
+      new OpenLayers.LonLat('<%= @map.longitude %>', '<%= @map.latitude %>')
+        .transform(
+            new OpenLayers.Projection("EPSG:4326"),
+            new OpenLayers.Projection("EPSG:900913")
+        )
+    );
+    osm_markers.addMarker(marker);
+
+    marker.events.register('mousedown', marker, function(evt){
+      selectOSMMarker('<%= @map.latitude %>', '<%= @map.longitude %>', '<%= @map.title %>')
+    });
+
+  }
+  
+
+  // A popup with some information about our facility
+  function popup(loc, context) {
+    var pop = new OpenLayers.Popup.FramedCloud("popup",
+      loc.getBounds().getCenterLonLat(), new OpenLayers.Size(300, 200),
+      context, null, true
+    );
+    pop.autoSize = true;
+
+    return pop;
+  }
+
+  function selectOSMMarker(latitude, longitude, msg){
+    // markerを選択
+    var loc = new OpenLayers.Geometry.Point(longitude, latitude).transform("EPSG:4326", "EPSG:900913");
+    // inputに経度、緯度をセット
+    $("#search_osm_latitude").val(latitude)
+    $("#search_osm_longitude").val(longitude)
+    // markerのInfoWindow
+    osmap.addPopup(popup(loc, msg))
+  }
+
+  function removeOSMMarkerAndPopup(){
+    // マーカーとポップアップを削除
+    jQuery.each(osm_markers.markers, function(){
+      osm_markers.removeMarker(this);
+    })
+    jQuery.each(osmap.popups, function(){
+      osmap.removePopup(this);
+    })
+  }
+
+  init();
+
+
+  $(document).on('hidden.bs.modal', '.modal', function(){
+      osmap_lon = null;
+      osmap_lat = null;
+  });
+
+</script>

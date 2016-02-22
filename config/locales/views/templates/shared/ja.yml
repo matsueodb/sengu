@@ -1,0 +1,8 @@
+ja:
+  templates:
+    shared:
+      step_wizard:
+        template_new: テンプレート作成
+        data_select: データ選択
+        element_new: テンプレート項目設定
+        complete: 完了

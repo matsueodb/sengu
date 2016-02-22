@@ -1,0 +1,17 @@
+ja:
+  shared:
+    rdf_form:
+      text:
+        confirmation_of_registration_details: 登録内容を確認
+      location_search_address:
+        address: 住所
+      location:
+        latitude: 緯度
+        longitude: 経度
+        display_map: 地図表示
+      location_with_search_address:
+        latitude: 緯度
+        longitude: 経度
+        display_map: 地図表示
+      check_box:
+        search_and_select: 検索して選択する

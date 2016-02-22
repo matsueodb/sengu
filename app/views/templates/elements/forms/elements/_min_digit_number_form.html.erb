@@ -1,0 +1,6 @@
+<div class="form-group">
+  <%= label_tag :element_min_digit_number, Element.human_attribute_name(:min_digit_number), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= number_field_tag :element_min_digit_number, element.min_digit_number_before_type_cast, name: 'element[min_digit_number]', class: 'form-control static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.min_digit_number_title')}, min: 0, max: 10000 %>
+  </div>
+</div>

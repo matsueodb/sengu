@@ -1,0 +1,24 @@
+<%= content_for(:page_title){ page_title(group_name: @user_group.name, section_name: @section.name) } %>
+
+<%= alert_tag(type: :info){hbr t(".description")} %>
+
+<%= form_for(@user_groups_member_search,
+  url: search_member_section_user_group_path(@user_group, section_id: @section.id),
+  html: {remote: true, method: :post, class: "well form-inline ajax-loading-display"}) do |f| %>
+
+  <div class="form-group">
+    <div class="control-group">
+      <div class="col-sm-2"><%= f.label :login %></div>
+      <div class="col-sm-4"><%= f.text_field :login, class: "form-control", id: "login_form" %></div>
+      <div class="col-sm-2">
+        <%= button_tag_with_icon(t("shared.search"), icon: "search", class: "btn btn-success") %>
+      </div>
+      <div class="col-sm-3">
+        <%= link_to_with_icon t(".back_to_user_group", section_name: @section.name, group_name: @user_group.name), section_user_group_path(@user_group, section_id: @section.id), class: "btn btn-warning", icon: "circle-arrow-left" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<br />
+<div id="search_result">
+</div>

@@ -1,0 +1,82 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+
+<%= form_for(@template, html: {class: 'well form-horizontal', role: 'form'}, url: update_settings_template_elements_path) do |f| %>
+  <%= error_messages_for_nested_elements(@template.elements) %>
+
+  <table id="element-settings" class='table table-hover'>
+    <caption><%= t('.caption') %></caption>
+    <thead>
+      <tr>
+        <th><%= Element.human_attribute_name(:name) %></th>
+        <th><%= Element.human_attribute_name(:input_type_id) %></th>
+        <th><%= Element.human_attribute_name(:required) %></th>
+        <th><%= Element.human_attribute_name(:unique) %></th>
+        <th><%= Element.human_attribute_name(:available) %></th>
+        <th><%= Element.human_attribute_name(:display) %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= f.fields_for :elements, @template.elements.sort_by!{|e| @flat_display_numbers[e.id]} do |e_f| %>
+        <tr data-tt-id="<%= e_f.object.id %>" data-tt-parent-id="<%= e_f.object.parent_id %>">
+          <td class="element-name" style="white-space: nowrap;">
+            <%= e_f.text_field :name, class: 'form-control static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.name_title')}, style: "display: inline" %>
+          </td>
+          <% if e_f.object.children.present? %>
+            <td colspan="3"></td>
+            <td><%= e_f.check_box :available, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.available_title')} %></td>
+            <td></td>
+          <% else %>
+            <td>
+              <%= e_f.select :input_type_id, options_for_select(InputType.order(:id).pluck(:label, :id), selected: e_f.object.input_type_id, disabled: e_f.object.disabled_input_type_ids),
+                {},
+                class: 'form-control template-input-type static-tooltip-description select-input-id',
+                style: "width: 280px;",
+                data: {toggle: "tooltip", placement: "top", 'original-title' => t('.input_type_title')},
+                disabled: e_f.object.data_type && !Element::AVAILABLE_INPUT_TYPE.has_key?(e_f.object.data_type)
+               %>
+              <div id="change-for-input-type-form-<%= e_f.object.id %>-<%= e_f.index %>">
+                <%= render_form_with_input_type(@template, e_f.object, e_f.object.input_type, dir: "settings_forms", child_index: e_f.index) %>
+              </div>
+            </td>
+            <td><%= e_f.check_box :required, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.required_title')} %></td>
+            <td><%= e_f.check_box :unique, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.unique_title')}, disabled: e_f.object.input_type.upload_file? %></td>
+            <td><%= e_f.check_box :available, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.available_title')} %></td>
+            <td><%= e_f.check_box :display, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.display_title')} %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="form-group">
+    <div class="col-lg-offset-0 col-lg-10">
+      <%= button_tag_with_icon t('shared.update'), class: 'btn btn-primary', icon: 'edit' %>
+      <%= link_to_with_icon t('.back_list'), show_elements_template_elements_path(@template), class: 'btn btn-warning', icon: 'circle-arrow-left' %>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  tree_table = new ElementSettingsTreeTable("#element-settings")
+  $('.static-tooltip-description').tooltip()
+
+  $(document).ready(function(){
+    $(".element-name").each(function(){
+      matcher = $(this).find("span").css("padding-left").match(/(\d*)px/);
+      num = parseInt(matcher[1]);
+      $(this).find("input[type=text]").css("width", 340 - num);
+    });
+
+    $('.select-input-id').on('change', function(){
+      target_id = $(this).next().attr("id")
+      matcher = target_id.match(/(\d*)-(\d*)$/);
+      element_id = matcher[1]
+      child_index = matcher[2]
+      path = '/templates/<%= @template.id %>/elements/change_form?id=' + element_id + '&dir=settings_forms&child_index=' + child_index + '&target=%23' + target_id;
+
+      $.get(path, {input_type_id: $(this).val()});
+    })
+  });
+</script>
+

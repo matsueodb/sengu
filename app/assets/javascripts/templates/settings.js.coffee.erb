@@ -1,0 +1,42 @@
+# Place all the behaviors and hooks related to the matching controller here.
+# All this logic will automatically be available in application.js.
+# You can use CoffeeScript in this file: http://coffeescript.org/
+
+$(document).on 'show.bs.collapse', 'div.location_group_panel > div.panel > div.panel-collapse', ->
+  icon_id = $(this).data("icon-id")
+  $("#" + icon_id).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+
+
+$(document).on 'hide.bs.collapse', 'div.location_group_panel > div.panel > div.panel-collapse', ->
+  icon_id = $(this).data("icon-id")
+  $("#" + icon_id).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+
+
+class @SortableLocationElement
+  constructor: (@targetEl) ->
+    url = @targetEl
+    $("div.location_group_panel > div.panel > div.panel-collapse > div.panel-body > table > tbody.sortable-tbody").sortable({
+      cursor: "move",
+      connectWith: ".sortable-tbody",
+      update: (e,ui) ->
+        if this == ui.item.parent()[0]
+          #a = $("div.location_group_panel > div.panel > div.panel-collapse > div.panel-body > table > tbody.sortable-tbody").sortable('serialize');
+          move_id = ui.item.attr("id")
+          group_id = this.id
+          data = "move_id=" + move_id + "&group_id=" + group_id
+          $.ajax ({type: "POST", url: url, data: data});
+    }).disableSelection();
+
+$(document).on "change", '.data_input_way_select', (e) ->
+  e.preventDefault();
+
+  data = "data_input_way=" + $(this).val()
+  $.ajax(type: "post", url: $(this).data('url'), data: data)
+  return false
+
+$(document).on "change", '.templates_users_authorities_select', (e) ->
+  e.preventDefault();
+
+  data = "authority=" + $(this).val()
+  $.ajax(type: "post", url: $(this).data('url'), data: data)
+  return false

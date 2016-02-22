@@ -1,0 +1,40 @@
+<% content_for(:page_title){ page_title(section_name: @section.name) } %>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <strong><%= @section.name %></strong>
+  </div>
+  <div class="panel-footer">
+    <div class='text-right'>
+      <% if @section.editable?(current_user) %>
+        <%= link_to_with_icon(t("shared.edit"), edit_section_path(@section), class: "btn btn-primary", icon: "edit") %>&nbsp;
+      <% end %>
+
+      <% if current_user.admin? || @section.manager?(current_user) %>
+        <%= link_to_with_icon t(".new_user"), new_section_user_path(section_id: @section.id), class: "btn btn-primary", icon: "user" %>
+        <%= link_to_with_icon t(".new_group"), new_section_user_group_path(section_id: @section.id), class: "btn btn-primary", icon: "heart-empty" %>
+      <% end %>
+      <% if current_user.admin? %>
+        <%= link_to_destroy(section_path(@section)) %>
+        <%= link_to_with_icon t(".back_to_section_top"), sections_path, class: "btn btn-warning", icon: "circle-arrow-left" %>
+      <% else %>
+        <%= link_to_with_icon t(".back_to_root"), root_path, class: "btn btn-warning", icon: "circle-arrow-left" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <% if current_user.admin? || @section.manager?(current_user) %>
+    <div class="col-sm-6">
+      <%= render partial: "user_list", locals: {users: @users} %>
+    </div>
+    <div class="col-sm-6">
+      <%= render partial: "group_list", locals: {user_groups: @user_groups} %>
+    </div>
+  <% else %>
+    <div class="col-sm-12">
+      <%= render partial: "user_list", locals: {users: @users} %>
+    </div>
+  <% end %>
+</div>

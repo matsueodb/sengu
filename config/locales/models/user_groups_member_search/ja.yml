@@ -1,0 +1,14 @@
+ja:
+  activemodel:
+    models:
+      user_groups_member_search: ユーザ検索
+    attributes:
+      user_groups_member_search:
+        login: ログインID
+        user: ユーザ
+    errors:
+      user_groups_member_search:
+        login:
+          same_section: は同じ所属のユーザのログインIDです。他の所属のユーザのログインIDを入力してください。
+        user:
+          blank: が見つかりませんでした。ログインIDを確認してください。

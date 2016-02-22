@@ -1,0 +1,6 @@
+<% if @template_element_search.errors.empty? && @complexes %>
+  $("#result").html('<%= j(render "/vdb/templates/elements/find_search_result") %>')
+  $("#template-element-find-search-form-error-messages-area").empty();
+<% else %>
+  $("#template-element-find-search-form-error-messages-area").html("<%= j(error_messages_for(@template_element_search)) %>");
+<% end %>

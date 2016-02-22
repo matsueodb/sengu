@@ -1,0 +1,162 @@
+ja:
+  templates:
+    records:
+      index:
+        title: "【%{template_name}】 データ一覧"
+        import_csv: CSV一括登録
+        back_to_top: トップに戻る
+      new:
+        title: "【%{template_name}】 データ登録"
+        description: "【%{template_name}】にデータを登録します。下記のフォームにデータを入力して、「作成」ボタンを押下して下さい。"
+        manager:
+          nothing_elements_description: "【%{template_name}】は項目の設定がされていない為、データの登録が出来ません。項目の設定を行って下さい 。"
+        editor:
+          nothing_elements_description: "【%{template_name}】は項目の設定がされていない為、データの登録が出来ません。"
+        template_element_settings: 項目の設定へ
+        back_to_list: "【%{template_name}】 データ一覧に戻る"
+      create:
+        title: "【%{template_name}】 データ登録"
+      edit:
+        title: "【%{template_name}】 データ編集"
+        description: "【%{template_name}】のデータを編集します。下記のフォームにデータを入力して、「更新」ボタンを押下して下さい。"
+        back_to_list: "【%{template_name}】 データ一覧に戻る"
+      update:
+        title: "【%{template_name}】 データ編集"
+      form:
+        example: "例:"
+      list:
+        data_list: 登録データ一覧
+        operator: 操作
+      import_csv_form:
+        csv_form: "CSV:"
+        title: "【%{template_name}】CSV一括登録・編集"
+        editor:
+          nothing_elements_description: "【%{template_name}】は項目の設定がされていない為、データの登録が出来ません。"
+        manager:
+          nothing_elements_description: "【%{template_name}】は項目の設定がされていない為、データの登録が出来ません。項目の設定を行って下さい 。"
+        template_element_settings: 項目の設定へ
+        description: |-
+          Shift-JIS形式のCSVファイルをアップロードしてください。アップロードされたCSVを使用して、データを一括登録・一括編集します。
+          なお、アップロードするCSVのフォーマットは本システムからダウンロードすることが出来ます。
+          また、データを一括編集する場合は、既に登録してあるデータのCSVを本システムからダウンロードして使用してください。
+        input_detail: 手順・入力方法・注意点についての詳細はこちら
+        input_description: |
+          ※手順※
+
+          【一括登録の場合】
+          1. 本システムから「<strong>CSVのフォーマット</strong>」をダウンロードします。
+          2. ダウンロードしてきたCSVへ登録したいデータを入力します。<strong>「ID」行には何も入力しないで下さい。</strong>
+          3. この画面下部のフォームの「<strong>ファイルを選択</strong>」ボタンから、データを入力したCSVを選択してください。
+
+
+          【一括編集の場合】
+          1. 本システムから「<strong>登録済みデータのCSV</strong>」をダウンロードします。
+          2. ダウンロードしてきたCSVへ変更したいデータを編集します。
+             <strong>「ID」行には既にデータが記述されていますが、本システム内で編集するデータを識別する大切なデータになるので、変更しないで下さい。</strong>
+          3. この画面下部のフォームの「<strong>ファイルを選択</strong>」ボタンから、データを入力したCSVを選択してください。
+
+          <hr />
+
+          ※入力方法について
+
+          * 位置情報のデータをCSVから登録する場合は<strong>"経度,緯度"</strong>のように入力してください。(例."12345.6789,98765.4321")
+
+          * 他テンプレートのデータや、語彙から選択するデータを入力する場合は、選択したいデータのIDを入力してください。(例.2)
+          &nbsp;&nbsp;テンプレートのデータのIDはテンプレートの「<strong>CSV出力</strong>」から閲覧することが出来ます。
+          &nbsp;&nbsp;語彙のIDは「<strong>語彙データ管理</strong>」>「<strong>既存語彙一覧</strong>」>「<strong>詳細</strong>」から閲覧することが出来ます。
+
+          * 他テンプレートのデータや、語彙から複数選択するデータを入力する場合は、<strong>"選択したいデータのID,選択したいデータのID, ・・・・"</strong>のように入力してください。(例."2,1,6,9")
+
+          <hr />
+
+          ※注意点※
+           * CSVファイルから一括登録を行う場合は「ID」行には何も入力しないで下さい。
+           * 登録済みのデータのCSVを本システムからダウンロードしてきた際には、ID行にデータが記述されていますが、登録済みデータの編集に使用しますので、変更しないで下さい。
+        csv_format_description: |
+          CSVのフォーマットは以下のようになります。１行目は登録されません。
+        exists_upload_file: 選択されたファイルが既に存在します
+        remove_file: ファイルの削除
+        download_csv_format: 「CSVのフォーマット」ダウンロード
+        download_csv: 「登録済データのCSV」ダウンロード
+      confirm_import_csv:
+        title: "【%{template_name}】CSV一括登録・編集確認"
+        import: "一括登録・編集"
+        line_number: "行番号"
+        data_list: 登録データ一覧
+        description: "以下のデータが登録されます。"
+        row: "%{line_number}行目"
+        exists_error: エラーが存在します(クリックして詳細をみる)
+        nothing_error: エラーはありませんでした
+        back: CSVファイル選択画面へ戻る
+      import_csv:
+        failure: 登録に失敗しました
+      complete_import_csv:
+        title: "【%{template_name}】CSV一括登録・編集完了"
+        complete_message: "一括登録・編集が完了しました。"
+        back: "サービス一覧画面に戻る"
+        to_data_list: 登録データ一覧へ
+      import_csv_step_wizard:
+        new_title: "CSVファイル選択"
+        confirm_title: "一括登録・編集確認"
+        complete_title: "一括登録・編集完了"
+      search_keyword:
+        title: 検索結果一覧
+        please_enter_a_keyword: キーワードを入力してください。
+        there_are_many_keyword: キーワードは%{count}個以内にしてください。
+      search_keyword_list:
+        data_list: 登録データ一覧
+        operator: 操作
+        there_is_no_data: データがありせん
+      show:
+        title: "【%{template_name}】 入力データ詳細表示"
+      destroy:
+        success: データを削除しました
+        failed: データの削除に失敗しました
+        alerts:
+          can_not_delete: 拡張基のデータは拡張基のテンプレートからしか削除することができません。
+          is_referenced: このデータは他のテンプレートから参照されているため削除することができません。
+      element_description:
+        input_description: 説明
+        input_condition: 入力条件
+        input_example: 入力例
+        blank:
+          description: 説明がありません
+          example: 入力例がありません
+          condition: 入力条件がありません
+      element_relation_search_form:
+        title: 検索
+        description: 関連先のデータを検索します
+        search_placeholder: キーワード
+        complete_select: 選択完了
+        select_count: 選択件数
+        release_select: 選択解除
+      element_relation_search_result_template:
+        operator: 操作
+        select: 選択
+        selected: 選択中
+        select_count: 選択件数
+        please_select_if_you_want_to_relations: このデータを関連付ける場合はチェックしてください。
+      element_relation_search_result_vocabulary:
+        operator: 操作
+        select: 選択
+        selected: 選択中
+        select_count: 選択件数
+        no: No
+        vocabulary: 語彙
+        please_select_if_you_want_to_relations: このデータを関連付ける場合はチェックしてください。
+      location_search_address:
+        address: 住所
+      display_relation_contents:
+        template:
+          title: "関連テンプレート：%{template_name}"
+        vocabulary:
+          title: "関連コードリスト：%{vocabulary_name}"
+        close: 閉じる
+      vocabulary_element_list:
+        title: "%{name} 語彙データ一覧"
+        no: No
+        vocabulary: 語彙
+      sample_field:
+        title: 入力プレビュー
+        description: 入力フィールドのサンプルです。このテンプレートは下記のような入力フィールドでデータを登録することができます。
+        nothing_elements_description: 項目が設定されていない為、入力プレビューを表示できません。

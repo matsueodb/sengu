@@ -1,0 +1,23 @@
+vdb:
+  server:
+    host: "https://goikiban.ipa.go.jp"
+    path: "api/"
+  version: "1.0"  # 語彙DBのバージョン
+  project_id: "domain4_ouxlpz" # 本システムのプロジェクト識別子
+  api_ids: # API識別子
+    find_id: "Part"
+    all_id: "Whole"
+    search_id: "Search"
+  domains:
+    :tourism: "tourism"
+  pkcs12: # p12ファイルのパスとパスワード
+    path: <%= Rails.root.join('goikiban.p12') %>
+    password_file_path: <%= Rails.root.join('goikiban_password.txt') %>
+  domain_name:
+    core: コア
+    domain: 観光ドメイン
+  element_creation_without_search: true
+  navigations:
+    - title: 語彙検索設定
+      href: "/vdb/vocabulary/keywords"
+      icon: "font"

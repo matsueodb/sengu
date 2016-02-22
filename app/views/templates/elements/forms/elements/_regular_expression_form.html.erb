@@ -1,0 +1,6 @@
+<div class="form-group">
+  <%= label_tag :element_regular_expression_id, Element.human_attribute_name(:regular_expression_id), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= select_tag :element_regular_expression_id, options_for_select(RegularExpression.pluck(:name, :id), element.try(:regular_expression_id)), name: "element[regular_expression_id]", class: 'form-control static-tooltip-description', prompt: t('.none_regular_expression'), data: {toggle: "tooltip", placement: "top", 'original-title' => t('.regular_expression_id_title')} %>
+  </div>
+</div>

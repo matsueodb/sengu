@@ -1,0 +1,26 @@
+<script>
+  var kokudo_map_lat;
+  var kokudo_map_lon;
+  var kokudo_map_title;
+  var osmap_lat;
+  var osmap_lon;
+  var osmap_title;
+  var gmap_lat;
+  var gmap_lon;
+
+  $(document).on('shown.bs.modal', ".modal", function () {
+    if(kokudo_map_lat != null && kokudo_map_lat != ''){
+      kokudo_map.setCenter(new OpenLayers.LonLat(kokudo_map_lon, kokudo_map_lat).transform('EPSG:4326', 'EPSG:3857'))
+      selectKOKUDOMarker(kokudo_map_lat, kokudo_map_lon, kokudo_map_title)
+    }
+    if(osmap_lat != null && osmap_lat != ''){
+      osmap.setCenter(new OpenLayers.LonLat(osmap_lon, osmap_lat).transform('EPSG:4326', 'EPSG:3857'))
+      selectOSMMarker(osmap_lat, osmap_lon, osmap_title)
+    }
+    if(gmap_lat != null){
+      google.maps.event.trigger(gmap, 'resize');
+      gmap.setCenter(new google.maps.LatLng(gmap_lat, gmap_lon));
+    }
+    loadingHide()
+  })
+</script>

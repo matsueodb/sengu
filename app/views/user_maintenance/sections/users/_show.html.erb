@@ -1,0 +1,77 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3><%= t(".title", user_name: user.name) %></h3>
+      </div>
+      <div class="modal-body">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <%= user.name %>
+          </div>
+          <div class="panel-body">
+            <div class="form-horizontal">
+              <div class="form-group">
+                <%= label_tag :name, User.human_attribute_name(:name), class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <p class="form-control-static"><%= user.name %></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag :login, User.human_attribute_name(:login), class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <p class="form-control-static"><%= user.login %></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag :copyright, User.human_attribute_name(:copyright), class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <p class="form-control-static"><%= user.copyright %></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag :remarks, User.human_attribute_name(:remarks), class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <p class="form-control-static"><%= user.remarks %></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag :authority, User.human_attribute_name(:authority), class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <p class="form-control-static"><%= User.authority_label user.authority %></p>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <%= label_tag :section_id, User.human_attribute_name(:section_id), class: "col-sm-2 control-label" %>
+                <div class="col-sm-10">
+                  <p class="form-control-static"><%= user.section.try(:name) %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <div class="text-right">
+              <% if user.editable?(current_user) %>
+                <%= link_to_with_icon(t("shared.edit"), edit_section_user_path(user, section_id: @section.id), class: "btn btn-primary", icon: "edit") %>&nbsp;
+              <% end %>
+              <% if user.destroyable?(current_user) %>
+                <%= link_to_destroy(section_user_path(user, section_id: @section.id)) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+       <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>
+

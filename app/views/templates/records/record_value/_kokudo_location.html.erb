@@ -1,0 +1,11 @@
+<%# values = record.record_values_by_element(element, @template) %>
+<% it = element.input_type %>
+<% lat = values.detect{|v|v.kind == ElementValue::KINDS[it.name][:latitude]}.try(:content).try(:value) %>
+<% lon = values.detect{|v|v.kind == ElementValue::KINDS[it.name][:longitude]}.try(:content).try(:value) %>
+<% if lat.present? && lon.present? %>
+  <%= link_to(display_template_maps_path(map: {latitude: lat, longitude: lon, map_type: it.name}),
+    class: "btn btn-success map-modal-button", remote: true, title: "#{lat},#{lon}" ) do %>
+    <span class="glyphicon glyphicon-map-marker"></span>
+    <%= t(".display_map") %>
+  <% end %>
+<% end %>

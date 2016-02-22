@@ -1,0 +1,7 @@
+ja:
+  activemodel:
+    models:
+      element_relation_content_search: 関連データの検索
+    attributes:
+      element_relation_content_search:
+        keyword: キーワード

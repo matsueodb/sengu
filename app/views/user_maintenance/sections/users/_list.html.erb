@@ -1,0 +1,32 @@
+<table class="table table-striped table-bordered">
+  <caption><%= t(".list") %></caption>
+  <tr>
+    <th><%= t(".no") %></th>
+    <th><%= User.human_attribute_name(:name) %></th>
+    <th><%= User.human_attribute_name(:remarks) %></th>
+    <th><%= User.human_attribute_name(:authority) %></th>
+    <th><%= t(".operator") %></th>
+  </tr>
+
+  <% users.each.with_index(1) do |u, idx| %>
+    <tr>
+      <td><%= idx + users.offset_value %></td>
+      <td><%= u.name %></td>
+      <td><%= u.remarks %></td>
+      <td><%= u.authority_label %></td>
+      <td>
+        <% if u.accessible?(current_user) %>
+          <%= link_to_with_icon t("shared.show"), section_user_path(u, section_id: @section.id), remote: true, class: "btn btn-primary", icon: "info-sign" %>
+        <% end %>
+        <% if u.editable?(current_user) %>
+          <%= link_to_with_icon(t("shared.edit"), edit_section_user_path(u, section_id: @section.id), class: "btn btn-primary", icon: "edit") %>&nbsp;
+        <% end %>
+        <% if u.destroyable?(current_user) %>
+          <%= link_to_destroy(section_user_path(u, section_id: @section.id)) %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= paginate users, remote: true, params: {action: "index"} %>

@@ -1,0 +1,33 @@
+<% elements = template.present? ? template.inputable_elements{|els| els.includes(:children) } : [] %>
+<% if !template %>
+  <%= alert_tag{t('.nothing_template')} %>
+<% elsif elements.blank? %>
+  <%= alert_tag{t('.nothing_elements', template: template.name)} %>
+<% end %>
+<%= select_tag :element_source_element_id,
+  options_for_select(elements.map{|e| [e.name, e.id]}, element.try(:source_element_id)),
+  name: "template[elements_attributes][#{child_index}][source_element_id]",
+  class: 'form-control vocabulary-select static-tooltip-description',
+  id: "element_source_element_id_#{child_index}",
+  data: {
+    toggle: "tooltip",
+    placement: "top",
+    'original-title' => t('.source_element_id_title')
+  }
+%>
+<% if elements.present? %>
+  <%= link_to t('.data_confirm'), values_template_elements_path(template, element_id: element.try(:source_element_id) || elements.first.id), id: "displayed_element_value_#{child_index}", class: 'btn btn-primary show-link btn-sm', remote: true, icon: 'info-sign' %>
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $('.static-tooltip-description').tooltip()
+
+    <% if template %>
+      $('#element_source_element_id_<%= child_index %>').on('change', function(){
+        $('#displayed_element_value_<%= child_index %>').attr('href', '<%= values_template_elements_path(template) %>' + '?element_id=' + $(this).val())
+      })
+    <% end %>
+  })
+</script>
+

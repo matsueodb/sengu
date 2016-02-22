@@ -1,0 +1,23 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+
+<% if @elements.present? %>
+
+  <%= alert_tag(type: :info){t('.description', template_name: @template.name)} %>
+
+  <%= form_for(@template_record, url: template_records_path(template_id: @template.id), html: {multipart: true, id: "content_form", class: "form-horizontal well"}) do |f| %>
+    <%= render partial: "form", locals: {form: f, elements: @elements, record: @template_record} %>
+    <%= button_tag_with_icon t("shared.new"), method: :post, class: "btn btn-primary", icon: "plus-sign" %>
+    <%= link_to_with_icon(t(".back_to_list", template_name: @template.name), template_records_path(template_id: @template.id), class: "btn btn-warning", icon: "circle-arrow-left") %>
+  <% end %>
+<% else %>
+  <%= alert_tag(type: :warning) do %>
+    <% if current_user.editor? %>
+      <%= t('.editor.nothing_elements_description', template_name: @template.name) %>
+      <%= link_to_back(template_records_path(template_id: @template.id)) %>
+    <% else %>
+      <%= t('.manager.nothing_elements_description', template_name: @template.name) %>
+      <%= link_to_back(template_records_path(template_id: @template.id)) %>
+      <%= link_to_with_icon(t(".template_element_settings"), new_template_element_path(template_id: @template.id), class: 'btn btn-primary', icon: "edit") %>
+    <% end %>
+  <% end %>
+<% end %>

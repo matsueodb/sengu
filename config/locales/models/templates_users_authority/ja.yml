@@ -1,0 +1,5 @@
+ja:
+  templates_users_authority:
+    authority_label:
+      admin: "管理者"
+      creator: "データ登録者"

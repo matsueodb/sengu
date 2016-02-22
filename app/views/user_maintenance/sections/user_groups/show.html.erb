@@ -1,0 +1,65 @@
+<% content_for(:page_title){ page_title(section_name: @section.name, group_name: @user_group.name) } %>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <strong><%= @user_group.name %></strong>
+  </div>
+  <div class="panel-footer">
+    <div class='text-right'>
+      <%= link_to_with_icon(t("shared.edit"), edit_section_user_group_path(@user_group, section_id: @section.id), class: "btn btn-primary", icon: "edit") %>&nbsp;
+      <%= link_to_with_icon(t(".set_member"), set_member_section_user_group_path(@user_group, section_id: @section.id), class: "btn btn-primary", icon: "user") %>&nbsp;
+      <%= link_to_destroy(section_user_group_path(@user_group, section_id: @section.id)) %>
+      <%= link_to_with_icon t(".back_to_user_group_top", section_name: @section.name), section_user_groups_path(@section.id), class: "btn btn-warning", icon: "circle-arrow-left" %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <span class="badge"><%= t(".count", count: @users.total_count) %></span>
+        <strong><%= t(".user.list") %></strong>
+      </div>
+
+      <div class="panel-body">
+        <%= alert_tag(type: :info){hbr t(".user.list_description")} %>
+
+        <% if @users.empty? %>
+
+        <% end %>
+
+        <%= render partial: "user_list_table", locals: {users: @users} %>
+      </div>
+
+      <div class="panel-footer">
+        <div class="text-right">
+          <%= link_to_with_icon t(".user.all_btn"), user_list_section_user_group_path(@user_group, section_id: @section.id), class: "btn btn-primary", icon: "list-alt" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <span class="badge"><%= t(".count", count: @templates.total_count) %></span>
+        <strong><%= t(".template.list") %></strong>
+      </div>
+
+      <div class="panel-body">
+        <%= alert_tag(type: :info){hbr t(".template.list_description")} %>
+
+
+
+      <%= render partial: "template_list", locals: {templates: @templates} %>
+              </div>
+
+      <div class="panel-footer">
+        <div class="text-right">
+          <%= link_to_with_icon t(".template.all_btn"), template_list_section_user_group_path(@user_group, section_id: @section.id), class: "btn btn-primary", icon: "list-alt" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

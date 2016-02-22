@@ -1,0 +1,41 @@
+.text-right{
+  text-align: right;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.date-text{
+  font-size: 25px;
+}
+
+.description-text{
+  font-size: 20px;
+}
+
+.sample-text{
+  font-size: 20px;
+  border: solid 2px black;
+  width: 100%;
+}
+
+#element-table{
+  width: 100%;
+}
+
+#element-table > thead > tr{
+  background-color: blue;
+}
+
+#element-table > thead > tr > th {
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px;
+}
+
+#element-table > tbody > tr > td {
+  font-size: 20px;
+  padding: 5px;
+}

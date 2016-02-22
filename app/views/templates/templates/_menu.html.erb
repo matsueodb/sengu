@@ -1,0 +1,41 @@
+<% if template.operator?(current_user) %>
+  <%= link_to_with_icon(t(".template_element_list"), show_elements_template_elements_path(template_id: template.id), class: 'btn btn-primary', icon: "list") %>
+<% end %>
+
+<%= link_to_with_icon(t(".data_management"), template_records_path(template_id: template.id), class: 'btn btn-primary', icon: "floppy-disk") %>
+<div class="btn-group">
+  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+    <span class="glyphicon glyphicon-download-alt"></span>
+    <%= t('.output') %> <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu">
+    <% with_options(icon: "download-alt") do |icon| %>
+      <li><%= icon.link_to_with_icon(t(".download_csv_format"), download_csv_format_template_path(template, format: :csv)) %></li>
+      <li><%= icon.link_to_with_icon(t(".download_csv"), download_csv_template_records_path(template_id: template.id, format: :csv)) %></li>
+      <li><%= icon.link_to_with_icon(t(".download_rdf"), download_rdf_template_records_path(template_id: template.id)) %></li>
+      <li><%= icon.link_to_with_icon(t(".download_description_pdf"), download_description_pdf_template_path(template, format: :pdf), target: '_blank') %></li>
+    <% end %>
+  </ul>
+</div>
+
+<% if template.operator?(current_user) %>
+  <div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <span class="glyphicon glyphicon-cog"></span>
+      <%= t('.setting') %> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <% if template.add_extension? %>
+        <li><%= link_to_with_icon t('.extension.new'), new_template_path(parent_id: template.id), icon: "plus-sign" %></li>
+      <% end %>
+      <% if template.elements.lines.exists? %>
+        <li><%= link_to_with_icon t(".settings.set_confirm_entries"), set_confirm_entries_template_settings_path(template_id: template.id), icon: "wrench" %></li>
+      <% end %>
+      <li><%= link_to_with_icon(t(".settings.template_edit"), edit_template_path(template), icon: "wrench") %></li>
+    </ul>
+  </div>
+<% end %>
+
+<% if template.operator?(current_user) %>
+  <%= link_to_destroy(template_path(template)) %>
+<% end %>

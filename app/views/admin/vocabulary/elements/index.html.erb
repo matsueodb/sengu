@@ -1,0 +1,38 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format(t('.description')) %>
+<% end %>
+
+<div id="error-messages-area">
+</div>
+
+<div class="well">
+  <%= link_to_with_icon t('.new'), new_vocabulary_element_path, class: 'btn btn-primary', icon: 'plus-sign' %>
+  <%= link_to_back root_path %>
+</div>
+
+<h2><%= t('.code_list_title') %></h2>
+
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th><%= Vocabulary::Element.human_attribute_name(:name) %></th>
+      <th><%= Vocabulary::Element.human_attribute_name(:description) %></th>
+      <th><%= t('.operation') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @elements.each do |element| %>
+      <tr>
+        <td><%= element.name %></td>
+        <td><%= element.description %></td>
+        <td class='col-lg-4'>
+          <%= link_to_with_icon t('shared.show'), vocabulary_element_path(element), class: 'btn btn-primary', icon: 'info-sign' %>
+          <%= link_to_with_icon t('shared.edit'), edit_vocabulary_element_path(element), class: 'btn btn-primary', icon: 'edit' %>
+          <%= link_to_with_icon t('.value_config'), new_vocabulary_element_value_path(element), class: 'btn btn-primary', icon: 'cog' %>
+          <%= link_to_destroy vocabulary_element_path(element) %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

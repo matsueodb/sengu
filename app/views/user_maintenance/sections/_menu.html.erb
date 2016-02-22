@@ -1,0 +1,5 @@
+<%= link_to_with_icon(t(".admin"), section_path(section), class: "btn btn-primary", icon: "info-sign") %>&nbsp;
+
+<% if current_user.admin? %>
+  <%= link_to_destroy(section_path(section)) %>
+<% end %>

@@ -1,0 +1,41 @@
+ja:
+  admin:
+    vocabulary:
+      elements:
+        index:
+          title: コードリスト管理
+          code_list_title: 登録済みのコードリスト一覧
+          search_title: コードリスト検索
+          new: 新規追加
+          value_config: 項目設定
+          operation: 操作
+          code_list_management: コードリスト管理
+          description: |
+            コードリストの管理を行えます。
+            コードリストとはテンプレートに登録するデータの選択肢になります。
+            コードリストは、「新規追加」を選択して作成してください。
+          vocabulary_keyword_configure: 語彙検索設定
+          keyword: キーワード
+        show:
+          title: "【%{name} 】項目一覧"
+          no: No
+          vocabulary: 項目名
+          id: 管理番号
+        new:
+          title: コードリスト基本情報設定
+        edit:
+          title: "【%{element_name}】基本情報編集"
+        create:
+          title: コードリスト基本情報設定
+          success: 作成に成功しました
+        update:
+           title: "【%{element_name}】基本情報編集"
+           success: 更新に成功しました
+        destroy:
+          success: 削除に成功しました
+          failure_destroy: このコードリストはテンプレート内の項目から参照されているため削除することが出来ません
+        form:
+          description: |
+            コードリストの基本情報を設定します。
+            「データ名」にはコードリストの中身が分かるような名前を入力して下さい(例.曜日リスト)
+          configure: 設定

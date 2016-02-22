@@ -1,0 +1,32 @@
+ja:
+  templates:
+    maps:
+      shared: &shared
+        latitude: 緯度
+        longitude: 経度
+        no_search_data: 検索結果がありませんでした。
+      search_map: &search_map
+        <<: *shared
+        description: |
+          地図上をクリックするとクリックした位置にマーカーを設置して経度、緯度を取得することが出来ます。
+        insert_after_close: "経度、緯度を挿入して閉じる"
+      search_kokudo_location:
+        title: 国土地理院 位置情報検索
+        <<: *search_map
+      search_osm_location:
+        title: OpenStreetMap 位置情報検索
+        <<: *search_map
+      search_google_location:
+        title: GoogleMap 位置情報検索
+        <<: *search_map
+      search_address_location:
+        no_address: 該当する住所情報がありませんでした。
+      display_google_location:
+        <<: *shared
+        title: Google Map 位置情報
+      display_osm_location:
+        <<: *shared
+        title: OpenStreetMap 位置情報
+      display_kokudo_location:
+        <<: *shared
+        title: 国土地理院 位置情報

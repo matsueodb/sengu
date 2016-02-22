@@ -1,0 +1,44 @@
+<% content_for(:wizard) do %>
+  <%= render "/templates/shared/step_wizard", current_action: :element_new %>
+<% end %>
+
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+
+<%= alert_tag(id: "element-form-description", type: :info) do %>
+  <% if Settings.vdb.element_creation_without_search %>
+    <%= simple_format(t('.description')) %>
+  <% else %>
+    <%= simple_format(t('.description_for_only_search')) %>
+  <% end %>
+<% end %>
+
+<div id="template-element-find-search-form-error-messages-area">
+</div>
+
+<% if Settings.vdb.element_creation_without_search %>
+  <div class="text-right new-btn-area">
+    <%= link_to_with_icon(t(".add_element"), main_app.new_template_element_path(template_id: @template.id), class: 'btn btn-primary', icon: "plus") %>
+    <%= link_to_with_icon t('.back_list'), main_app.show_elements_template_elements_path(@template), class: 'btn btn-warning', icon: 'circle-arrow-left' %>
+  </div>
+<% end %>
+
+<div class="well">
+  <%= form_for(@template_element_search, url: find_template_element_searches_path, html: {class: 'form-inline ajax-loading-display'}, remote: true) do |f| %>
+    <div class="form-group">
+      <%= f.select :name, options_for_select(Vocabulary::Keyword.categories(current_user.id)), {include_blank: t('.input_category')}, class: 'form-control col-lg-6' %>
+      <%= hidden_field_tag "template_element_search[use_category]", true %>
+      <%= hidden_field_tag "template_element_search[user_id]", current_user.id %>
+    </div>
+    <%= button_tag_with_icon t('shared.search'), name: 'category', class: 'btn btn-primary template-element-search-submit', icon: 'search' %>
+  <% end %>
+
+  <%= form_for(@template_element_search, url: search_template_element_searches_path, html: {class: 'form-inline ajax-loading-display'}, remote: true) do |f| %>
+    <div class="form-group">
+      <%= f.text_field :name, class: 'form-control col-lg-6', placeholder: TemplateElementSearch.human_attribute_name(:name) %>
+      <%= hidden_field_tag "template_element_search[user_id]", current_user.id %>
+    </div>
+    <%= button_tag_with_icon t('shared.search'), name: 'keyword', class: 'btn btn-primary template-element-search-submit', icon: 'search' %>
+  <% end %>
+</div>
+
+<div id="result"></div>

@@ -1,0 +1,164 @@
+#
+#= パイロットシステムから取得したデータに入力制限や、入力タイプ、コードリストをマッピングする
+#
+#=== 書き方
+#
+# "データタイプ名":
+#   input_type: 入力タイプのラベル(ラベルはfixtureのラベルで、Rails.root/db/fixtures/003_input_types.ymlで確認できる)
+#   regular_expression: 入力制限のラベル(ラベルはfixtureのラベルで、Rails.root/db/fixtures/002_regular_expressions.ymlで確認できる)
+#   code_list: コードリストのラベル(ラベルはfixtureのラベルで、Vdb::Engine.root/db/fixtures/vocabulary/006_elements.ymlで確認できる)
+#   max_digit_number: 最大桁数
+#   min_digit_number: 最小桁数
+#   unique: ユニーク(true or false)
+#   required: 必須項目(true or false)
+#
+
+"codes:面積単位コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: menseki_tani
+
+"codes:国籍コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: kokuseki_code
+
+"codes:住所コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: jusho_code
+
+"codes:数量単位コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: suuryo_tani_code
+
+"codes:性別コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: seibetsu_code
+
+"codes:年号コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: nengo_code
+
+"codes:容量単位コード型":
+  input_type: it_pulldown_vocabulary
+  code_list: yoryou_tani_code
+
+"ic:緯度値型":
+  regular_expression: number
+  required: true
+
+"ic:経度値型":
+  regular_expression: number
+  required: true
+
+"ic:パーセンテージ型":
+  regular_expression: float
+
+"ic:カタカナテキスト型":
+  regular_expression: katakana
+
+"ic:秒型":
+  regular_expression: number
+  required: true
+
+"ic:分型":
+  regular_expression: integer
+  required: true
+
+"im:アクセス型":
+  input_type: it_multi_line
+
+"im:公共設備型":
+  input_type: it_pulldown_vocabulary
+  code_list: koukyou_setsubi
+
+"im:避難所型":
+  input_type: it_pulldown_vocabulary
+  code_list: hinan
+
+"im:料金型":
+  regular_expression: number
+
+"iso_3166:CountryAlpha2CodeType":
+  input_type: it_pulldown_vocabulary
+  code_list: iso_3166:CountryAlpha2CodeType
+
+"iso_3166:CountryAlpha3CodeType":
+  input_type: it_pulldown_vocabulary
+  code_list: iso_3166:CountryAlpha3CodeType
+
+"iso_3166:CountryNumericCodeType":
+  input_type: it_pulldown_vocabulary
+  code_list: iso_3166:CountryNumericCodeType
+
+"iso_4217:CurrencyCodeSimpleType":
+  input_type: it_pulldown_vocabulary
+  code_list: iso_4217:CurrencyCodeSimpleType
+
+"iso_639-3:LanguageCodeSimpleType":
+  input_type: it_pulldown_vocabulary
+  code_list: iso_639-3:LanguageCodeSimpleType
+
+"nga:DatumCodeType":
+  input_type: it_pulldown_vocabulary
+  code_list: nga:DatumCodeType
+
+"niem-xsd:anyURI":
+  input_type: it_line
+
+"niem-xsd:boolean":
+  input_type: it_pulldown_vocabulary
+  code_list: boolean
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+"niem-xsd:date":
+  input_type: it_dates
+
+"niem-xsd:dateTime":
+  input_type: it_line
+
+"niem-xsd:gYear":
+  input_type: it_line
+  regular_expression: integer
+  max_digit_number: 4
+
+"niem-xsd:gYearMonth":
+  input_type: it_line
+  regular_expression: integer
+  max_digit_number: 6
+
+"niem-xsd:nonNegativeInteger":
+  input_type: it_line
+  regular_expression: integer
+
+"niem-xsd:string":
+  input_type: it_line
+
+"niem-xsd:time":
+  input_type: it_line
+
+"unece:LengthCodeType":
+  input_type: it_pulldown_vocabulary
+  code_list: length_code_type
+
+"unece:MassCodeType":
+  input_type: it_pulldown_vocabulary
+  code_list: mass_code_type
+
+"xsd:boolean":
+  input_type: it_pulldown_vocabulary
+  code_list: boolean
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+"niem-xsd:time":
+  input_type: it_times
+
+"mlod:料金種別コード型":
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+"mlod:人数種別コード型":
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+"mlod:年齢種別コード型":
+  data_input_way: <%= Element::DATA_INPUT_WAY_RADIO_BUTTON %>
+
+"mlod:データファイル型":
+  input_type: it_file

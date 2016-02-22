@@ -1,0 +1,8 @@
+
+<% @services %>
+<% if @services.blank? %>
+  $("#service-list-area").html("<%= j(render 'not_found') %>")
+<% else %>
+  $("#service-list-area").html("<%= j(render 'list', services: @services, display_paginate: false) %>")
+<% end %>
+$('#service-list-area').effect('highlight');

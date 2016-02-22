@@ -1,0 +1,12 @@
+<% content_for(:page_title){ page_title(section_name: @section.name) } %>
+<%= form_for(@user, url: section_user_path(@user, section_id: @section.id),
+  html: {class: "well form-horizontal"}) do |f| %>
+
+  <%= render partial: "form", locals: {f: f} %>
+  <%= button_tag_with_icon t("shared.update"), class: "btn btn-primary", icon: "edit" %>
+  <%= link_to_cancel(section_users_path(section_id: @section.id)) %>
+<% end %>
+
+<div id="pagination_list">
+  <%= render partial: "list", locals: {users: @users} %>
+</div>

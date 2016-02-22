@@ -1,0 +1,131 @@
+ja:
+  templates:
+    templates:
+      new:
+        description: |
+          オープンデータのテンプレート名を入力してください。
+        title: テンプレート作成
+        alerts:
+          please_by_pressing_the_new_button: テンプレートを作成する場合、左の「登録済みサービス一覧」からサービスを選択して、「このサービス内にテンプレートを作成する」ボタンを押下してください。
+      create:
+        title: テンプレート作成
+      edit:
+        title: テンプレート編集
+        description: |
+          グループを選択すると、グループに登録されているユーザのみがこのテンプレートを管理することができるようになります。
+      update:
+        title: テンプレート編集
+      list:
+        template_list: テンプレート一覧
+        no: No
+        name: 名前
+        url: URL
+        data_count: データ件数
+        operator: 操作
+        extension_template: 拡張
+      form:
+        status_description: |
+          「非公開」を選択するとテンプレートが非公開状態になります。
+        extension_description: |
+          このテンプレートは他のテンプレートの項目から参照されているか、他のテンプレートの項目を参照しているか、他のテンプレートの拡張基テンプレートに設定されているため、サービスを変更することは出来ません。
+        description_cannot_change_user_group: |
+          グループはテンプレートにデータが登録されているため変更できません。
+      menu:
+        data_new: データ登録
+        data_list: 登録データ一覧
+        template_element_list: 項目一覧
+        template_relation: テンプレート関連付け
+        relation_bulk: 関連テンプレートの一括データ設定
+        import_csv: CSV一括登録
+        download_csv_format: CSVフォーマット出力
+        download_csv: CSV出力
+        download_rdf: RDF出力
+        download_description_pdf: 説明資料出力
+        settings:
+          set_confirm_entries: 登録内容の確認設定
+          set_location_group: 位置情報項目のグループ設定
+          template_edit: テンプレート編集
+        setting: 設定
+        output: 各種出力
+        data_management: データ管理
+        extension:
+          new: 拡張テンプレート作成
+          select_records: 使用するデータの選択
+      list:
+        template_list: テンプレート一覧
+        no: No
+        name: 名前
+        url: URL
+        data_count: データ件数
+        operator: 操作
+        extension_template: 拡張
+      destroy:
+        success: テンプレートを削除しました。
+        failed: |
+          テンプレートが削除できませんでした。
+          テンプレートの操作権限が無い場合、このテンプレートが拡張されている場合、関連付けで参照されている場合は削除できません。
+      data_select_upon_extension_form:
+        title: 拡張時のデータ選択画面
+        description: |
+          ここで入力された条件をもとに、拡張基のテンプレートに登録されているデータを参照することが出来ます。
+          絞り込みたい条件を入力して保存ボタンを押下してください。
+          ※ここで設定した条件は後で変更することができません。
+        btn:
+          preview: プレビュー
+          all_select:
+            title: 全てを選択
+            confirm: 全てのデータを選択して終了します。よろしいですか？
+        checkbox_template:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+        pulldown_template:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+        checkbox_vocabulary:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+        pulldown_vocabulary:
+          select_count: 選択件数
+          search_and_select: 検索して選択する
+      data_select_upon_extension:
+        title: 拡張時のデータ選択画面
+        complete: データ選択が完了しました。
+      data_select_accessible_check:
+        failed: "拡張テンプレートの場合しか操作できません。"
+      element_relation_search_form:
+        title: 検索
+        description: 関連先のデータを検索します
+        search_placeholder: キーワード
+        complete_select: 選択完了
+        select_count: 選択件数
+        release_select: 選択解除
+      element_relation_search_result_template:
+        operator: 操作
+        select: 選択
+        selected: 選択中
+        select_count: 選択件数
+        please_select_if_you_want_to_relations: このデータを関連付ける場合はチェックしてください。
+      element_relation_search_result_vocabulary:
+        operator: 操作
+        select: 選択
+        selected: 選択中
+        select_count: 選択件数
+        no: No
+        vocabulary: 語彙
+        please_select_if_you_want_to_relations: このデータを関連付ける場合はチェックしてください。
+      data_select_list:
+        title: 検索結果
+        no_data: 一致するデータがありません
+      change_order_form:
+        title: 【%{service_name}】テンプレートの並び替え
+        caption: テンプレート一覧
+        order_save: 並び替え順序の保存
+        operation_description: ドラッグ＆ドロップで子要素を並び変えることが出来ます。
+        data_count: データ件数
+        back_to_top: トップに戻る
+      change_order:
+        success: テンプレートの並び替えに成功しました
+        failure: テンプレートの並び替えに失敗しました
+      download_description_pdf:
+        file_name: "%{template_name}_説明資料"
+

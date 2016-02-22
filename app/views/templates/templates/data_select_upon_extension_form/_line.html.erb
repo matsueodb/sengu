@@ -1,0 +1,8 @@
+<div class="control-group">
+  <div class="col-sm-3" id="element<%= element.id %>_description_field">
+    <%= text_field_tag "condition[#{element.id}][0][value]", "", class: "form-control" %>
+  </div>
+  <div class="col-sm-3">
+    <%= select_tag "condition[#{element.id}][0][string_condition]", options_for_select_with_string_conditions, class: "form-control" %>
+  </div>
+</div>

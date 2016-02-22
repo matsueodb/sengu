@@ -1,0 +1,51 @@
+<div id="service-info" class='alert alert-info'>
+  <dl class="dl-horizontal">
+    <dt>「<%= service.name %>」</dt>
+    <dd><%= hbr service.description %></dd>
+    <dt><%= Service.human_attribute_name(:section_id) %></dt>
+    <dd><%= service.section.try(:name) %></dd>
+  </dl>
+
+  <div class="text-right">
+    <% if service.operator?(current_user) %>
+      <%= link_to_with_icon t('.template_new_in_service'), new_template_path(service_id: service.id), class: 'btn btn-primary', icon: 'plus' %>
+      <%= link_to_with_icon t('.template_change_order'), change_order_form_templates_path(service_id: service.id), class: 'btn btn-primary', icon: 'sort' %>
+      <%= link_to_with_icon t('.service_edit'), edit_service_path(service), class: 'btn btn-primary', icon: 'edit' %>
+      <%= link_to_with_icon t('.service_destroy'), service_path(service), class: 'btn btn-danger', icon: 'trash', method: :delete, data: {confirm: t('shared.confirm.destroy')} %>
+    <% end %>
+  </div>
+</div>
+
+<% if templates.present? %>
+  <table class="table  table-bordered table-hover template-list-table">
+    <caption><%= t(".template_list", service_name: service.name) %></caption>
+    <tr>
+      <th style="width: 5%"><%= t(".no") %></th>
+      <th style="width: 20%"><%= t(".name") %></th>
+      <th style="width: 10%"><%= t(".data_count") %></th>
+      <th style="width: 45%" class="operator"><%= t(".operator") %></th>
+    </tr>
+    <% templates.each.with_index(1) do |template, idx|  %>
+      <tr>
+        <td><%= idx %></td>
+        <td>
+          <%= template_unpublish_label(template) %>
+          <%= template_extension_label(template) %>
+          <%= template.name %>
+        </td>
+        
+        <td><%= t("shared.count", count: template.all_records.count) %></td>
+        <td class='col-lg-4'>
+          <%= render partial: "/templates/templates/menu", locals: {template: template, display_destroy: false} %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <%= alert_tag(type: :warning) do %>
+    <%= t('.nothing_templates') %>
+    <% if service.operator?(current_user) %>
+      <%= link_to_with_icon t('.template_new_in_service'), new_template_path(service_id: service.id), class: 'btn btn-primary', icon: 'plus' %>
+    <% end %>
+  <% end %>
+<% end %>

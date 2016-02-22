@@ -1,0 +1,4 @@
+<li class="<%= 'active' if page.current? %>">
+  <% method ||= :get %>
+  <%= link_to page, page.current? ? 'javascript:;' : url, {:remote => remote, method: method, :rel => page.next? ? 'next' : page.prev? ? 'prev' : nil} %>
+</li>

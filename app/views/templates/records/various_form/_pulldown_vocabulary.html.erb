@@ -1,0 +1,63 @@
+<% value = values.detect{|v|v.element_id == element.id && v.item_number == item_number} %>
+<% field_name = "template_record[#{element.id}][#{item_number}][0]" %>
+<% if !element.source.records_referenced_from_element.exists? %>
+  <div class="col-sm-5">
+    <p class="form-control-static">
+      <%= t(".there_is_not_referenced_data") %>
+    </p>
+  </div>
+<% else %>
+  <% disabled = !value.editable_on?(@template) if value %>
+
+  <% if element.data_input_way_popup? %>
+    <div id="element<%= element.id %>_<%= item_number %>_description_field" class="col-sm-3">
+      <p class="form-control-static"  id="element<%= element.id %>_select_values" >
+        <% if value.try(:value).blank? %>
+          <%= t("shared.non_select") %>
+        <% else %>
+          <%= t(".select_count") %> : 1
+        <% end %>
+      </p>
+
+      <%= hidden_field_tag "#{field_name}[id]", value.id if value %>
+      <%= hidden_field_tag "#{field_name}[template_id]", value ? value.try(:template_id) : @template.id %>
+      <%= hidden_field_tag "#{field_name}[value]", value.try(:value), class: "element_#{element.id}_#{item_number}_hidden"  %>
+    </div>
+    <div class="col-sm-4">
+      <%= button_tag_with_icon(t(".search_and_select"), id: "element#{element.id}_search_btn", class: "btn btn-success #{'disabled' if disabled}", icon: "search") %>
+    </div>
+    <script>
+        $(document).ready(function(){
+          $("#element<%= element.id %>_search_btn").on("click", function(){
+            var value = $(".<%= "element_#{element.id}_#{item_number}_hidden" %>").attr("value")
+            var post_data = ""
+            if(value != undefined){
+              post_data += "selected_ids[]=" + value
+            }
+
+            $.ajax({
+              type: "post",
+              url: "<%= url_for(element_relation_search_form_template_records_path(element_id: element.id, template_id: element.template_id)) %>",
+              data: post_data,
+              success: function(data, status){
+                $(data).modal();
+              }
+            });
+            return false
+          })
+        })
+      </script>
+  <% else %>
+    <div id="element<%= element.id %>_<%= item_number %>_description_field" class="col-sm-12">
+      <%= hidden_field_tag "#{field_name}[value]", value.try(:value) if disabled %>
+      <%= hidden_field_tag "#{field_name}[content_id]", value.try(:content_id) %>
+      <%= hidden_field_tag "#{field_name}[template_id]", value ? value.try(:template_id) : @template.id %>
+      <%= hidden_field_tag "#{field_name}[id]", value.try(:id) if value %>
+      <% if element.data_input_way_pulldown? %>
+        <%= select_tag "#{field_name}[value]", options_for_select_with_reference_values(element, value.try(:value)), disabled: disabled, class: "form-control" %>
+      <% elsif element.data_input_way_radio? %>
+        <%= reference_values_radio_button(element, "#{field_name}[value]", value.try(:value), disabled: disabled) %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

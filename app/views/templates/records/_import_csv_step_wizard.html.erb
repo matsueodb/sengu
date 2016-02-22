@@ -1,0 +1,11 @@
+<div class="wizard">
+  <div class="wizard-child <%= "current" if current_action == :new %>">
+    <span class="badge <%= "badge-inverse"  if current_action == :new %>">1</span> <%= t(".new_title") %>
+  </div>
+  <div class="wizard-child <%= "current" if current_action == :confirm %>">
+    <span class="badge <%= "badge-inverse"  if current_action == :confirm %>">2</span> <%= t(".confirm_title") %>
+  </div>
+  <div class="wizard-child <%= "current" if current_action == :complete %>">
+    <span class="badge <%= "badge-inverse"  if current_action == :complete %>">3</span> <%= t(".complete_title") %>
+  </div>
+</div>

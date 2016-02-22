@@ -1,0 +1,17 @@
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th><%= t('.no') %></th>
+      <th><%= t('.vocabulary') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% values.each.with_index(1) do |val, idx| %>
+      <tr>
+        <td><%= idx %></td>
+        <td><%= val.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,37 @@
+<% content_for(:page_title) { page_title(service_name: @service.name) } %>
+
+<%= link_to_with_icon(t(".back_to_top"), services_path(id: @service.id), class: "btn btn-warning", icon: "circle-arrow-left") %>
+<div id="message-area"></div>
+
+
+<table id="template-list" class='table table-bordered table-hover'>
+  <caption><%= @element.blank? ? t('.caption') : t('.children_caption') %></caption>
+  <thead>
+    <tr>
+      <th class="col-lg-2"><%= ::Template.human_attribute_name(:name) %></th>
+      <th class="col-lg-2"><%= t(".data_count") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @templates.each do |temp|  %>
+      <tr id="<%= temp.id %>">
+        <td><%= temp.name %></td>
+        <td><%= t("shared.count", count: temp.all_records.count) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+
+  <tfoot>
+    <tr class='info'>
+      <td class='text-center' colspan="2">
+        <strong><%= t('.operation_description') %></strong>
+        <%= button_tag_with_icon t('.order_save'), class: 'btn btn-primary order-save', icon: 'save', data: {url: change_order_templates_path(service_id: @service.id)}, disabled: !(@templates.size > 1) %>
+      </td>
+    </tr>
+  </tfoot>
+</table>
+<script>
+  $(document).ready(function(){
+    var child_sort_table = new ChildSortTable("#template-list > tbody", "template")
+  })
+</script>

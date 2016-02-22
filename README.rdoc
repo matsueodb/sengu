@@ -1,0 +1,50 @@
+== Sengu README
+
+独立行政法人情報処理推進機構が実施する事業成果です。
+
+* Ruby version
+  2.0.0
+
+* Senguシステムセットアップ手順
+
+  1 Rails共通セットアップ
+    * 依存ライブラリのインストール
+      $ bundle install
+
+    * データベースの設定編集
+      設定ファイルパス ${RAILS_ROOT}/config/database.yml
+
+    * データベースの作成
+      $ rake db:create
+
+    * エンジンからマイグレーションファイルのコピー
+      $ rake vdb:install:migrations
+
+    * マイグレーションの実行
+      $ rake db:migrate
+
+    * 初期データの登録
+      $ rake db:seed
+
+  2 国土地理院初期データ作成
+    国土地理院の位置参照情報ダウンロードサービス(http://nlftp.mlit.go.jp/cgi-bin/isj/dls/_choose_method.cgi)にアクセスします。
+    上記画面から、必要な地域の位置情報をダウンロードします。
+    ダウンロードするファイルを選択する際は、「レベル」を「街区」にしてください。
+    ダウンロードしたファイルを解凍後、csvファイルのみを任意のディレクトリに置きます。
+    複数地域のデータを作成する場合は、上記のディレクトリにcsvを全て置いてください。
+    以下のrake taskを実行し、位置情報のデータを作成します。
+    $ rake kokudo:insert DIR=csvファイルが置かれたディレクトリ
+
+  3 パイロットシステムアクセス設定
+    * 設定ファイルの記述
+      設定ファイルパス ${RAILS_ROOT}/vendor/engines/vdb/config/settings/${RAILS_ENV}.yml
+
+      pkc12.path               : パイロットシステムへアクセスするためのp12ファイルのパス
+      pkc12.password_file_path : p12ファイルのパスワードが記述してあるファイルのパス
+
+  4 PDFで使用するフォントの設定
+    * ダウンロード
+      IPAフォントダウンロードページ（http://ipafont.ipa.go.jp/ipafont/download.html）から、IPA明朝が入ったファイルをダウンロードします。
+
+    * フォントの設置
+      ダウンロードし、解凍したファイルからttfファイル(ipam.ttf)を${RAILS_ROOT}/vendor/fontsに置いてください。

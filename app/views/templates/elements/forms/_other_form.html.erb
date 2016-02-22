@@ -1,0 +1,16 @@
+<% if input_type.blank? || input_type.limitable? %>
+  <%= render "templates/elements/forms/elements/regular_expression_form", input_type: input_type, element: element %>
+  <%= render "templates/elements/forms/elements/max_digit_number_form", input_type: input_type, element: element %>
+  <%= render "templates/elements/forms/elements/min_digit_number_form", input_type: input_type, element: element %>
+<% end %>
+
+<%= render "templates/elements/forms/elements/description_form", element: element %>
+<%= render "templates/elements/forms/elements/data_example_form", element: element unless input_type.upload_file? %>
+<%= render "templates/elements/forms/elements/required_form", element: element %>
+<%= render "templates/elements/forms/elements/unique_form", element: element unless input_type.upload_file? %>
+
+<script>
+  $(document).ready(function(){
+    $('.static-tooltip-description').tooltip()
+  })
+</script>

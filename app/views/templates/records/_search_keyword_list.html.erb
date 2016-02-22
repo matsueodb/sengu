@@ -1,0 +1,29 @@
+<!--
+  NOTE: 本画面で表示する項目は検索に使用した項目とする。
+-->
+<div class="table-responsive overflow">
+  <table class="table display">
+    <caption><%= t(".data_list") %></caption>
+    <thead>
+      <tr>
+        <th style="white-space: nowrap;"><%= @element.name %></th>
+        <th style="white-space: nowrap;"><%= t(".operator") %></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% if contents.empty? %>
+      <tr>
+        <td colspan="2"><%= t(".there_is_no_data") %></td>
+      </tr>
+      <% else %>
+        <% contents.each do |content| %>
+          <tr class="odd gradeX">
+            <td><%= content.value %></td>
+            <td><%= link_to(t("shared.show"), template_record_path(content.element_value.template_record.id, template_id: content.element_value.template_id), remote: true, class: "btn btn-primary ajax-loading-display") %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,35 @@
+<ul class="list-group">
+  <% values.each.with_index(1) do |val, idx| %>
+    <li class="list-group-item">
+      <% if element.input_type.checkbox? %>
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag("content_ids[]", val.id, false, class: "remember-checkbox") %>
+            <%= val.name %>
+          </label>
+        </div>
+      <% else %>
+        <% if @selected_id.to_i == val.id %>
+          <span class="label label-success"><%= t(".selected") %></span>
+        <% end %>
+        <%= button_tag_with_icon t(".select"), class: "btn btn-primary pulldown_select_btn", data: {value: val.id}, icon: "plus-sign" %>
+        <%= val.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+<% if element.input_type.pulldown? %>
+  <script>
+    $(document).ready(function(){
+      var hidden_id = '<%= "#element_#{@element_relation_content_search.element.id}_hidden" %>'
+      $(".pulldown_select_btn").on("click", function(){
+        var select_values_id = '#element<%= element.id %>_select_values'
+        $(select_values_id).html('<%= t(".select_count") %> : ' + 1)
+        var value = $(this).data("value")
+        $(hidden_id).attr("value", value)
+        $('#element_relation_search_form_modal').modal('hide')
+        return false
+      })
+    })
+  </script>
+<% end %>

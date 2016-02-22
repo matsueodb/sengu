@@ -1,0 +1,51 @@
+<% if template.service_id.present? %>
+  <% templates = template.same_service_templates(false).displayables(current_user).order(:display_number).to_a %>
+  <div class="form-group">
+    <%= label_tag :element_source_id, t('.use_template'), class: 'col-lg-2 control-label' %>
+    <div class="col-lg-5">
+      <%= select_tag :element_source_id,
+        options_for_select(templates.map{|t| [t.name, t.id]}, element.try(:source_id)),
+        name: 'element[source_id]',
+        class: 'form-control vocabulary-select static-tooltip-description',
+        data: {
+          toggle: "tooltip",
+          placement: "top",
+          'original-title' => t('.source_id_title')
+        }
+      %>
+    </div>
+  </div>
+
+  <div id="select-other-element">
+    <% source_template = element.try(:input_type_template?) ? element.source : nil %>
+    <%= render '/templates/elements/forms/elements/source_element_id_select_form', template: source_template.blank? ? templates.first : source_template, element: element %>
+  </div>
+
+  <%= render "templates/elements/forms/elements/data_input_way_form", element: element, input_type: input_type %>
+  <%= render "templates/elements/forms/elements/description_form", element: element %>
+  <%= render "templates/elements/forms/elements/data_example_form", element: element %>
+  <%= render "templates/elements/forms/elements/required_form", element: element %>
+  <%= render "templates/elements/forms/elements/unique_form", element: element %>
+
+
+  <script>
+    $(document).ready(function(){
+      $('.static-tooltip-description').tooltip()
+
+      $('.data-confirm').on('click', function(){
+        source_id = $('#element_source_id').val();
+        if (source_id){
+          window.open('/templates/' + $('#element_source_id').val() + '/records/');
+        }
+        return false;
+      })
+
+      $('#element_source_id').on('change', function(){
+        $.get("<%= select_other_element_form_template_elements_path(template, format: :js) %>", {
+          id: "<%= element.try(:id) %>",
+          reference_template_id: $(this).val()
+        });
+      })
+    })
+  </script>
+<% end %>

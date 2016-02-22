@@ -1,0 +1,41 @@
+ja:
+  element:
+    input_conditions:
+      max_digit_number: "：%{count}文字"
+      min_digit_number: "：%{count}文字"
+    data_input_way_label:
+      checkbox: チェックボックス
+      pulldown: プルダウン
+      popup: ポップアップ
+      radio: ラジオボタン
+
+  activerecord:
+    models:
+      element: テンプレート項目
+    attributes:
+      element:
+        name: 項目名
+        input_type_id: 入力タイプ
+        description: 説明
+        data_example: データ例
+        required: 必須項目
+        unique: ユニーク
+        regular_expression_id: 入力値制限
+        max_digit_number: 最大桁数(最大文字数)
+        min_digit_number: 最小桁数(最小文字数)
+        display: 一覧表示
+        vocabulary_element_id: 使用する語彙データ
+        source_id: 使用するデータ
+        entry_name: エントリー名
+        parent_id: 親要素
+        source_element_id: データ入力時表示項目
+        multiple_input: 複数入力
+        available: 使用する
+        publish: RDFで公開
+        data_input_way: データ入力方法
+  errors:
+    messages:
+      exist_data: は既にデータが登録されている為、変更することが出来ません
+      parent_too_depth: にこれ以上子要素を登録することは出来ません
+      already_multiple_input_availability: 既に複数入力が有効になっています。
+      illegality_character: に不正な記号が入力されています

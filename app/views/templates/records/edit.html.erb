@@ -1,0 +1,11 @@
+<% content_for(:page_title) { page_title(template_name: @template.name) } %>
+
+<%= alert_tag(type: :info) do %>
+  <%= t('.description', template_name: @template.name) %>
+<% end %>
+
+<%= form_for(@template_record, url: template_record_path(@template_record, template_id: @template.id), html: {multipart: true, d: "content_form", class: "form-horizontal well"}) do |f| %>
+  <%= render partial: "form", locals: {form: f, elements: @elements, record: @template_record} %>
+  <%= button_tag_with_icon t("shared.update"), method: :patch, class: "btn btn-primary", icon: "edit" %>
+  <%= link_to_with_icon(t(".back_to_list", template_name: @template.name), template_records_path(template_id: @template.id), class: "btn btn-warning", icon: "circle-arrow-left") %>
+<% end %>

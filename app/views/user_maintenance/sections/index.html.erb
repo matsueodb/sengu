@@ -1,0 +1,13 @@
+<div class="row">
+  <div class="col-sm-12 text-right">
+    <% if current_user.admin? %>
+      <%= link_to_with_icon t("shared.new"), new_section_path, class: "btn btn-primary", icon: "plus-sign" %>
+    <% end %>
+    <%= link_to_with_icon t(".back_to_root"), root_path, class: "btn btn-warning", icon: "circle-arrow-left" %>
+  </div>
+</div>
+
+<br />
+<div id="pagination_list">
+  <%= render partial: "list", locals: {sections: @sections} %>
+</div>

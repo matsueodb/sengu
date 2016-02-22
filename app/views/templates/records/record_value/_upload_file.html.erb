@@ -1,0 +1,4 @@
+<% val = values.detect{|v|v.kind == ElementValue::KINDS[:upload_file][:file]} %>
+<% if val %>
+  <%= link_to val.formatted_value, download_file_template_record_path(record.id, template_id: template.id, element_value_id: val.id) %>
+<% end %>

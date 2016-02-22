@@ -1,0 +1,10 @@
+<% it = element.input_type %>
+
+<% disabled = values.select{|v|v.element_id == element.id}.any?{|v|!v.editable_on?(@template)} %>
+<%= render partial: "/templates/records/location_search_address", locals: {element_id: element.id, disabled: disabled, item_number: item_number} %>
+
+<div  id="element<%= element.id %>_<%= item_number %>_description_field">
+  <%= render partial: "/templates/records/various_form/all_locations/kokudo_location", locals: {values: values, element: element, item_number: item_number} %>
+  <%= render partial: "/templates/records/various_form/all_locations/osm_location", locals: {values: values, element: element, item_number: item_number} %>
+  <%= render partial: "/templates/records/various_form/all_locations/google_location", locals: {values: values, element: element, item_number: item_number} %>
+</div>

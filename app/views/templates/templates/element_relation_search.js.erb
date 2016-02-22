@@ -1,0 +1,7 @@
+<% if @element_relation_content_search.valid? %>
+  $("#modal-alert_area").html("")
+  $("#element-relation-content-search-result").html("<%= j(render partial: 'element_relation_search_result', locals: {element: @element_relation_content_search.element, records: @records, elements: @elements}) %>").trigger('paginate')
+  initializeDataTable()
+<% else %>
+  $("#modal-alert_area").html("<%= j alert_tag(type: "danger"){@element_relation_content_search.errors.full_messages.join("<br />")} %>")
+<% end %>

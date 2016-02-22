@@ -1,0 +1,12 @@
+<ul class="list-group">
+  <% records.each.with_index(1) do |val, idx| %>
+    <li class="list-group-item">
+      <div class="checkbox">
+        <label>
+          <%= check_box_tag("content_ids[]", val.id, false, class: "remember-checkbox") %>
+          <%= val.name %>
+        </label>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,13 @@
+ja:
+  activerecord:
+    models:
+      vocabulary/keyword: 語彙検索キーワード
+    attributes:
+      vocabulary/keyword:
+        name: 語彙名
+        content: キーワード
+        category: カテゴリ
+        scope: 適用範囲
+        scopes:
+          1_title: システム全体に適用
+          2_title: 自ユーザのみに適用

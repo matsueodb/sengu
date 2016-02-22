@@ -1,0 +1,8 @@
+ja:
+  sengu:
+    rdf:
+      builder:
+        restriction:
+          required: 必須
+          unique: ユニーク
+          not_available: 使用しない

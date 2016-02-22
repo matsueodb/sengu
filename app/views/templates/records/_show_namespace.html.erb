@@ -1,0 +1,31 @@
+<fieldset class="element_group" id="namespace_field_<%= element.id %>_<%= index %>_<%= item_number %>">
+  <legend>
+    <span class="label label-gray"><%= element.name %></span>
+  </legend>
+
+  <% target_els = element.persisted? ? element.children.availables.includes(:input_type, :source) : element.children %>
+  <% target_els.each.with_index(1) do |el, child_idx| %>
+    <% i = [index, child_idx].join("-") %>
+    <% if el.namespace? %>
+      <div id="namespace_fields_<%= el.id %>_<%= i %>">
+        <% if el.multiple_input? %>
+          <% values = @template_record.record_values(@template).select{|v|v.repeat_element_id == el.id}.group_by(&:item_number) %>
+          <% if values.present?  %>
+            <% values.each do |item_number, vals| %>
+              <%= render partial: "/templates/records/show_namespace", locals: {element: el, item_number: item_number, index: i} %>
+            <% end %>
+          <% else %>
+            <%= render partial: "/templates/records/show_namespace", locals: {element: el, item_number: item_number, index: i} %>
+          <% end %>
+        <% else %>
+          <%= render partial: "/templates/records/show_namespace", locals: {element: el, item_number: item_number, index: i} %>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="row inner namespace_inner">
+        <% values = @template_record ? @template_record.record_values_by_element(el, @template).select{|v|v.item_number == item_number} : [] %>
+        <%= render partial: "/templates/records/show_element", locals: {element: el, element_values: values, item_number: item_number}  %>
+      </div>
+    <% end %>
+  <% end %>
+</fieldset>

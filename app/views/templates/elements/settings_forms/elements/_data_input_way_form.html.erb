@@ -1,0 +1,12 @@
+<%= select_tag :data_input_way, options_for_select_with_data_input_ways(input_type, element.data_input_way),
+  name: "template[elements_attributes][#{child_index}][data_input_way]",
+  class: "form-control static-tooltip-description",
+  style: "width: 57%;",
+  data: {toggle: "tooltip", placement: "top", 'original-title' => t('.data_input_way')}
+%>
+
+<script>
+  $(document).ready(function(){
+    $('.static-tooltip-description').tooltip()
+  })
+</script>

@@ -1,0 +1,87 @@
+it_line:
+  id: 1
+  name: line
+  label: <%= InputType::TYPE_HUMAN_NAME[:line] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:line] %>
+
+it_multi_line:
+  id: 2
+  name: multi_line
+  label: <%= InputType::TYPE_HUMAN_NAME[:multi_line] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:multi_line] %>
+
+it_checkbox_template:
+  id: 3
+  name: checkbox_template
+  label: <%= InputType::TYPE_HUMAN_NAME[:checkbox_template] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:checkbox_template] %>
+  regular_expression_id: 4
+
+it_checkbox_vocabulary:
+  id: 4
+  name: checkbox_vocabulary
+  label: <%= InputType::TYPE_HUMAN_NAME[:checkbox_vocabulary] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:checkbox_vocabulary] %>
+  regular_expression_id: 4
+
+it_pulldown_template:
+  id: 5
+  name: pulldown_template
+  label: <%= InputType::TYPE_HUMAN_NAME[:pulldown_template] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:pulldown_template] %>
+  regular_expression_id: 4
+
+it_pulldown_vocabulary:
+  id: 6
+  name: pulldown_vocabulary
+  label: <%= InputType::TYPE_HUMAN_NAME[:pulldown_vocabulary] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:pulldown_vocabulary] %>
+  regular_expression_id: 4
+
+it_kokudo_location:
+  id: 7
+  name: kokudo_location
+  label: <%= InputType::TYPE_HUMAN_NAME[:kokudo_location] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:kokudo_location] %>
+  regular_expression_id: 11
+
+it_osm_location:
+  id: 8
+  name: osm_location
+  label: <%= InputType::TYPE_HUMAN_NAME[:osm_location] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:osm_location] %>
+  regular_expression_id: 11
+
+it_google_location:
+  id: 9
+  name: google_location
+  label: <%= InputType::TYPE_HUMAN_NAME[:google_location] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:google_location] %>
+  regular_expression_id: 11
+
+it_dates:
+  id: 10
+  name: dates
+  label: <%= InputType::TYPE_HUMAN_NAME[:dates] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:dates] %>
+  regular_expression_id: 10
+
+it_file:
+  id: 11
+  name: upload_file
+  label: <%= InputType::TYPE_HUMAN_NAME[:upload_file] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:upload_file] %>
+
+it_times:
+  id: 12
+  name: times
+  label: <%= InputType::TYPE_HUMAN_NAME[:times] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:times] %>
+
+it_all_locations:
+  id: 13
+  name: all_locations
+  label: <%= InputType::TYPE_HUMAN_NAME[:all_locations] %>
+  content_class_name: <%= InputType::TYPE_CLASS_NAME[:all_locations] %>
+  regular_expression_id: 6
+

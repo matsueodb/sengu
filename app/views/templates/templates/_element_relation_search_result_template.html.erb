@@ -1,0 +1,17 @@
+<ul class="list-group">
+  <% records.each.with_index(1) do |(r_id, vals), idx| %>
+    <% value = r_id %>
+    <% tr = vals.first.template_record %>
+    <% item_number = vals.map(&:item_number).min %>
+    <li class="list-group-item">
+      <div class="checkbox">
+        <label>
+          <%= check_box_tag("content_ids[]", value, false, class: "remember-checkbox") %>
+          <%= render partial: "/templates/records/record_value", locals: {
+            values: vals, item_number: item_number,
+            element: element.source_element, record: tr, template: @element_relation_content_search.element.source} %>
+        </label>
+      </div>
+    </li>
+  <% end %>
+</ul>

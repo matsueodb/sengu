@@ -1,0 +1,10 @@
+<div class="form-group">
+  <%= label_tag :element_description, Element.human_attribute_name(:description), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= text_area_tag :element_description,
+          element.description,
+          class: 'form-control static-tooltip-description',
+          name: "element[description]",
+          data: {toggle: "tooltip", placement: "top", 'original-title' => t('.description_title')} %>
+  </div>
+</div>

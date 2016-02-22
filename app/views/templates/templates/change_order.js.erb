@@ -1,0 +1,6 @@
+<% if @result %>
+  $('#message-area').html("<%= j alert_tag(type: 'success'){t('.success')}  %>");
+  $('#template-list > tbody').effect('highlight');
+<% else %>
+  $('#message-area').html("<%= j alert_tag{t('.failure')} %>");
+<% end %>

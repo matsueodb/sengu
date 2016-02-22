@@ -1,0 +1,22 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format(t('.description')) %>
+<% end %>
+
+<div id="template-element-search-form-error-messages-area">
+</div>
+
+<%= form_for(@template_element_search, url: search_vocabulary_keywords_path, html: {class: 'form-inline ajax-loading-display well'}, remote: true) do |f| %>
+
+  <div class="form-group">
+    <%= f.text_field :name, class: 'form-control col-lg-6', placeholder: TemplateElementSearch.human_attribute_name(:name), autofocus: true %>
+  </div>
+
+  <%= hidden_field_tag "#{f.object_name}[user_id]", current_user.id %>
+  <%= button_tag_with_icon t('shared.search'), class: 'btn btn-primary template-element-search-submit', icon: 'search' %>
+<% end %>
+
+<h2><%= t('.configured_vocabulary') %></h2>
+
+<div id="configured-vocabulary-keyword">
+  <%= render 'list', vocabulary_keywords: @vocabulary_keywords %>
+</div>

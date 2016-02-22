@@ -1,0 +1,33 @@
+ja:
+  templates:
+    records:
+      record_value:
+        line:
+          confirmation_of_registration_details: 登録内容を確認
+        location: &location_form
+          display_map: 地図表示
+        kokudo_location:
+          <<: *location_form
+        osm_location:
+          <<: *location_form
+        google_location:
+          <<: *location_form
+        location_with_search_address:
+          latitude: 緯度
+          longitude: 経度
+          display_map: 地図表示
+        checkbox_template:
+          display_relation_content: 選択しているデータを表示
+        pulldown_template:
+          display_relation_content: 選択しているデータを表示
+        checkbox_vocabulary:
+          display_relation_content: 選択しているデータを表示
+        pulldown_vocabulary:
+          display_relation_content: 選択しているデータを表示
+        all_locations:
+          kokudo_location:
+            display_map: 国土地理院地図表示
+          osm_location:
+            display_map: OpenStreetMap地図表示
+          google_location:
+            display_map: GoogleMap地図表示

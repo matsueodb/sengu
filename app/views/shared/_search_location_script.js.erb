@@ -1,0 +1,22 @@
+// 都道府県セレクト変更時
+$(".pref_id_select").bind("change", function(){
+  var vn_name = $(this).attr("data-prefix")
+  $.get('<%= search_city_id_select_maps_path %>', {variable_name: vn_name, pref_id: $(this).val()},  function(render_html){
+    $("#" + vn_name + "_city_select").html(render_html);
+  });
+});
+
+
+// 検索ボタン押下時
+$('.address_btn').click(function(e) {
+  var vn_name = $(this).attr("data-prefix")
+  var pref_id = $("#" + vn_name + "_pref_id").val()
+  var city_id = $("#" + vn_name + "_city_id").val()
+  var address = $("#" + vn_name + "_address").val()
+  $.ajax({
+    type: "post",
+    url: "<%= search_address_location_maps_path %>",
+    data: "variable_name=" + vn_name + "&pref_id=" + pref_id + "&city_id=" + city_id + "&address=" + address
+  });
+  return false
+});

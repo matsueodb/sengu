@@ -1,0 +1,10 @@
+<div class="form-group">
+  <%= label_tag :data_example, Element.human_attribute_name(:data_example), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= text_field_tag :data_example,
+        element.data_example,
+        class: 'form-control static-tooltip-description',
+        name: "element[data_example]",
+        data: {toggle: "tooltip", placement: "top", 'original-title' => t('.data_example_title')} %>
+  </div>
+</div>

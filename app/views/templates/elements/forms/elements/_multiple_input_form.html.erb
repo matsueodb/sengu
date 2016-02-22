@@ -1,0 +1,33 @@
+<div class="form-group">
+  <% disabled = element.all_parents.any?{|e| e.multiple_input? } || !element.children_multiple_inputable %>
+  <%= label_tag :element_multiple_input, Element.human_attribute_name(:multiple_input), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <% if disabled %>
+      <%= alert_tag(type: :warning) do %>
+        <%= t('.disabled_description') %>
+      <% end %>
+    <% else %>
+      <%= check_box :"element",
+          "multiple_input",
+          checked: element.multiple_input,
+          class: 'static-tooltip-description',
+          disabled: disabled,
+          data: {toggle: "tooltip", placement: "top", 'original-title' => t('.multiple_input_title')}
+      %>
+    <% end %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= label_tag :element_available, Element.human_attribute_name(:available), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= check_box :element, :available, checked: element.available, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.available_title')} %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= label_tag :element_publish, Element.human_attribute_name(:publish), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= check_box :element, :publish, checked: element.publish, class: 'static-tooltip-description', data: {toggle: "tooltip", placement: "top", 'original-title' => t('.publish_title')} %>
+  </div>
+</div>

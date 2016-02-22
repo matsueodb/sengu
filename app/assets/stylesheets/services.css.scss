@@ -1,0 +1,65 @@
+// Place all the styles related to the services controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new-btn-area{
+  padding: 5px;
+}
+
+div#accordion{
+  a.accordion-header{
+    display: block;
+  }
+}
+
+.service-row {
+  margin-bottom: 2px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.service-name {
+  display: block;
+  padding: 8px 0px;
+}
+
+.menu .area {
+  border-right: 2px solid #e5e5e5;
+  border-top: 2px solid #e5e5e5;
+  border-bottom: 2px solid #e5e5e5;
+  background-color: white;
+}
+
+.other-section {
+  border-left: 4px solid #00bfff;
+}
+
+.own-section {
+  border-left: 4px solid #f38787;
+}
+
+.service-tab {
+  margin-bottom: 10px;
+}
+
+.custom-search-form {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.active-service {
+  background-color: #08c !important;
+}
+
+.active-service a {
+  color: white;
+}
+
+.template-count {
+  margin-top: 9px;
+}
+
+.annotation {
+  font-size: 85%;
+}

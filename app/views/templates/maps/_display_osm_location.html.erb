@@ -1,0 +1,34 @@
+<div class="modal fade map-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3><%= t(".title") %></h3>
+      </div>
+      <div class="modal-body">
+        <% if @map %>
+          <%= render partial: "osm_script" %>
+          <div id="canvas" style="width: 950px;height: 400px;float:left"></div>
+          <div style="clear: both"></div>
+        <% else %>
+          <%= t(".no_address_data") %>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <div class="form-group">
+          <%= label_tag :latitude, t(".latitude") + "：", class: "col-sm-1 control-group" %>
+          <div class="col-sm-3">
+            <%= text_field_tag :latitude, @map.try(:latitude), class: "form-control", disabled: "disabled" %>
+          </div>
+          <%= label_tag :latitude, t(".longitude") + "：", class: "col-sm-1 control-group" %>
+          <div class="col-sm-3">
+            <%= text_field_tag :longitude, @map.try(:longitude), class: "form-control", disabled: "disabled" %>
+          </div>
+          <div class="col-sm-4">
+            <a class="btn btn-primary" data-dismiss="modal"><%= t("shared.close") %></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

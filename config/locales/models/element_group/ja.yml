@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      element_group: 位置情報グループ
+    attributes:
+      element_group:
+        name: グループ名

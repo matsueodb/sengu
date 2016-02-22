@@ -1,0 +1,27 @@
+<% if users.empty? %>
+  <%= alert_tag(type: "warning"){t(".empty_list")} %>
+<% else %>
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t(".no") %></th>
+      <th><%= User.human_attribute_name(:name) %></th>
+      <th><%= User.human_attribute_name(:section_id) %></th>
+      <th><%= t(".operator") %></th>
+    </tr>
+
+    <% users.each.with_index(1) do |u, idx| %>
+      <tr>
+        <td><%= idx + users.offset_value %></td>
+        <td><%= u.name %></td>
+        <td><%= u.section.try(:name) %></td>
+        <td>
+          <%= link_to_with_icon(t(".destroy_member"),
+            destroy_member_section_user_group_path(@user_group, section_id: @section.id, user_id: u.id),
+            method: :delete,
+            data: {confirm: t(".confirm.destroy")},
+            icon: "remove", class: "btn btn-danger") %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>

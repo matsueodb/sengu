@@ -1,0 +1,12 @@
+<div class="form-group">
+  <%= label_tag :element_input_type_id, Element.human_attribute_name(:input_type_id), class: 'col-lg-2 control-label' %>
+  <div class="col-lg-3">
+    <%= select_tag :element_input_type_id, options_for_select(
+      InputType.order(:id).pluck(:label, :id), selected: element.input_type_id,
+      disabled: element.disabled_input_type_ids),
+      name: "element[input_type_id]",
+      class: 'form-control template-input-type static-tooltip-description',
+      data: {toggle: "tooltip", placement: "top", 'original-title' =>t('.input_type_title')} %>
+      <% #disabled: element.data_type && !Element::AVAILABLE_INPUT_TYPE.has_key?(element.data_type) %>
+  </div>
+</div>

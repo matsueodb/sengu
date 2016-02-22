@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      service: サービス
+    attributes:
+      service:
+        name: 名前
+        description: 備考・説明
+        section_id: 所属

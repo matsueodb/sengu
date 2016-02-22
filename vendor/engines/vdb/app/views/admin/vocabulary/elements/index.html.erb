@@ -1,0 +1,48 @@
+<%= alert_tag(type: :info) do %>
+  <%= simple_format(t('.description_with_search')) %>
+<% end %>
+
+<div id="error-messages-area">
+</div>
+<%= form_for(@vocabulary_search, url: search_vocabulary_elements_path, html: {class: 'form-inline ajax-loading-display well'}, remote: true) do |f| %>
+  <div class="form-group">
+    <%= f.text_field :name, class: 'form-control', placeholder: t('.keyword') %>
+  </div>
+
+  <%= button_tag_with_icon t('shared.search'), class: 'btn btn-primary', icon: 'search' %>
+  <%= link_to_with_icon t('.new'), new_vocabulary_element_path, class: 'btn btn-primary', icon: 'plus-sign' %>
+  <%= link_to_back root_path %>
+<% end %>
+
+<h2><%= t('.code_list_title') %></h2>
+
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th><%= Vocabulary::Element.human_attribute_name(:name) %></th>
+      <th><%= Vocabulary::Element.human_attribute_name(:description) %></th>
+      <th><%= t('.operation') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @elements.each do |element| %>
+      <tr>
+        <td><%= element.name %></td>
+        <td><%= element.description %></td>
+        <td class='col-lg-4'>
+          <% if element.from_vdb? %>
+            <%= link_to_with_icon t('shared.show'), vocabulary_element_path(element), class: 'btn btn-primary btn-sm', icon: 'info-sign' %>
+            <%= link_to_with_icon t('.update_by_vdb'), update_by_vdb_vocabulary_element_path(element), class: 'btn btn-primary btn-sm loading-display', icon: 'edit', method: :patch %>
+            <%= link_to_with_icon t('.value_config'), new_vocabulary_element_value_path(element), class: 'btn btn-primary btn-sm', icon: 'cog' %>
+          <% else %>
+            <%= link_to_with_icon t('shared.show'), vocabulary_element_path(element), class: 'btn btn-primary btn-sm', icon: 'info-sign' %>
+            <%= link_to_with_icon t('shared.edit'), edit_vocabulary_element_path(element), class: 'btn btn-primary btn-sm', icon: 'edit' %>
+            <%= link_to_with_icon t('.value_config'), new_vocabulary_element_value_path(element), class: 'btn btn-primary btn-sm', icon: 'cog' %>
+            <%= link_to_destroy vocabulary_element_path(element), class: 'btn-sm' %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

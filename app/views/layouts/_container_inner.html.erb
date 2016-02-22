@@ -1,0 +1,16 @@
+<%= render_breadcrumbs builder: ::CustomBreadcrumbsBuilder %>
+<div class="pull-left">
+  <h1><%= page_title %></h1>
+</div>
+
+<div class="pull-left">
+  <%= yield(:wizard) if content_for?(:wizard) %>
+</div>
+
+<div class="clearfix"></div>
+
+<%= alert_tag(type: "success"){flash[:notice]} if flash[:notice] %>
+<%= alert_tag{flash[:alert]} if flash[:alert] %>
+
+<%= yield %>
+<!-- Site footer -->

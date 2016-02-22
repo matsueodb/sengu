@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      regular_expression: 正規表現
+    attributes:
+      regular_expression:
+        name: 名前
+        format: 正規表現
+        option: オプション

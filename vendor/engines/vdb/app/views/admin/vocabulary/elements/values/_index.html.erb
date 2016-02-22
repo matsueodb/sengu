@@ -1,0 +1,28 @@
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th><%= t('.no') %></th>
+      <th><%= Vocabulary::ElementValue.human_attribute_name(:name) %></th>
+      <% unless element.from_vdb? %>
+        <th><%= t('.operation') %></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% element.values.each.with_index(1) do |e_v, idx| %>
+      <% if e_v.persisted? %>
+        <tr>
+          <td class="col-lg-1"><%= idx %></td>
+          <td><%= e_v.name %></td>
+          <% unless element.from_vdb? %>
+            <td class="col-lg-3">
+              <%= link_to_with_icon t('shared.edit'), edit_vocabulary_element_value_path(element, e_v), class: 'btn btn-primary', icon: 'edit', remote: true %>
+              <%= link_to_destroy vocabulary_element_value_path(element, e_v) %>
+
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>

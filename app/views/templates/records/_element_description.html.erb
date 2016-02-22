@@ -1,0 +1,47 @@
+<div class="panel-group">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <span class="glyphicon glyphicon-info-sign"></span>
+      <%= t(".input_description") %>
+    </div>
+    <div class="panel-body">
+      <%= @element.description.blank? ? t(".blank.description") : @element.description %>
+    </div>
+  </div>
+
+  <div class="panel panel-success">
+    <div class="panel-heading">
+      <span class="glyphicon glyphicon-star"></span>
+      <%= t(".input_example") %>
+    </div>
+    <div class="panel-body">
+      <%= @element.data_example.blank? ? t(".blank.example") : @element.data_example %>
+    </div>
+  </div>
+  <div class="panel panel-warning">
+    <div class="panel-heading">
+      <span class="glyphicon glyphicon-exclamation-sign"></span>
+      <%= t(".input_condition") %>
+    </div>
+    <div class="panel-body">
+      <% if @conditions.blank? %>
+        <%= t(".blank.condition") %>
+      <% else %>
+        <ul>
+          <% @conditions.each do |c| %>
+            <li><%= c %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $("#element" + "<%= @element.id %>" + "_<%= @item_number %>" + "_description_field_desc_close").on("click", function(){
+      $("#element" + "<%= @element.id %>" + "_<%= @item_number %>" + "_description_field").attr("data-popover-status", "hide")
+      $("#element" + "<%= @element.id %>" + "_<%= @item_number %>" + "_description_field").popover('hide')
+    });
+  });
+</script>

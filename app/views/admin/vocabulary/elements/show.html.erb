@@ -1,0 +1,23 @@
+<% content_for(:page_title){ page_title(name: @element.name) } %>
+
+<table class='table table-bordered table-striped'>
+  <thead>
+    <tr>
+      <th class='col-lg-1'><%= t('.no') %></th>
+      <th class='col-lg-1'><%= t('.id') %></th>
+      <th><%= t('.vocabulary') %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @element.values.order(:id).each.with_index(1) do |val, idx| %>
+      <tr>
+        <td><%= idx %></td>
+        <td><%= val.id %></td>
+        <td><%= val.name %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to_back vocabulary_elements_path %>

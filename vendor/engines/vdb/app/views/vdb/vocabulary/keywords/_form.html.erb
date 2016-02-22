@@ -1,0 +1,76 @@
+<div id="vocabulary-keyword-configure" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title', element_name: @vocabulary_keyword.name) %></h4>
+      </div>
+
+      <div id="element-keyword-body" class="modal-body">
+        <div id="element-keyword-message-area"></div>
+        <%= alert_tag(type: :info){simple_format(t('.description'))} %>
+
+        <div id="vocabulary-keyword-error-messages-area">
+        </div>
+
+        <%= form_for(@vocabulary_keyword, html: {class: 'form-horizontal element-keyword-form ajax-loading-display'}, remote: true) do |f| %>
+          <%= f.hidden_field :name %>
+          <div class="form-group">
+            <%= f.label :content, class: 'col-lg-2 control-label' %>
+            <div class="col-lg-10">
+              <%= f.text_area :content, class: 'static-tooltip-description form-control', data: {
+                  toggle: "tooltip",
+                  placement: "top",
+                  'original-title' => t('.content_title')
+              } %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :category, class: 'col-lg-2 control-label' %>
+            <div class="col-lg-10">
+              <%= f.text_area :category, class: 'static-tooltip-description form-control', data: {
+                  toggle: "tooltip",
+                  placement: "top",
+                  'original-title' => t('.category_title')
+              } %>
+            </div>
+          </div>
+
+          <% if current_user.admin? %>
+            <div class="form-group">
+              <%= f.label :scope, class: 'col-lg-2 control-label' %>
+              <div class="checkbox text-center">
+                <% Vocabulary::Keyword::SCOPES.each do |label_str, scope| %>
+                  <label>
+                    <%= f.radio_button :scope, scope , class: 'static-tooltip-description', data: {
+                    toggle: "tooltip",
+                    placement: "top",
+                    'original-title' => t(".scope_#{label_str}_title")
+                    } %>
+                    <%= t("activerecord.attributes.element_keyword.scope_#{label_str}") %>
+                  </label>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('.configure'), type: 'button', class: 'keyword-submit btn btn-primary', icon: 'cog' %>
+        <%= button_tag_with_icon t('shared.close'), type: 'button', class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+
+      <script>
+        $(document).ready(function(){
+          $('.keyword-submit').on('click', function(){
+            $('.element-keyword-form').trigger('submit');
+          })
+          $('.static-tooltip-description').tooltip()
+        })
+      </script>
+    </div>
+  </div>
+</div>
+

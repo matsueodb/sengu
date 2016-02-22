@@ -1,0 +1,8 @@
+ja:
+  activerecord:
+    models:
+      element_value: ""
+    attributes:
+      element_value:
+        values:
+          base: ""

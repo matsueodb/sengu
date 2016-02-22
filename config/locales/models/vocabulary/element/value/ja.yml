@@ -1,0 +1,7 @@
+ja:
+  activerecord:
+    models:
+      vocabulary/element_value: 語彙データ項目
+    attributes:
+      vocabulary/element_value:
+        name: 項目名

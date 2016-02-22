@@ -1,0 +1,24 @@
+ja:
+  admin:
+    vocabulary:
+      elements:
+        values:
+          index:
+            no: No.
+            operation: 操作
+          new:
+            title: "【%{element_name}】項目設定"
+          edit:
+            title: "【%{element_name}】項目設定"
+          form:
+            description: |
+              【%{element_name}】コードリストに項目を設定します。
+            add: 追加
+          create:
+            title: "【%{element_name}】項目設定"
+            success: 作成に成功しました
+          update:
+            title: "【%{element_name}】項目設定"
+            success: 更新に成功しました
+          destroy:
+            success: 削除に成功しました

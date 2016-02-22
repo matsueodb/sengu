@@ -1,0 +1,102 @@
+<div id="vdb-response" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title', element_name: @template_element_search.name) %></h4>
+      </div>
+
+      <div id="vdb-response-body" class="modal-body">
+        <%= alert_tag(type: :info) do %>
+          <%= simple_format t('.description') %>
+        <% end %>
+
+        <% vdb_responses.each do |vdb_response| %>
+          <table class='table table-bordered table-striped element-search-vdb-tree-table'>
+            <caption><%= t('.vdb_result', get_name: vdb_response.getname, domain_name: TemplateElementSearch.new(domain_id: vdb_response.domain).vdb_class.human_readable_name) %></caption>
+            <thead>
+              <tr>
+                <th class="col-lg-4"><%= t('.item_name') %></th>
+                <th class="col-lg-4"><%= t('.data_type') %></th>
+                <th class='col-lg-1'><%= t('.operation') %></th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <% if vdb_response %>
+                <% if vdb_response.success? %>
+                  <% idx = 0 %>
+                  <% vocabulary_keywords = current_user.vocabulary_keywords.to_a %>
+                  <% vdb_response.complexes.each do |complex| %>
+                    <tr data-tt-id="<%= idx %>">
+                      <% configured = vocabulary_keywords.detect{|v_k| v_k.name == complex.name} %>
+                      <td>
+                        <%= complex.name %>
+                      </td>
+                      <td></td>
+                      <td>
+                        <% link_str = configured ? t('.reconfigure') : t('.configure') %>
+                        <%= link_to_with_icon link_str, configure_vocabulary_keywords_path(name: complex.name), class: 'btn btn-primary btn-sm ajax-loading-display', icon: 'cog', remote: true %>
+                      </td>
+                    </tr>
+
+                    <% parent_idx = idx %>
+                    <% complex.elements.each do |element| %>
+                      <% idx += 1 %>
+                      <%= render 'element_row',
+                        idx: idx,
+                        parent_idx: parent_idx,
+                        element: element,
+                        domain_id: template_element_search.domain_id,
+                        template: template,
+                        vocabulary_keywords: vocabulary_keywords
+                      %>
+
+                      <% namespace_id = idx %>
+                      <% element.children.each do |child_el| %>
+                        <% idx += 1 %>
+                        <%= render 'element_row',
+                          idx: idx,
+                          parent_idx: namespace_id,
+                          element: child_el,
+                          domain_id: template_element_search.domain_id,
+                          template: template,
+                          vocabulary_keywords: vocabulary_keywords
+                        %>
+                      <% end %>
+                    <% end %>
+                    <% idx += 1 %>
+                  <% end %>
+                  <% vdb_response.elements.each do |element| %>
+                    <%= render 'element_row',
+                      idx: idx,
+                      parent_idx: nil,
+                      element: element,
+                      domain_id: template_element_search.domain_id,
+                      template: template,
+                      vocabulary_keywords: vocabulary_keywords
+                    %>
+                    <% idx += 1 %>
+                  <% end %>
+                <% else %>
+
+                  <tr class='success'>
+                    <td colspan="3"><%= alert_tag{vdb_response.message} %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% end %>
+
+        <script>
+          $(document).ready(function(){
+            $('.element-search-vdb-tree-table').treetable({
+              expandable: true
+            });
+          })
+        </script>
+      </div>
+    </div>
+  </div>
+</div>

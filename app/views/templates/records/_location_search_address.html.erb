@@ -1,0 +1,26 @@
+<% uniq_id = "#{element_id}-#{item_number}"  %>
+<div class="row">
+  <div class="control-group">
+    <div class="col-sm-1">
+      <p class="form-control-static"><%= t(".address") %>:</p>
+    </div>
+    <% select_opt = {"data-uniq_id" => uniq_id, class: "pref_id_select form-control", id: "pref_id_#{uniq_id}"} %>
+    <div class="col-sm-2">
+      <%= select_tag(:pref_id, options_for_select_with_prefs(@prefs, ""), select_opt) %>
+    </div>
+    <div class="col-sm-3">
+      <span id="<%= "city_select_#{uniq_id}" %>">
+        <%= render partial: "templates/maps/search_city_id_select", locals: {uniq_id: uniq_id} %>
+      </span>
+    </div>
+    <div class="col-sm-3">
+      <%= text_field_tag(:address, params[:address], id: "address_#{uniq_id}", class: "form-control" ) %>
+    </div>
+    <div class="col-sm-3">
+      <%= link_to("javascript:;", class: "btn btn-success address_btn #{'disabled' if disabled}", "data-uniq_id" => uniq_id) do %>
+        <span class="glyphicon glyphicon-search"></span>
+        <%= t("shared.search") %>
+      <% end %>
+    </div>
+  </div>
+</div>

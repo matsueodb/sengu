@@ -1,0 +1,9 @@
+ja:
+  activerecord:
+    models:
+      map: 正規表現
+    attributes:
+      map:
+        title:
+          latitude: 緯度
+          longitude: 経度

@@ -1,0 +1,13 @@
+<fieldset class="element_group">
+  <legend>
+    <span class="label label-gray"><%= element.name %></span>
+  </legend>
+
+  <% element.children.each do |el| %>
+    <% if el.children.exists? %>
+      <%= render partial: "/templates/templates/namespace_form", locals: {element: el} %>
+    <% else %>
+      <%= render partial: "/templates/templates/data_select_element_form", locals: {element: el} %>
+    <% end %>
+  <% end %>
+</fieldset>

@@ -1,0 +1,8 @@
+<%# if trueのときは、ページネーション処理 %>
+<% if params[:pagination] %>
+  $("#pagination_list<%= @template.parent_id %>").html("<%= j render partial: "/templates/records/list",
+              locals: {template: @template.parent, elements: @elements, records: @records, table_id: "data-table"} %>")
+<% else %>
+  $("<%= j(render partial: 'data_select_list', locals: {records: @records, elements: @elements, template: @template.parent}) %>").modal()
+<% end %>
+initializeDataTable()

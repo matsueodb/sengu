@@ -1,0 +1,45 @@
+<% @idx = 1 %>
+<% @complexes.each do |complex| %>
+  <div class="well" style="background-color: white;">
+    <span style="font-size: large;padding-right: 10px;"><%= complex.name %></span>
+    <%= link_to_with_icon t('.use_all'),
+        create_complex_type_template_element_searches_path(@template, template_element_search: {
+          name: complex.name,
+          domain_id: complex.domain
+        }), class: 'btn btn-sm btn-primary loading-display', icon: 'open', method: :post %>
+
+    <%= link_to_with_icon t('.sample'),
+        complex_sample_field_template_element_searches_path(@template, template_element_search: {
+          name: complex.name,
+          domain_id: complex.domain
+        }), remote: true, class: 'btn btn-sm btn-info ajax-loading-display', icon: 'new-window', method: :post %>
+
+    <hr />
+
+    <table class='table table-bordered table-striped element-search-vdb-tree-table'>
+      <thead>
+        <tr>
+          <th><%= Element.human_attribute_name("name") %></th>
+          <th><%= Element.human_attribute_name("input_type_id") %></th>
+          <th><%= Element.human_attribute_name("description") %></th>
+          <th class="col-lg-3"><%= t(".operator") %></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% complex.elements.each do |element| %>
+          <%= render "/vdb/templates/elements/find_search_result_row", element: element.to_element(@template.id), complex: complex %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end -%>
+
+<script>
+  $(document).ready(function(){
+    $('.element-search-vdb-tree-table').treetable({
+      expandable: true
+    });
+  })
+</script>
+

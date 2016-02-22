@@ -1,0 +1,188 @@
+ja:
+  activemodel:
+    models:
+      template_element_search: テンプレート要素検索
+    attributes:
+      template_element_search:
+        name: キーワード
+    errors:
+      models:
+        template_element_search:
+          attributes:
+            base:
+              select_category: "カテゴリを選択してください。"
+              input_keyword: "キーワードを入力してください。"
+
+  engines:
+    vdb: 語彙データベース
+
+  templates:
+    elements:
+      show_elements:
+        add_element_by_vocabulary_database: 項目追加（語彙データベース）
+        add_element: 項目追加
+        description: 項目の設定を行います。新しく項目を追加する場合は「項目追加（語彙データベース）」を選択して下さい。「項目追加（語彙データベース）」で目的の項目が見つからなかった場合は、「項目追加」を選択してください。
+        description_for_only_search: 項目の設定を行います。新しく項目を追加する場合は「項目追加（語彙データベース）」を選択して下さい。
+        edit_settings: 項目一括設定
+
+  vdb:
+    shared:
+      vdb_access_failure: 語彙DBから取得に失敗しました。
+    templates:
+      elements:
+        new:
+          title: "【%{template_name}】項目追加（語彙データベース）"
+          done: 完了
+          nothing_elements_done_confirm: 項目が一つも作成されていません。項目の設定を終了しますか?
+          to_data_input: 設定したテンプレートへデータを入力する
+          done_confirm: 項目の設定を完了します。よろしいですか?
+          description: |
+            項目の追加を行います。項目は、語彙データベース内から検索して利用出来ます。検索しても項目が見つから無かった場合は、「項目追加」を選択してください。
+          description_for_only_search: 項目の追加を行います。項目は、語彙データベース内から検索して利用出来ます。
+          input_category: カテゴリを選択してください
+          operator: 操作
+          add_element: 項目追加
+          back_list: 項目一覧に戻る
+        find_search_result:
+          operator: 操作
+          use_all: この型の項目をすべて利用する
+          sample: 入力プレビュー
+        find_search_result_row:
+          use: 利用する
+          sample: 入力プレビュー
+          confirm_data: データ確認
+          input_from: から入力可能
+
+      element_searches:
+        index:
+          title: 語彙データベース検索
+          description: |
+            最適な項目名を語彙データベースから検索します。
+            また、「語彙検索設定」で語彙データベースの語彙データに独自の検索キーワードを設定している場合は、そちらも検索対象として使用されます。
+          search_placeholder: キーワード
+          core_search: コア語彙
+          domain_search: 観光語彙
+        result:
+          item_name: 項目名
+          data_type: データタイプ
+          operation: 操作
+          use: 利用する
+          no_data_description: データが無い場合は下記に任意の項目を入力して利用して下さい
+          vdb_result: "「%{get_name} 」語彙データベース検索結果"
+          system_result: システム内検索結果
+          no_data: 一致するデータがありません
+        element_row:
+          use: 利用する
+        element_sample_field:
+          title: 入力プレビュー
+          description: |
+            入力フィールドのサンプルです。
+            これらの項目を利用すると下記のような入力フィールドでデータを登録することができます。
+          nothing_elements_description: 項目が存在しないため表示出来ません。
+          failure: 語彙DBから取得に失敗しました
+        complex_sample_field:
+          failure: 語彙DBから取得に失敗しました
+        create_element:
+          success: 作成に成功しました
+          error:
+            workaround: 「項目名はすでに存在します。」と表示された場合は、テンプレート項目一覧から既に登録している項目の「編集」ボタンを選択して項目名の編集を行ってください。
+        create_complex_type:
+          success: 作成に成功しました
+          error:
+            workaround: 「項目名はすでに存在します。」と表示された場合は、テンプレート項目一覧から既に登録している項目の「編集」ボタンを選択して項目名の編集を行ってください。
+        vocabulary_values:
+          title: 【%{element_name}】入力可能項目一覧
+        search:
+          no_element: 語彙データベースから該当する項目が見つかりませんでした。
+    vocabulary:
+      keywords:
+        index:
+          title: 語彙検索設定
+          code_list_management: コードリスト管理
+          vocabulary_keyword_configure: 語彙検索設定
+          description: |
+            語彙データベースにある語彙データに対して、検索キーワードとカテゴリを設定します。
+            項目設定の語彙データベース検索時にキーワードを入力して検索すると、そのキーワードを含む語彙名を検索対象として使用します。
+            項目設定の語彙データベース検索時にカテゴリを選択して検索すると、そのカテゴリを含む語彙名を検索対象として使用します。
+            下記のフォームに単語を入力し、語彙データを検索して設定を行って下さい。
+          configured_vocabulary: 設定済みの語彙一覧
+          core_search: コアから探す
+          domain_search: 観光ドメインから探す
+        show:
+          title: "【%{element_name}】語彙詳細"
+        result:
+          title: "【%{element_name}】検索結果"
+          vdb_result: "「%{get_name} 」語彙データベース検索結果(%{domain_name})"
+          item_name: 項目名
+          data_type: データタイプ
+          operation: 操作
+          configure: キーワード設定
+          configured: 設定済み
+          reconfigure: キーワード再設定
+          description: |
+            語彙データベースの検索結果です。
+            語彙データにキーワードを設定する場合は「キーワード設定」を行って下さい。
+        element_row:
+          configure: キーワード設定
+          configured: 設定済み
+          reconfigure: キーワード再設定
+          configure: キーワード設定
+        list:
+          operation: 操作
+        form:
+          title: "【%{element_name}】 語彙検索設定"
+          content_title: 文章や単語を入力します
+          category_title: 文章や単語を入力します
+          scope_whole_title: システム全体に適用されるため、他ユーザにも適用されます
+          scope_individual_title: 自ユーザのみに適用されるため、他ユーザには適用されません
+          configure: 設定
+          description: |
+            項目の検索キーワード、カテゴリの設定を行います。
+            ここで設定した文章や単語などはテンプレートの項目を検索する際に、
+            検索対象として使用されます。
+        destroy:
+          success: 削除に成功しました
+  admin:
+    vocabulary:
+      elements:
+        index:
+          description_with_search: |
+            コードリストの管理を行えます。
+            コードリストとはテンプレートに登録するデータの選択肢になります。
+            コードリストは、下記のフォームにキーワードを入力して語彙データベースから検索して利用するか、「新規追加」を選択して任意のコードリストを作成してください。
+          update_by_vdb: 語彙データベースから更新
+        result:
+          title: 語彙データベース検索結果
+          vocabulary: コードリスト名
+          content: 項目一覧
+          operation: 操作
+          use: 利用する
+          show: 詳細表示
+          none: 一致するデータがありません
+        update_by_vdb:
+          success: 更新に成功しました
+          failure: 更新に失敗しました
+        values:
+          new:
+            update_by_vdb: 語彙データベースから更新
+            from_vdb_description: |
+              このコードリストは語彙データベースから取得して作成された為、
+              語彙データベースを使用した更新のみが可能です。
+              語彙データベースを使用して更新するには「語彙データベースから更新」を選択して下さい。
+        create_code_list:
+          success: 作成に成功しました
+          failure: 作成に失敗しました
+
+  sengu:
+    vdb:
+      response:
+        errors:
+          parse: データの解析中にエラーが発生しました
+        messages:
+          failure: 語彙データの取得に失敗しました
+          code_204: 一致するデータがありません
+          code_404: 語彙データベースが提供する正しいURLではありません
+          code_500: 語彙データベースの内部でエラーが発生しました
+      base:
+        errors:
+          connection: 語彙データベースへの接続に失敗しました

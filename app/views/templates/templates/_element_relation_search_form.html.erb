@@ -1,0 +1,75 @@
+<div id="element_relation_search_form_modal" class="modal fade big-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title"><%= t('.title') %></h4>
+      </div>
+      <div class="modal-body">
+        <div id="modal-alert_area">
+        </div>
+        <%= alert_tag(type: :info){t('.description')} %>
+        <%= form_for(@element_relation_content_search,
+          url: element_relation_search_templates_path, html: {class: 'form-inline disable-submit', id: "checkbox-table"}, remote: true) do |f| %>
+          <%= f.hidden_field :element_id %>
+          <%= hidden_field_tag :selected_id, @selected_ids.first if @element_relation_content_search.input_type.pulldown?  %>
+
+          <div class="element-group">
+            <div class="col-sm-4">
+              <%= f.text_field :keyword, class: 'form-control', placeholder: t('.search_placeholder') %>
+            </div>
+          </div>
+
+          <%= button_tag_with_icon t('shared.search'), id: "element-relation-content-search-result_btn", class: 'btn btn-primary', icon: 'search' %>
+
+          <br />
+          <br />
+
+          <div id="element-relation-content-search-result">
+          </div>
+        <% end %>
+
+        <script>
+          
+          $(document).ready(function(){
+            table_form = new RememberCheckboxTableForm({
+              targetEl: "#checkbox-table",
+              checkboxName: "content_ids[]"
+            })
+
+            table_form.checkedList = <%= raw @selected_ids.to_json.html_safe %>
+
+            $("#element-relation-content-search-result").on('paginate', function(){
+              table_form.paginated()
+            })
+            var hidden_field_id = "#element<%= @element_relation_content_search.element_id%>_hidden_field"
+            var select_values_id = "#element<%= @element_relation_content_search.element_id%>_select_values"
+
+            $("#complete_select_btn").on("click", function(){
+              $("#element<%= @element_relation_content_search.element_id %>_hidden_field").html("")
+
+              if(table_form.checkedList.length == 0){
+                $(select_values_id).html('<%= t("shared.non_select") %>')
+              }else{
+                $(select_values_id).html('<%= t(".select_count") %> : ' + table_form.checkedList.length)
+              }
+
+              $(hidden_field_id).html("")
+
+              $.each(table_form.checkedList, function(idx, item){
+                $('<input>').attr({class: 'remember-hidden value_hidden', type: 'hidden', value: this,
+                  name: "condition[<%= @element_relation_content_search.element_id%>][" + this + "][value]"
+                }).appendTo($(hidden_field_id))
+              })
+            })
+          })
+        </script>
+      </div>
+
+      <div class="modal-footer">
+        <%= button_tag_with_icon t('.complete_select'), type: 'button', id: "complete_select_btn", class: "btn btn-primary", data: {dismiss: "modal"}, icon: 'record' %>
+        <%= button_tag_with_icon t('shared.cancel'), type: 'button', class: "btn btn-warning", data: {dismiss: "modal"}, icon: 'remove-sign' %>
+      </div>
+    </div>
+  </div>
+</div>

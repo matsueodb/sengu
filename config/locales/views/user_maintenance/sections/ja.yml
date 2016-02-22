@@ -1,0 +1,55 @@
+ja:
+  user_maintenance:
+    sections:
+      index:
+        title: "所属管理"
+        back_to_root: トップページに戻る
+      list:
+        list: "所属一覧"
+        name: "所属名"
+        operator: "操作"
+      new:
+        title: "所属作成"
+      create:
+        title: "所属作成"
+      edit:
+        title: "所属編集"
+      update:
+        title: "所属編集"
+      form:
+      show:
+        title: "【%{section_name}】 詳細"
+        unset_manager: 所属管理者が設定されていません
+        new_user: ユーザ登録
+        new_group: グループ作成
+        back_to_section_top: 所属管理画面に戻る
+        back_to_root:  サービス管理に戻る
+      user_list:
+        list: "ユーザ一覧"
+        empty_list: "ユーザが設定されていません"
+        user_name: ユーザ名
+        no: No
+        operator: 操作
+        count: 全%{count}件
+        all_btn: 全ユーザ表示
+        list_description: |
+          所属に登録されているユーザを５件まで表示しています。
+          全件表示したい場合は、下の「全ユーザ表示」ボタンを押下してください。
+      group_list:
+        list: "グループ一覧"
+        empty_list: "グループが設定されていません"
+        group_name: グループ名
+        no: No
+        operator: 操作
+        count: 全%{count}件
+        list_description: |
+          所属に登録されているグループを５件まで表示しています。
+          全件表示したい場合は、下の「全グループ表示」ボタンを押下してください。
+        all_btn: 全グループ表示
+      menu:
+        admin: 管理
+      show_list:
+        user_list: "ユーザ一覧"
+        empty_list: "ユーザが設定されていません"
+      destroy:
+        can_not_destroy: 所属を削除できませんでした。所属にユーザが登録されている場合、所属を削除することができません。

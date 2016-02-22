@@ -1,0 +1,22 @@
+ja:
+  errors:
+    messages:
+      no_permission_for_update: このデータを変更する権限がありません
+      location:
+        please_enter_both_latitude_and_longitude: には緯度と経度の両方を入力してください
+      line:
+        please_enter_up_to_255_characters: は255文字以内で入力してください。
+      upload_file:
+        less_than_or_equal_to: は%{count}MB以内のファイルサイズでアップロードしてください。
+        please_select_a_file: のラベルのみが入力されています。ファイルを選択してください。
+        label:
+          please_enter_up_to_255_characters: のラベルは255文字以内で入力してください。
+      all_locations:
+        blank: は全ての種類を入力してください。
+  activerecord:
+    models:
+      template_record: データ
+    attributes:
+      template_record:
+      template_record/values:
+        base: ""

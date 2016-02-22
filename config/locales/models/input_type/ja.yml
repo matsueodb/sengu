@@ -1,0 +1,23 @@
+ja:
+  input_types:
+    types:
+      line: 一行入力
+      multi_line: 複数行入力
+      checkbox_template: チェックボックス(テンプレートから選択)
+      checkbox_vocabulary: チェックボックス(語彙から選択)
+      pulldown_template: 単一選択(テンプレートから選択)
+      pulldown_vocabulary: 単一選択(語彙から選択)
+      kokudo_location: 位置情報(国土地理院から選択)
+      osm_location: 位置情報(OpenStreetMapから選択)
+      google_location: 位置情報(GoogleMapから選択)
+      dates: 日付
+      upload_file: ファイル
+      times: 時間
+      all_locations: 位置情報（全種）
+  activerecord:
+    models:
+      input_type: 入力タイプ
+    attributes:
+      input_type:
+        name: 項目名
+        label: ラベル

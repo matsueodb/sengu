@@ -1,0 +1,7 @@
+<%# if true はページネーション %>
+<% if params[:pagination] %>
+  $("#display_relation_contents-pagination").html($("<%= j render partial: "display_relation_contents_list",
+    locals: {relation_template: @relation_template, source_element: @source_element, records: @records} %>"))
+<% else %>
+  $("<%= j render partial: "display_relation_contents", locals: {relation_template: @relation_template, source_element: @source_element, records: @records} %>").modal()
+<% end %>

@@ -1,0 +1,64 @@
+<% content_for(:page_title){ page_title(template_name: @template.name) } %>
+
+<% elements = @template.inputable_elements %>
+<% if elements.present? %>
+  <% content_for(:wizard) do %>
+    <%= render partial: "import_csv_step_wizard", locals: {current_action: :new} %>
+  <% end %>
+
+  <div class="text-right">
+    <% with_options(icon: "download-alt") do |icon| %>
+      <%= icon.link_to_with_icon(t(".download_csv_format"), download_csv_format_template_path(@template, format: :csv), class: 'btn btn-primary') %>
+      <%= icon.link_to_with_icon(t(".download_csv"), download_csv_template_records_path(template_id: @template.id, format: :csv), class: 'btn btn-primary') %>
+    <% end %>
+  </div>
+
+
+  <%= alert_tag(type: :info) do %>
+    <%= simple_format t(".description") %>
+
+    <%= button_tag_with_icon t('.input_detail'), type: 'button', class: "btn btn-info btn-block", data: {toggle: "collapse", target: "#input-description"}, icon: 'list'%>
+
+    <div id="input-description" class="collapse">
+      <%= simple_format t('.input_description') %>
+    </div>
+
+    <%= simple_format t(".csv_format_description") %>
+  <% end %>
+
+  <p class="well">
+    <%= elements.map(&:name).unshift(ImportCSV::ID_COL_NAME).join(',') %><br />
+    <%= elements.map{|e|"{#{e.name}}"}.unshift("{#{ImportCSV::ID_COL_NAME}}").join(',') %>
+  </p>
+
+  <%= error_messages_for(@import_csv) %>
+
+  <%= form_for(@import_csv, url: confirm_import_csv_template_records_path(@template), html: {class: "well form-horizontal"}, multipart: true) do |f| %>
+    <% if ImportCSV.csv_exists?(current_user.id, @template.id) %>
+      <%= alert_tag(type: :info) do %>
+        <%= t('.exists_upload_file') %>
+        <%= link_to_with_icon t('.remove_file'), remove_csv_file_template_records_path(@template), class: 'btn btn-danger pull-right', icon: 'trash', method: :delete %>
+      <% end %>
+    <% else %>
+      <div class="form-group">
+        <%= f.label :csv, class: "col-sm-1 control-label" %>
+        <div class="col-sm-10">
+          <%= f.file_field :csv %>
+        </div>
+      </div>
+    <% end %>
+    <%= button_tag_with_icon t("shared.confirm_before"), class: "btn btn-primary loading-display", icon: "eye-open" %>
+    <%= link_to_back(template_records_path(@template)) %>
+  <% end %>
+<% else %>
+  <%= alert_tag(type: :warning) do %>
+    <% if current_user.editor? %>
+      <%= t('.editor.nothing_elements_description', template_name: @template.name) %>
+      <%= link_to_back(template_records_path(@template)) %>
+    <% else %>
+      <%= t('.manager.nothing_elements_description', template_name: @template.name) %>
+      <%= link_to_back(template_records_path(@template)) %>
+      <%= link_to_with_icon(t(".template_element_settings"), new_template_element_path(template_id: @template.id), class: 'btn btn-primary', icon: "edit") %>
+    <% end %>
+  <% end %>
+<% end %>

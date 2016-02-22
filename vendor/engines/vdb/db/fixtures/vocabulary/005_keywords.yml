@@ -1,0 +1,495 @@
+hito:
+  id: 1
+  name: 人型
+  content: 人名 名前 住民
+  category: 人、住民
+  scope: 1
+  user_id: 1
+
+simei:
+  id: 2
+  name: 氏名型
+  content: 人名 名前 住民
+  category: 人、住民
+  scope: 1
+  user_id: 1
+
+juusyo:
+  id: 3
+  name: 住所型
+  content: 住所 住まい
+  category: 住所
+  scope: 1
+  user_id: 1
+
+kouzoukajuusyo:
+  id: 4
+  name: 構造化住所型
+  content: 住所 住まい
+  category: 住所
+  scope: 1
+  user_id: 1
+
+housyo:
+  id: 5
+  name: 方書型
+  content: 住所 住まい ビル 部屋
+  category: 住所
+  scope: 1
+  user_id: 1
+
+renrakusaki:
+  id: 6
+  name: 連絡先型
+  content: 連絡先 連絡 電話 携帯 メールアドレス URL
+  category: 連絡先 人、住民
+  scope: 1
+  user_id: 1
+
+denwabangou:
+  id: 7
+  name: 電話番号型
+  content: 電話 携帯
+  category: 連絡先 人、住民
+  scope: 1
+  user_id: 1
+
+sosiki:
+  id: 8
+  name: 組織型
+  content: 組織 会社 グループ チーム 自治体 役所 役場 市役所 県庁
+  category: 組織、グループ
+  scope: 1
+  user_id: 1
+
+sosikikanren:
+  id: 9
+  name: 組織関連型
+  content: 役割 肩書き 役職 階級
+  category: 組織、グループ
+  scope: 1
+  user_id: 1
+
+kanren:
+  id: 10
+  name: 関連型
+  content: イベント スケジュール 日 開始日 終了日 開始 終了
+  category: イベント、スケジュール
+  scope: 1
+  user_id: 1
+
+basyo:
+  id: 11
+  name: 場所型
+  content: 場所 位置 地図 座標 マップ 地名 住所
+  category: 場所、位置
+  scope: 1
+  user_id: 1
+
+mono:
+  id: 12
+  name: 物型
+  content: 物 商品 品物 価格 販売
+  category: 商品、販売 物、商品
+  scope: 1
+  user_id: 1
+
+yuutaibutu:
+  id: 13
+  name: 有体物型
+  content: 物 商品 品物 サイズ 大きさ 重量 数量 高さ 長さ 幅
+  category: 物、商品
+  scope: 1
+  user_id: 1
+
+yusoukikan:
+  id: 14
+  name: 輸送機関型
+  content: 配送 輸送 番号 貨物 配達
+  category: 配送、輸送 物、商品
+  scope: 1
+  user_id: 1
+
+koukuu:
+  id: 15
+  name: 航空機型
+  content: 配送 輸送 番号 貨物 配達 航空 飛行機
+  category: 配送、輸送 物、商品
+  scope: 1
+  user_id: 1
+
+jidousya:
+  id: 16
+  name: 自動車型
+  content: 配送 輸送 番号 貨物 配達 自動車 トラック 車
+  category: 配送、輸送 物、商品
+  scope: 1
+  user_id: 1
+
+senpaku:
+  id: 17
+  name: 船舶型
+  content: 配送 輸送 番号 貨物 配達 船舶 船
+  category: 配送、輸送 物、商品
+  scope: 1
+  user_id: 1
+
+yusoukanren:
+  id: 18
+  name: 輸送関連型
+  content: 配送 輸送 番号 貨物 配達 運転手 運転 乗客
+  category: 配送、輸送 物、商品
+  scope: 1
+  user_id: 1
+
+tatemono:
+  id: 19
+  name: 建物型
+  content: 建物 施設 公共施設 設備 避難所
+  category: 建物、施設
+  scope: 1
+  user_id: 1
+
+sisetu:
+  id: 20
+  name: 施設型
+  content: 建物 施設 公共施設 設備 避難所
+  category: 建物、施設
+  scope: 1
+  user_id: 1
+
+tatemonokouzou:
+  id: 21
+  name: 建物構造型
+  content: 建物 施設 公共施設 設備 避難所 建物構造
+  category: 建物、施設
+  scope: 1
+  user_id: 1
+
+katudou:
+  id: 22
+  name: 活動型
+  content: イベント スケジュール 日 開始日 終了日 開始 終了 期間 活動
+  category: イベント、スケジュール
+  scope: 1
+  user_id: 1
+
+sokuteitanni:
+  id: 23
+  name: 測定単位型
+  content: 測量 測定 数値 単位
+  category: 測量、測定
+  scope: 1
+  user_id: 1
+
+suuryou:
+  id: 24
+  name: 数量型
+  content: 数量 数
+  category: 数量、容量、面積、重さ、長さ
+  scope: 1
+  user_id: 1
+
+youryou:
+  id: 25
+  name: 容量型
+  content: 容量 リットル ミリリットル
+  category: 数量、容量、面積、重さ、長さ
+  scope: 1
+  user_id: 1
+
+menseki:
+  id: 26
+  name: 面積型
+  content: 面積 平方メートル　メートル
+  category: 数量、容量、面積、重さ、長さ
+  scope: 1
+  user_id: 1
+
+juuryou:
+  id: 27
+  name: 重量型
+  content: 重量 重さ キログラム kg グラム g
+  category: 数量、容量、面積、重さ、長さ
+  scope: 1
+  user_id: 1
+
+nagasa:
+  id: 28
+  name: 長さ型
+  content: 長さ ミリ mm センチ cm メートル m キロメートル km
+  category: 数量、容量、面積、重さ、長さ
+  scope: 1
+  user_id: 1
+
+buppinnkati:
+  id: 29
+  name: 物品価値型
+  content: 物 商品 金額 料金 税 税金 品物
+  category: 物、商品 金額、料金
+  scope: 1
+  user_id: 1
+
+kingaku:
+  id: 30
+  name: 金額型
+  content: 物 商品 金額 料金 税 税金 品物
+  category: 金額、料金 物、商品
+  scope: 1
+  user_id: 1
+
+jittai:
+  id: 31
+  name: 実体型
+  content: 人 組織 会社 グループ チーム 自治体 役所 役場 市役所 県庁
+  category: 組織、グループ 人、住民
+  scope: 1
+  user_id: 1
+
+joukyou:
+  id: 32
+  name: 状況型
+  content: イベント スケジュール 日 開始日 終了日 開始 終了 期間 活動 状況
+  category: イベント、スケジュール
+  scope: 1
+  user_id: 1
+
+kikann:
+  id: 33
+  name: 期間型
+  content: イベント スケジュール 日 開始日 終了日 開始 終了 期間 活動 状況
+  category: イベント、スケジュール
+  scope: 1
+  user_id: 1
+
+hiduke:
+  id: 34
+  name: 日付型
+  content: イベント スケジュール 日 開始日 終了日 開始 終了 期間 活動 状況 日付
+  category: イベント、スケジュール
+  scope: 1
+  user_id: 1
+
+schedule:
+  id: 35
+  name: スケジュール型
+  content: イベント スケジュール 日 開始日 終了日 開始 終了 期間 活動 状況
+  category: イベント、スケジュール
+  scope: 1
+  user_id: 1
+
+ikeidozahyou:
+  id: 36
+  name: 経緯度座標系型
+  content: 場所 位置 地図 座標 マップ 地名 住所
+  category: 場所、位置
+  scope: 1
+  user_id: 1
+
+utmzagyoukei:
+  id: 37
+  name: UTM座標系型
+  content: 場所 位置 地図 座標 マップ 地名 住所
+  category: 場所、位置
+  scope: 1
+  user_id: 1
+
+mgrszahyoukei:
+  id: 38
+  name: MGRS座標系型
+  content: 場所 位置 地図 座標 マップ 地名 住所
+  category: 場所、位置
+  scope: 1
+  user_id: 1
+
+ido:
+  id: 39
+  name: 緯度型
+  content: 場所 位置 地図 座標 マップ 地名 住所
+  category: 場所、位置
+  scope: 1
+  user_id: 1
+
+keido:
+  id: 40
+  name: 経度型
+  content: 場所 位置 地図 座標 マップ 地名 住所
+  category: 場所、位置
+  scope: 1
+  user_id: 1
+
+katakanatext:
+  id: 41
+  name: カタカナテキスト型
+  content: カタカナ カナ
+  category: カタカナの入力
+  scope: 1
+  user_id: 1
+
+kankousisetueigyouhiduke:
+  id: 42
+  name: 観光施設営業日付型
+  content: 観光ドメイン
+  category: 日付、曜日（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+kankousisetusetteikyuujitu:
+  id: 43
+  name: 観光施設定休日型
+  content: 観光ドメイン
+  category: 日付、曜日（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+teikyuujitucode:
+  id: 44
+  name: 定休日コード型
+  content: 観光ドメイン
+  category: 日付、曜日（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+kankousisetusetteikyuujituyoubi:
+  id: 45
+  name: 観光施設定休日曜日型
+  content: 観光ドメイン
+  category: 日付、曜日（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+youbicode:
+  id: 46
+  name: 曜日コード型
+  content: 観光ドメイン
+  category: 日付、曜日（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+kankokusiseturyoukin:
+  id: 47
+  name: 観光施設料金型
+  content: 観光ドメイン
+  category: 料金、人数、年齢、アクセス（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+ryoukinsyubetu:
+  id: 48
+  name: 料金種別コード型
+  content: 観光ドメイン
+  category: 料金、人数、年齢、アクセス（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+ninzuusyubetu:
+  id: 49
+  name: 人数種別コード型
+  content: 観光ドメイン
+  category: 料金、人数、年齢、アクセス（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+nenreisyubetu:
+  id: 50
+  name: 年齢種別コード型
+  content: 観光ドメイン
+  category: 料金、人数、年齢、アクセス（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+kankousisetuaccess:
+  id: 51
+  name: 観光施設アクセス型
+  content: 観光ドメイン
+  category: 料金、人数、年齢、アクセス（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+rekisijouhou:
+  id: 52
+  name: 歴史情報型
+  content: 観光ドメイン
+  category: 歴史情報（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+insyokutenzasekisuu:
+  id: 53
+  name: 飲食店座席数型
+  content: 観光ドメイン
+  category: 飲食店情報（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+insyokuteneigyounitiji:
+  id: 54
+  name: 飲食店営業日時型
+  content: 観光ドメイン
+  category: 飲食店情報（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+url:
+  id: 55
+  name: URL型
+  content: 観光ドメイン
+  category: 飲食店情報（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+mailaddress:
+  id: 56
+  name: メールアドレス型
+  content: 観光ドメイン
+  category: 飲食店情報（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+#siharaihouhou:
+#  id: 57
+#  name: 支払方法コード型
+#  content: 観光ドメイン
+#  category: 飲食店情報（観光ドメイン）
+#  scope: 1
+#  user_id: 1
+
+#ryouri:
+#  id: 58
+#  name: 料理コード型
+#  content: 観光ドメイン
+#  category: 飲食店情報（観光ドメイン）
+#  scope: 1
+#  user_id: 1
+
+#tenpogenre:
+#  id: 59
+#  name: 店舗ジャンルコード型
+#  content: 観光ドメイン
+#  category: 飲食店情報（観光ドメイン）
+#  scope: 1
+#  user_id: 1
+
+insyokuten:
+  id: 60
+  name: 飲食店型
+  content: 観光ドメイン
+  category: 飲食店情報（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+file:
+  id: 61
+  name: ファイル型
+  content: 観光ドメイン
+  category: その他（観光ドメイン）
+  scope: 1
+  user_id: 1
+
+datafile:
+  id: 62
+  name: データファイル型
+  content: 観光ドメイン
+  category: その他（観光ドメイン）
+  scope: 1
+  user_id: 1

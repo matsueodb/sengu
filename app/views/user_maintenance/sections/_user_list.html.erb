@@ -1,0 +1,49 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <span class="badge"><%= t(".count", count: users.total_count) %></span>
+    <strong><%= t(".list") %></strong>
+  </div>
+
+  <div class="panel-body">
+    <%= alert_tag(type: :info){hbr t(".list_description")} %>
+  
+
+    <% if users.empty? %>
+      <%= alert_tag(type: "warning"){t(".empty_list")} %>
+    <% else %>
+      <table class="table table-bordered table-hover table-responsive">
+        <thead>
+          <tr>
+            <th><%= t(".no") %></th>
+            <th><%= t(".user_name") %></th>
+            <th><%= t(".operator") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% users.each.with_index(1) do |u, idx|  %>
+            <tr>
+              <td><%= idx + users.offset_value %></td>
+              <td><%= u.name %></td>
+              <td>
+                <% if u.accessible?(current_user) %>
+                  <%= link_to_with_icon t("shared.show"), section_user_path(u, section_id: @section.id), remote: true, class: "btn btn-primary", icon: "info-sign" %>
+                <% end %>
+                <% if u.editable?(current_user) %>
+                  <%= link_to_with_icon(t("shared.edit"), edit_section_user_path(u, section_id: @section.id), class: "btn btn-primary", icon: "edit") %>&nbsp;
+                <% end %>
+                <% if u.destroyable?(current_user) %>
+                  <%= link_to_destroy(section_user_path(u, section_id: @section.id)) %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+  <div class="panel-footer">
+    <div class="text-right">
+      <%= link_to_with_icon t(".all_btn"), section_users_path(section_id: @section.id), class: "btn btn-primary", icon: "list-alt" %>
+    </div>
+  </div>
+</div>

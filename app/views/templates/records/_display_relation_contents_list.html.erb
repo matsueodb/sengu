@@ -1,0 +1,20 @@
+<ul class="list-group">
+  <%
+    case relation_template.class.name
+    when ::Template.name
+  %>
+    <% records.each do |tr| %>
+      <li class="list-group-item">
+        <%= tr.formatted_value(source_element) %>
+      </li>
+    <% end %>
+  <% when Vocabulary::Element.name %>
+    <% records.each do |vev| %>
+      <li class="list-group-item">
+        <%= vev.name %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
+
+<%= paginate records, remote: true, params: {pagination: true} %>
